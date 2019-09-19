@@ -3,10 +3,18 @@ matrix:
     - os: linux
       language: c
       compiler: gcc
+      script:
+        - make
     - os: linux
       language: c
       compiler: clang
+      script:
+        - make
     - os: windows
       language: c
+      script:
+        - make
     - os: osx
       language: c
+      script:
+        - make
