@@ -1,0 +1,12 @@
+matrix:
+  include:
+    - os: linux
+      language: c
+      compiler: gcc
+    - os: linux
+      language: c
+      compiler: clang
+    - os: windows
+      language: c
+    - os: osx
+      language: c
