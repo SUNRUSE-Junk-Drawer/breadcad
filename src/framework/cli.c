@@ -134,6 +134,17 @@ static void sdf__create_lengths(void) {
   }
 }
 
+static void sdf__verify_all_used() {
+  int argument = 0;
+
+  while (argument < sdf__argc) {
+    if (!sdf__used[argument]) {
+      sdf_fail("unexpected argument %s\n", sdf__argv[argument]);
+    }
+    argument++;
+  }
+}
+
 void sdf_cli(int argc, char * argv[]) {
   sdf__argc = argc;
   sdf__argv = argv;
@@ -147,5 +158,6 @@ void sdf_cli(int argc, char * argv[]) {
   sdf__create_used();
   sdf__create_lengths();
   sdf_executable_cli();
+  sdf__verify_all_used();
   exit(0);
 }
