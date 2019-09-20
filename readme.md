@@ -1,6 +1,6 @@
 # SDF
 
-A SDF stream is a little-endian binary stream of instructions which describe a
+A SDF stream is a big-endian binary stream of instructions which describe a
 signed distance field.
 
 There are four primitive types:
