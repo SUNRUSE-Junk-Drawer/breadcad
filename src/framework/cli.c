@@ -61,6 +61,19 @@ static const char * sdf__find_value(
   return sdf__argv[argument];
 }
 
+void sdf_cli_flag(
+  const char * short_name,
+  const char * long_name,
+  const char * description,
+  sdf_boolean_t * pointer_to_result
+) {
+  int argument;
+
+  argument = sdf__find_index(short_name, long_name);
+
+  * pointer_to_result = argument ? SDF_BOOLEAN_TRUE : SDF_BOOLEAN_FALSE;
+}
+
 void sdf_cli_float(
   const char * short_name,
   const char * long_name,
