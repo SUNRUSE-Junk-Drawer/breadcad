@@ -25,7 +25,7 @@ bin/%: obj/executables/%.o $(ALL_FRAMEWORK_O)
 
 test_results/%: test/executables/%.bash bin/%  $(ALL_TEST_FRAMEWORK)
 	mkdir -p test_results
-	${CURDIR}/submodules/bats-core/bin/bats $<
+	${CURDIR}/submodules/bats/bin/bats $<
 	touch $@
 
 .PHONY: all clean test
