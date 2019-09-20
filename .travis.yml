@@ -20,7 +20,7 @@ matrix:
       language: c
       env:
         BATS_PATH=../bin/bats
-        TEXT_PREPROCESSOR=unix2dos
+        TEXT_PREPROCESSOR=|unix2dos
       install:
         - choco install --limit-output --no-progress --yes make
       script:
