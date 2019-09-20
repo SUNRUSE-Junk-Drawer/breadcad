@@ -12,6 +12,8 @@ matrix:
         - make
     - os: windows
       language: c
+      install:
+        - choco install --limit-output --no-progress --yes make
       script:
         - make
     - os: osx
