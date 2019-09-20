@@ -25,6 +25,7 @@ matrix:
         - LINE_BREAK=\r
       install:
         - choco install --limit-output --no-progress --yes make
+        - ./submodules/bats-core/install.sh ..
       script:
         - make
         - make test
