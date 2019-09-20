@@ -28,8 +28,8 @@ static void sdf__check_max(void) {
   SDF_CHECK_MAX(u16, SDF_U16_MAX)
 }
 
-static sdf_boolean_t sdf__u16_endianess_swap;
-static sdf_boolean_t sdf__f32_endianess_swap;
+static sdf_boolean_t sdf__u16_endianness_swap;
+static sdf_boolean_t sdf__f32_endianness_swap;
 
 static void sdf__check_byte_order(void) {
   union {
@@ -45,19 +45,19 @@ static void sdf__check_byte_order(void) {
 
   switch (check.u16) {
     case 19093:
-      sdf__u16_endianess_swap = SDF_BOOLEAN_FALSE;
+      sdf__u16_endianness_swap = SDF_BOOLEAN_FALSE;
       break;
     case 38218:
-      sdf__u16_endianess_swap = SDF_BOOLEAN_TRUE;
+      sdf__u16_endianness_swap = SDF_BOOLEAN_TRUE;
       break;
     default:
       sdf_fail("unexpected endianness; u16[74, 149] = %u\n", (unsigned int)check.u16);
   }
 
   if (check.f32 == 4893668.500000f) {
-    sdf__f32_endianess_swap = SDF_BOOLEAN_FALSE;
+    sdf__f32_endianness_swap = SDF_BOOLEAN_FALSE;
   } else if (check.f32 == -883028.62500f) {
-    sdf__f32_endianess_swap = SDF_BOOLEAN_TRUE;
+    sdf__f32_endianness_swap = SDF_BOOLEAN_TRUE;
   } else {
     sdf_fail("unexpected endianness; f32[74, 149, 87, 201] = %f\n", check.f32);
   }
