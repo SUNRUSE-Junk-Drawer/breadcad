@@ -20,6 +20,10 @@ matrix:
       language: c
       env:
         BATS_PATH=../bin/bats
+      before_install:
+        - git config core.autocrlf false
+        - git add --renormalize .
+        - git reset --hard
       install:
         - choco install --limit-output --no-progress --yes make
         - ./submodules/bats-core/install.sh ..
