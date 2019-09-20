@@ -3,12 +3,24 @@ matrix:
     - os: linux
       language: c
       compiler: gcc
+      install:
+        - cd submodules
+        - cd bats-core
+        - sh install.sh /usr/local
+        - cd ..
+        - cd ..
       script:
         - make
         - make test
     - os: linux
       language: c
       compiler: clang
+      install:
+        - cd submodules
+        - cd bats-core
+        - sh install.sh /usr/local
+        - cd ..
+        - cd ..
       script:
         - make
         - make test
@@ -18,7 +30,7 @@ matrix:
         - choco install --limit-output --no-progress --yes make
         - cd submodules
         - cd bats-core
-        - sh install.sh
+        - sh install.sh $HOME
         - cd ..
         - cd ..
       script:
@@ -26,6 +38,12 @@ matrix:
         - make test
     - os: osx
       language: c
+      install:
+        - cd submodules
+        - cd bats-core
+        - sh install.sh /usr/local
+        - cd ..
+        - cd ..
       script:
         - make
         - make test
