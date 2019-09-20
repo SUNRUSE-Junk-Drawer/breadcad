@@ -5,18 +5,22 @@ matrix:
       compiler: gcc
       script:
         - make
+        - make test
     - os: linux
       language: c
       compiler: clang
       script:
         - make
+        - make test
     - os: windows
       language: c
       install:
         - choco install --limit-output --no-progress --yes make
       script:
         - make
+        - make test
     - os: osx
       language: c
       script:
         - make
+        - make test
