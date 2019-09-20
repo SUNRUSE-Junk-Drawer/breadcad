@@ -1,4 +1,4 @@
-# SDF
+# SDF [![Travis](https://img.shields.io/travis/jameswilddev/sdf.svg)](https://travis-ci.org/jameswilddev/sdf) [![License](https://img.shields.io/github/license/jameswilddev/sdf.svg)](https://github.com/jameswilddev/sdf/blob/master/license) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjameswilddev%2Fsdf.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjameswilddev%2Fsdf?ref=badge_shield) [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 
 A SDF stream is a big-endian binary stream of instructions which describe a
 signed distance field.
@@ -77,3 +77,7 @@ the nearest surface.  It is an error to have the last instruction in the stream
 return any type but number.
 
 An empty stream is considered to be a constant of infinity.
+
+## License
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjameswilddev%2Fsdf.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjameswilddev%2Fsdf?ref=badge_large)
