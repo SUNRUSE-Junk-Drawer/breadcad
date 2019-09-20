@@ -103,7 +103,7 @@ void sdf_cli_float(
 }
 
 static void sdf__create_used(void) {
-  int argument = 0;
+  int argument = 1;
 
   sdf__used = SDF_MALLOC(
     sdf_boolean_t,
@@ -112,7 +112,6 @@ static void sdf__create_used(void) {
   );
 
   sdf__used[0] = SDF_BOOLEAN_TRUE;
-  sdf__used[1] = SDF_BOOLEAN_TRUE;
 
   while (argument < sdf__argc) {
     sdf__used[argument] = SDF_BOOLEAN_FALSE;
