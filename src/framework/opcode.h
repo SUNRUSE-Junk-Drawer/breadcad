@@ -2,8 +2,16 @@
 #define SDF_OPCODE_H
 
 #include "types.h"
+#include "primitive.h"
 
 typedef sdf_u16_t sdf_opcode_t;
+
+typedef sdf_u8_t sdf_opcode_id_t;
+#define SDF_OPCODE_ID_MAX SDF_U8_MAX
+#define SDF_OPCODE_ID_RANGE SDF_U8_RANGE
+
+typedef sdf_u8_t sdf_opcode_arity_t;
+#define SDF_OPCODE_ARITY_MAX 3
 
 #define SDF_OPCODE_NOT 0x5000
 #define SDF_OPCODE_AND 0x5400
@@ -43,5 +51,25 @@ typedef sdf_u16_t sdf_opcode_t;
 #define SDF_OPCODE_POW 0xA804
 #define SDF_OPCODE_MODULO 0xA805
 #define SDF_OPCODE_ARC_TANGENT_2 0xA806
+
+sdf_primitive_t sdf_opcode_result(
+  sdf_opcode_t opcode
+);
+
+sdf_primitive_t sdf_opcode_parameter_a(
+  sdf_opcode_t opcode
+);
+
+sdf_primitive_t sdf_opcode_parameter_b(
+  sdf_opcode_t opcode
+);
+
+sdf_primitive_t sdf_opcode_parameter_c(
+  sdf_opcode_t opcode
+);
+
+sdf_opcode_arity_t sdf_opcode_arity(
+  sdf_opcode_t opcode
+);
 
 #endif
