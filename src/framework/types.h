@@ -17,7 +17,7 @@ typedef float sdf_f32_t;
 
 void sdf_types(void);
 
-void sdf_u16_swap_endianness(sdf_u16_t * value);
-void sdf_f32_swap_endianness(sdf_f32_t * value);
+void sdf_types_u16_swap_endianness(sdf_u16_t * value);
+void sdf_types_f32_swap_endianness(sdf_f32_t * value);
 
 #endif

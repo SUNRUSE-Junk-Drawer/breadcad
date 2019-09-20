@@ -68,3 +68,22 @@ void sdf_types(void) {
   sdf__check_max();
   sdf__check_byte_order();
 }
+
+#define SDF_SWAP_ENDIANNESS(type)                                        \
+  void sdf_types_##type##_swap_endianness(                               \
+    sdf_##type##_t * value                                               \
+  ) {                                                                    \
+    int byte = 0;                                                        \
+    sdf_##type##_t copy = *value;                                        \
+    sdf_u8_t * valueBytes = (sdf_u8_t*) value;                           \
+    sdf_u8_t * copyBytes = (sdf_u8_t*) &copy;                            \
+    if (sdf__##type##_endianness_swap) {                                 \
+      while (byte < sizeof(sdf_##type##_t)) {                            \
+        valueBytes[byte] = copyBytes[sizeof(sdf_##type##_t) - byte - 1]; \
+        byte++;                                                          \
+      }                                                                  \
+    }                                                                    \
+  }
+
+SDF_SWAP_ENDIANNESS(u16)
+SDF_SWAP_ENDIANNESS(f32)
