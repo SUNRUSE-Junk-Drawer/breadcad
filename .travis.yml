@@ -6,7 +6,7 @@ matrix:
       install:
         - cd submodules
         - cd bats-core
-        - sh install.sh /usr/local
+        - sh install.sh ../../bats
         - cd ..
         - cd ..
       script:
@@ -18,7 +18,7 @@ matrix:
       install:
         - cd submodules
         - cd bats-core
-        - sh install.sh /usr/local
+        - sh install.sh ../../bats
         - cd ..
         - cd ..
       script:
@@ -30,7 +30,7 @@ matrix:
         - choco install --limit-output --no-progress --yes make
         - cd submodules
         - cd bats-core
-        - sh install.sh $HOME
+        - sh install.sh ../../bats
         - cd ..
         - cd ..
       script:
@@ -41,7 +41,7 @@ matrix:
       install:
         - cd submodules
         - cd bats-core
-        - sh install.sh /usr/local
+        - sh install.sh ../../bats
         - cd ..
         - cd ..
       script:
