@@ -16,8 +16,7 @@ executable_help="ellipsoid - generates an ellipsoid
     -cy, --center-y: center on y axis (millimeters)
     -rz [number], --radius-z [number]: radius on z axis (millimeters) (default: 0.000000)
     -dz [number], --diameter-z [number]: diameter on z axis (millimeters) (default: 0.000000)
-    -cz, --center-z: center on z axis (millimeters)
-"
+    -cz, --center-z: center on z axis (millimeters)"
 
 @test "help (short name)" {
   test_help "-h"

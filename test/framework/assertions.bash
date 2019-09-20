@@ -8,13 +8,13 @@ function stderr_only {
 
 function check_stdout {
   run stdout_only $1
-  replaced=$(echo "$2" | sed "s/\n/${LINE_BREAK}/g")
+  replaced=$(echo "$2" | sed -b "s/\n/${LINE_BREAK}/g")
   assert_output "$replaced"
 }
 
 function check_stderr {
   run stderr_only $1
-  replaced=$(echo "$2" | sed "s/\n/${LINE_BREAK}/g")
+  replaced=$(echo "$2" | sed -b "s/\n/${LINE_BREAK}/g")
   assert_output "$replaced"
 }
 
