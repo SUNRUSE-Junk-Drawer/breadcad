@@ -8,12 +8,12 @@ function stderr_only {
 
 function check_stdout {
   run stdout_only $1
-  assert_output "$2"
+  assert_output ($TEXT_PREPROCESSOR "$2")
 }
 
 function check_stderr {
   run stderr_only $1
-  assert_output "$2"
+  assert_output ($TEXT_PREPROCESSOR "$2")
 }
 
 function check_exit_successful {
