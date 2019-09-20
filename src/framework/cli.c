@@ -71,7 +71,7 @@ void sdf_cli_flag(
 
   argument = sdf__find_index(short_name, long_name);
 
-  * pointer_to_result = argument ? SDF_BOOLEAN_TRUE : SDF_BOOLEAN_FALSE;
+  * pointer_to_result = argument != -1 ? SDF_BOOLEAN_TRUE : SDF_BOOLEAN_FALSE;
 }
 
 void sdf_cli_float(
