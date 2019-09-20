@@ -10,5 +10,6 @@ void sdf_cli(int argc, char * argv[]) {
     sdf_executable_name,
     sdf_executable_usage_suffix
   );
+  sdf_executable_cli();
   exit(0);
 }
