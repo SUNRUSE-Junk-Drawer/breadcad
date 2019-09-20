@@ -12,6 +12,8 @@ CFLAGS =                 \
 ALL_H = $(shell find src -name *.h)
 ALL_FRAMEWORK_O = $(addsuffix .o, $(addprefix obj/framework/, $(basename $(shell find src/framework -name *.c -printf "%P "))))
 ALL_EXECUTABLES = $(addprefix bin/, $(basename $(shell find src/executables -name *.c -printf "%P ")))
+ALL_TEST_FRAMEWORK = $(shell find test/framework -name *.bash)
+ALL_TEST_RESULTS = $(addprefix test_results/, $(basename $(shell find test/executables -name *.bash -printf "%P ")))
 
 obj/%.o: src/%.c $(ALL_H)
 	mkdir -p $(dir $@)
@@ -21,9 +23,16 @@ bin/%: obj/executables/%.o $(ALL_FRAMEWORK_O)
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -o $@ $^
 
-.PHONY: all clean
+test_results/%: test/executables/%.bash bin/%  $(ALL_TEST_FRAMEWORK)
+	mkdir -p test_results
+	./submodules/bats/bin/bats $<
+	touch $@
+
+.PHONY: all clean test
 
 all: $(ALL_EXECUTABLES)
 
 clean:
-	rm -rf bin obj
+	rm -rf bin obj test_results
+
+test: $(ALL_TEST_RESULTS)
