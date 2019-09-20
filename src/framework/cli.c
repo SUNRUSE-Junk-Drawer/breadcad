@@ -10,6 +10,7 @@ static int sdf__argc;
 static char ** sdf__argv;
 static sdf_boolean_t * sdf__used;
 static int * sdf__lengths;
+static sdf_boolean_t sdf__help;
 
 static int sdf__find_index(
   const char * short_name,
@@ -69,6 +70,11 @@ void sdf_cli_flag(
 ) {
   int argument;
 
+  if (sdf__help) {
+    printf("    -%s, --%s: %s\n", short_name, long_name, description);
+    return;
+  }
+
   argument = sdf__find_index(short_name, long_name);
 
   * pointer_to_result = argument != -1 ? SDF_BOOLEAN_TRUE : SDF_BOOLEAN_FALSE;
@@ -83,6 +89,11 @@ void sdf_cli_float(
 ) {
   const char * value;
   char waste;
+
+  if (sdf__help) {
+    printf("    -%s [number], --%s [number]: %s (default: %f)\n", short_name, long_name, description, default_value);
+    return;
+  }
 
   value = sdf__find_value(short_name, long_name);
 
@@ -134,6 +145,33 @@ static void sdf__create_lengths(void) {
   }
 }
 
+static void sdf__check_whether_help(void) {
+  int argument = 0;
+
+  while (argument < sdf__argc) {
+    if (
+      strcmp(sdf__argv[argument], "/?") == 0
+      || strcmp(sdf__argv[argument], "-h") == 0
+      || strcmp(sdf__argv[argument], "--help") == 0
+    ) {
+      sdf__help = SDF_BOOLEAN_TRUE;
+      printf("%s - %s\n", sdf_executable_name, sdf_executable_description);
+      printf(
+        "  usage: %s%s [options]%s\n",
+        sdf_executable_usage_prefix,
+        sdf_executable_name,
+        sdf_executable_usage_suffix
+      );
+      printf("  options:\n");
+      printf("    -h, --help, /?: display this message\n");
+      return;
+    }
+    argument++;
+  }
+
+  sdf__help = SDF_BOOLEAN_FALSE;
+}
+
 static void sdf__verify_all_used() {
   int argument = 0;
 
@@ -148,16 +186,13 @@ static void sdf__verify_all_used() {
 void sdf_cli(int argc, char * argv[]) {
   sdf__argc = argc;
   sdf__argv = argv;
-  printf("%s - %s\n", sdf_executable_name, sdf_executable_description);
-  printf(
-    "  usage: %s%s [options]%s\n",
-    sdf_executable_usage_prefix,
-    sdf_executable_name,
-    sdf_executable_usage_suffix
-  );
   sdf__create_used();
   sdf__create_lengths();
+  sdf__check_whether_help();
   sdf_executable_cli();
-  sdf__verify_all_used();
-  exit(0);
+  if (sdf__help) {
+    exit(0);
+  } else {
+    sdf__verify_all_used();
+  }
 }
