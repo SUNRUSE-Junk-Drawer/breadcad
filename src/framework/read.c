@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "platform.h"
 #include "fail.h"
 #include "types.h"
 
@@ -12,7 +13,8 @@
       case 0:                                                \
         if (!feof(stdin)) {                                  \
           sdf_fail(                                          \
-            "error reading %s (ferror: %d)\n",               \
+            "error reading %s (ferror: %d)"                  \
+            SDF_PLATFORM_LINE_BREAK,                         \
             what,                                            \
             ferror(stdin)                                    \
           );                                                 \
@@ -26,7 +28,8 @@
       /* I don't think this can happen. */                   \
       default:                                               \
         sdf_fail(                                            \
-          "error reading %s (ferror: %d, feof: %d)\n",       \
+          "error reading %s (ferror: %d, feof: %d)"          \
+          SDF_PLATFORM_LINE_BREAK,                           \
           what,                                              \
           ferror(stdin),                                     \
           feof(stdin)                                        \
@@ -44,7 +47,10 @@
   ) {                                                        \
     sdf_##type##_t output;                                   \
     if (!sdf_read_##type##_or_eof(file, what, &output)) {    \
-      sdf_fail("unexpected eof reading %s\n", what);         \
+      sdf_fail(                                              \
+        "unexpected eof reading %s" SDF_PLATFORM_LINE_BREAK, \
+        what                                                 \
+      );                                                     \
     }                                                        \
     return output;                                           \
   }

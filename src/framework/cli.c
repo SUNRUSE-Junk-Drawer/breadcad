@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "platform.h"
 #include "fail.h"
 #include "malloc.h"
 #include "types.h"
@@ -52,7 +53,8 @@ static const char * sdf__find_value(
 
   if (argument == sdf__argc || sdf__used[argument]) {
     sdf_fail(
-      "expected a value for command line argument -%s/--%s\n",
+      "expected a value for command line argument -%s/--%s"
+      SDF_PLATFORM_LINE_BREAK,
       short_name,
       long_name
     );
@@ -71,7 +73,12 @@ void sdf_cli_flag(
   int argument;
 
   if (sdf__help) {
-    printf("    -%s, --%s: %s\n", short_name, long_name, description);
+    printf(
+      "    -%s, --%s: %s" SDF_PLATFORM_LINE_BREAK,
+      short_name,
+      long_name,
+      description
+    );
     return;
   }
 
@@ -91,7 +98,14 @@ void sdf_cli_float(
   char waste;
 
   if (sdf__help) {
-    printf("    -%s [number], --%s [number]: %s (default: %f)\n", short_name, long_name, description, default_value);
+    printf(
+      "    -%s [number], --%s [number]: %s (default: %f)"
+      SDF_PLATFORM_LINE_BREAK,
+      short_name,
+      long_name,
+      description,
+      default_value
+    );
     return;
   }
 
@@ -100,7 +114,8 @@ void sdf_cli_float(
   if (value) {
     if (sscanf(value, "%f%c", pointer_to_result, &waste) != 1) {
       sdf_fail(
-        "unable to parse command line argument -%s/--%s value \"%s\" as a float\n",
+        "unable to parse command line argument -%s/--%s value \"%s\" as a float"
+        SDF_PLATFORM_LINE_BREAK,
         short_name,
         long_name,
         value
@@ -155,15 +170,19 @@ static void sdf__check_whether_help(void) {
       || strcmp(sdf__argv[argument], "--help") == 0
     ) {
       sdf__help = SDF_BOOLEAN_TRUE;
-      printf("%s - %s\n", sdf_executable_name, sdf_executable_description);
       printf(
-        "  usage: %s%s [options]%s\n",
+        "%s - %s" SDF_PLATFORM_LINE_BREAK,
+        sdf_executable_name,
+        sdf_executable_description
+      );
+      printf(
+        "  usage: %s%s [options]%s" SDF_PLATFORM_LINE_BREAK,
         sdf_executable_usage_prefix,
         sdf_executable_name,
         sdf_executable_usage_suffix
       );
-      printf("  options:\n");
-      printf("    -h, --help, /?: display this message\n");
+      printf("  options:" SDF_PLATFORM_LINE_BREAK);
+      printf("    -h, --help, /?: display this message" SDF_PLATFORM_LINE_BREAK);
       return;
     }
     argument++;
@@ -177,7 +196,10 @@ static void sdf__verify_all_used() {
 
   while (argument < sdf__argc) {
     if (!sdf__used[argument]) {
-      sdf_fail("unexpected argument %s\n", sdf__argv[argument]);
+      sdf_fail(
+        "unexpected argument %s" SDF_PLATFORM_LINE_BREAK,
+        sdf__argv[argument]
+      );
     }
     argument++;
   }
