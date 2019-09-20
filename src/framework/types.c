@@ -1,14 +1,12 @@
-#include "platform.h"
 #include "types.h"
 #include "fail.h"
 
-#define SDF_CHECK_SIZEOF(type, expectedSizeOf)        \
-  if (sizeof(sdf_##type##_t) != expectedSizeOf) {     \
-    sdf_fail(                                         \
-      "unexpected size; sizeof(sdf_" #type "_t) = %u" \
-      SDF_PLATFORM_LINE_BREAK,                        \
-      sizeof(sdf_##type##_t)                          \
-    );                                                \
+#define SDF_CHECK_SIZEOF(type, expectedSizeOf)           \
+  if (sizeof(sdf_##type##_t) != expectedSizeOf) {        \
+    sdf_fail(                                            \
+      "unexpected size; sizeof(sdf_" #type "_t) = %u\n", \
+      sizeof(sdf_##type##_t)                             \
+    );                                                   \
   }
 
 static void sdf__check_sizeof(void) {
@@ -17,13 +15,12 @@ static void sdf__check_sizeof(void) {
   SDF_CHECK_SIZEOF(f32, 4)
 }
 
-#define SDF_CHECK_MAX(type, expectedMax)            \
-  if (((sdf_##type##_t)~0) != expectedMax) {        \
-    sdf_fail(                                       \
-      "unexpected max; ~((sdf_" #type "_t)0) = %u"  \
-      SDF_PLATFORM_LINE_BREAK,                      \
-      ~((sdf_##type##_t)0)                          \
-    );                                              \
+#define SDF_CHECK_MAX(type, expectedMax)              \
+  if (((sdf_##type##_t)~0) != expectedMax) {          \
+    sdf_fail(                                         \
+      "unexpected max; ~((sdf_" #type "_t)0) = %u\n", \
+      ~((sdf_##type##_t)0)                            \
+    );                                                \
   }
 
 static void sdf__check_max(void) {
@@ -54,10 +51,7 @@ static void sdf__check_byte_order(void) {
       sdf__u16_endianness_swap = SDF_BOOLEAN_TRUE;
       break;
     default:
-      sdf_fail(
-        "unexpected endianness; u16[74, 149] = %u" SDF_PLATFORM_LINE_BREAK,
-        (unsigned int)check.u16
-      );
+      sdf_fail("unexpected endianness; u16[74, 149] = %u\n", (unsigned int)check.u16);
   }
 
   if (check.f32 == 4893668.500000f) {
@@ -65,11 +59,7 @@ static void sdf__check_byte_order(void) {
   } else if (check.f32 == -883028.62500f) {
     sdf__f32_endianness_swap = SDF_BOOLEAN_TRUE;
   } else {
-    sdf_fail(
-      "unexpected endianness; f32[74, 149, 87, 201] = %f"
-      SDF_PLATFORM_LINE_BREAK,
-      check.f32
-    );
+    sdf_fail("unexpected endianness; f32[74, 149, 87, 201] = %f\n", check.f32);
   }
 }
 
