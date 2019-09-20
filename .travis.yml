@@ -26,7 +26,6 @@ matrix:
       install:
         - choco install --limit-output --no-progress --yes make
       script:
-        - git config core.autocrlf
         - make
         - make test
     - os: osx
