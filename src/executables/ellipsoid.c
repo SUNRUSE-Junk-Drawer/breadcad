@@ -1,10 +1,13 @@
 #include "../framework/types.h"
+#include "../framework/opcode.h"
+#include "../framework/pointer.h"
 #include "../framework/cli.h"
 
 const char * sdf_executable_name = "ellipsoid";
 const char * sdf_executable_description = "generates an ellipsoid";
 const char * sdf_executable_usage_prefix = "";
 const char * sdf_executable_usage_suffix = " | [consumer of sdf stream]";
+const sdf_boolean_t sdf_executable_reads_model_from_stdin = SDF_BOOLEAN_FALSE;
 
 static sdf_f32_t sdf__radius_x;
 static sdf_f32_t sdf__radius_y;
@@ -61,4 +64,41 @@ void sdf_executable_cli(void) {
   sdf__axis('x', &sdf__radius_x, &sdf__center_x);
   sdf__axis('y', &sdf__radius_y, &sdf__center_y);
   sdf__axis('z', &sdf__radius_z, &sdf__center_z);
+}
+
+void sdf_executable_before_first_file(void) {
+}
+
+void sdf_executable_nullary(
+  sdf_opcode_t opcode
+) {
+}
+
+void sdf_executable_unary(
+  sdf_opcode_t opcode,
+  sdf_pointer_t a
+) {
+}
+
+void sdf_executable_binary(
+  sdf_opcode_t opcode,
+  sdf_pointer_t a,
+  sdf_pointer_t b
+) {
+}
+
+void sdf_executable_ternary(
+  sdf_opcode_t opcode,
+  sdf_pointer_t a,
+  sdf_pointer_t b,
+  sdf_pointer_t c
+) {
+}
+
+void sdf_executable_eof(
+  sdf_opcode_t opcode
+) {
+}
+
+void sdf_executable_after_last_file(void) {
 }
