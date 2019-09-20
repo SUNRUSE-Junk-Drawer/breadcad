@@ -3,16 +3,12 @@ matrix:
     - os: linux
       language: c
       compiler: gcc
-      install:
-        - ./submodules/bats-core/install.sh bats
       script:
         - make
         - make test
     - os: linux
       language: c
       compiler: clang
-      install:
-        - ./submodules/bats-core/install.sh bats
       script:
         - make
         - make test
@@ -20,14 +16,11 @@ matrix:
       language: c
       install:
         - choco install --limit-output --no-progress --yes make
-        - ./submodules/bats-core/install.sh bats
       script:
         - make
         - make test
     - os: osx
       language: c
-      install:
-        - ./submodules/bats-core/install.sh bats
       script:
         - make
         - make test
