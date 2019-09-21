@@ -25,7 +25,7 @@ bin/%: obj/executables/%.o $(ALL_FRAMEWORK_O)
 
 test_results/%: test/executables/%.bash bin/%  $(ALL_TEST_FRAMEWORK)
 	mkdir -p test_results
-	${BATS_PATH} $<
+	${SDF_BATS_PATH} $<
 	touch $@
 
 .PHONY: all clean test
