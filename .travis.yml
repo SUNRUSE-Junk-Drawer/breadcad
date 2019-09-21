@@ -5,7 +5,7 @@ matrix:
       compiler: gcc
       env:
         - BATS_PATH=submodules/bats-core/bin/bats
-        - LINE_BREAK="\n"
+        - LINE_BREAK=$'\n'
       script:
         - make
         - make test
@@ -14,7 +14,7 @@ matrix:
       compiler: clang
       env:
         - BATS_PATH=submodules/bats-core/bin/bats
-        - LINE_BREAK="\n"
+        - LINE_BREAK=$'\n'
       script:
         - make
         - make test
@@ -22,7 +22,7 @@ matrix:
       language: c
       env:
         - BATS_PATH=../bin/bats
-        - LINE_BREAK="\r\n"
+        - LINE_BREAK=$'\r\n'
       install:
         - choco install --limit-output --no-progress --yes make
         - ./submodules/bats-core/install.sh ..
@@ -33,7 +33,7 @@ matrix:
       language: c
       env:
         - BATS_PATH=submodules/bats-core/bin/bats
-        - LINE_BREAK="\n"
+        - LINE_BREAK=$'\n'
       script:
         - make
         - make test
