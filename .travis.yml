@@ -3,37 +3,25 @@ matrix:
     - os: linux
       language: c
       compiler: gcc
-      env:
-        - SDF_BATS_PATH=submodules/bats-core/bin/bats
-        - SDF_LINE_BREAK=$'\n'
       script:
         - make
-        - make test
+        - bash setup.bash make test
     - os: linux
       language: c
       compiler: clang
-      env:
-        - SDF_BATS_PATH=submodules/bats-core/bin/bats
-        - SDF_LINE_BREAK=$'\n'
       script:
         - make
-        - make test
+        - bash setup.bash make test
     - os: windows
       language: c
-      env:
-        - SDF_BATS_PATH=../bin/bats
-        - SDF_LINE_BREAK=$'\r\n'
       install:
         - choco install --limit-output --no-progress --yes make
-        - ./submodules/bats-core/install.sh ..
+        - submodules/bats-core/install.sh ..
       script:
         - make
-        - make test
+        - bash setup.bash make test
     - os: osx
       language: c
-      env:
-        - SDF_BATS_PATH=submodules/bats-core/bin/bats
-        - SDF_LINE_BREAK=$'\n'
       script:
         - make
-        - make test
+        - bash setup.bash make test
