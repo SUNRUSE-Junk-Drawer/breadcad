@@ -9,11 +9,11 @@ CFLAGS =                 \
 	-Wstrict-prototypes    \
 	-Wold-style-definition \
 
-ALL_H = $(shell find src -name *.h)
-ALL_FRAMEWORK_O = $(addsuffix .o, $(addprefix obj/framework/, $(basename $(shell find src/framework -name *.c -printf "%P "))))
-ALL_EXECUTABLES = $(addprefix bin/, $(basename $(shell find src/executables -name *.c -printf "%P ")))
-ALL_TEST_FRAMEWORK = $(shell find test/framework -name *.bash)
-ALL_TEST_RESULTS = $(addprefix test_results/, $(basename $(shell find test/executables -name *.bash -printf "%P ")))
+ALL_H = $(wildcard src/framework/*.h) $(wildcard src/executables/*.h)
+ALL_FRAMEWORK_O = $(addprefix obj/framework/, $(addsuffix .o, $(basename $(notdir $(wildcard src/framework/*.c)))))
+ALL_EXECUTABLES = $(addprefix bin/, $(basename $(notdir $(wildcard src/executables/*.c))))
+ALL_TEST_FRAMEWORK = $(wildcard test/framework/*.bash)
+ALL_TEST_RESULTS = $(addprefix test_results/, $(basename $(notdir $(wildcard test/executables/*.bash))))
 
 obj/%.o: src/%.c $(ALL_H)
 	mkdir -p $(dir $@)
