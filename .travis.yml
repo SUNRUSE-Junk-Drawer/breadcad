@@ -16,7 +16,6 @@ matrix:
       language: c
       install:
         - choco install --limit-output --no-progress --yes make
-        - submodules/bats-core/install.sh ..
       script:
         - make
         - bash setup.bash make test
