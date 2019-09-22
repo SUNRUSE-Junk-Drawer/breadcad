@@ -1,6 +1,8 @@
 #ifndef SDF_TYPES_H
 #define SDF_TYPES_H
 
+#include <stdlib.h>
+
 typedef unsigned char sdf_boolean_t;
 #define SDF_BOOLEAN_FALSE 0
 #define SDF_BOOLEAN_TRUE 1
@@ -19,5 +21,9 @@ void sdf_types(void);
 
 void sdf_types_u16_swap_endianness(sdf_u16_t * value);
 void sdf_types_f32_swap_endianness(sdf_f32_t * value);
+
+#ifndef SIZE_MAX
+#define SIZE_MAX ((size_t)(-1))
+#endif
 
 #endif
