@@ -7,6 +7,6 @@ void * sdf_malloc(
 );
 
 #define SDF_MALLOC(type, quantity, action) \
-  ((type * ) sdf_malloc(quantity * sizeof(type *), action))
+  ((type * ) sdf_malloc(quantity * sizeof(type), action))
 
 #endif
