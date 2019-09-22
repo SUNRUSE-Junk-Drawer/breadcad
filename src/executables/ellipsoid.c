@@ -122,3 +122,14 @@ void sdf_executable_eof(void) {
 
 void sdf_executable_after_last_file(void) {
 }
+
+sdf_f32_t sdf_executable_get_parameter(
+  void * parameter_context,
+  size_t iteration,
+  sdf_opcode_id_t id
+) {
+  SDF_UNUSED(parameter_context);
+  SDF_UNUSED(iteration);
+  SDF_UNUSED(id);
+  return 0.0f;
+}
