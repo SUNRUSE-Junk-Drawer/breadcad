@@ -23,7 +23,7 @@ bin/%: obj/executables/%.o $(ALL_FRAMEWORK_O)
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -o $@ $^
 
-test_results/%: test/executables/%.bash bin/%  $(ALL_TEST_FRAMEWORK)
+test_results/%: test/executables/%.bash bin/% $(ALL_TEST_FRAMEWORK)
 	mkdir -p test_results
 	submodules/bats-core/bin/bats $<
 	touch $@
