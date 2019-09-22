@@ -2,6 +2,7 @@
 #include "../framework/opcode.h"
 #include "../framework/pointer.h"
 #include "../framework/cli.h"
+#include "../framework/executable.h"
 
 const char * sdf_executable_name = "ellipsoid";
 const char * sdf_executable_description = "generates an ellipsoid";

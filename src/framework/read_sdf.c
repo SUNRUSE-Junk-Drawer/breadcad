@@ -4,6 +4,7 @@
 #include "opcode.h"
 #include "pointer.h"
 #include "executable.h"
+#include "read_sdf.h"
 
 void sdf_read_sdf(
   FILE * file

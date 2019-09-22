@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "types.h"
 #include "fail.h"
+#include "malloc.h"
 
 void * sdf_malloc(
   size_t size,

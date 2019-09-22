@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include "fail.h"
 
 void sdf_fail (const char * format, ...) {
   va_list argptr;

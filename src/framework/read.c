@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "fail.h"
 #include "types.h"
+#include "read.h"
 
 #define SDF_READ(type)                                       \
   sdf_boolean_t sdf_read_##type##_or_eof(                    \

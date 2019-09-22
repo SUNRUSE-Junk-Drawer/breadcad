@@ -5,6 +5,7 @@
 #include "malloc.h"
 #include "types.h"
 #include "executable.h"
+#include "cli.h"
 
 static int sdf__argc;
 static char ** sdf__argv;
