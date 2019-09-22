@@ -24,6 +24,7 @@ function check_exit_successful {
 }
 
 function check_successful {
+  check_stderr "$1" ""
   check_exit_successful "$1"
   check_stdout "$1" "$2"
 }
