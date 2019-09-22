@@ -27,15 +27,14 @@ void sdf_executable_before_first_file(void) {
 void sdf_executable_nullary(
   sdf_opcode_t opcode
 ) {
-  SDF_UNUSED(opcode);
+  sdf_store_nullary(opcode);
 }
 
 void sdf_executable_unary(
   sdf_opcode_t opcode,
   sdf_pointer_t a
 ) {
-  SDF_UNUSED(opcode);
-  SDF_UNUSED(a);
+  sdf_store_unary(opcode, a);
 }
 
 void sdf_executable_binary(
@@ -43,9 +42,7 @@ void sdf_executable_binary(
   sdf_pointer_t a,
   sdf_pointer_t b
 ) {
-  SDF_UNUSED(opcode);
-  SDF_UNUSED(a);
-  SDF_UNUSED(b);
+  sdf_store_binary(opcode, a, b);
 }
 
 void sdf_executable_ternary(
@@ -54,10 +51,7 @@ void sdf_executable_ternary(
   sdf_pointer_t b,
   sdf_pointer_t c
 ) {
-  SDF_UNUSED(opcode);
-  SDF_UNUSED(a);
-  SDF_UNUSED(b);
-  SDF_UNUSED(c);
+  sdf_store_ternary(opcode, a, b, c);
 }
 
 void sdf_executable_eof(void) {
