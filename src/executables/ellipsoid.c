@@ -26,15 +26,25 @@ static void sdf__axis(
   sdf_f32_t diameter;
   sdf_boolean_t center_temp;
 
-  char radius_short_name[] = { 'r', label, '\0' };
-  char radius_long_name[] = { 'r', 'a', 'd', 'i', 'u', 's', '-', label, '\0' };
-  char radius_description[] = { 'r', 'a', 'd', 'i', 'u', 's', ' ', 'o', 'n', ' ', label, ' ', 'a', 'x', 'i', 's', ' ', '(', 'm', 'i', 'l', 'l', 'i', 'm', 'e', 't', 'e', 'r', 's', ')', '\0' };
-  char diameter_short_name[] = { 'd', label, '\0' };
-  char diameter_long_name[] = { 'd', 'i', 'a', 'm', 'e', 't', 'e', 'r', '-', label, '\0' };
-  char diameter_description[] = { 'd', 'i', 'a', 'm', 'e', 't', 'e', 'r', ' ', 'o', 'n', ' ', label, ' ', 'a', 'x', 'i', 's', ' ', '(', 'm', 'i', 'l', 'l', 'i', 'm', 'e', 't', 'e', 'r', 's', ')', '\0' };
-  char center_short_name[] = { 'c', label, '\0' };
-  char center_long_name[] = { 'c', 'e', 'n', 't', 'e', 'r', '-', label, '\0' };
-  char center_description[] = { 'c', 'e', 'n', 't', 'e', 'r', ' ', 'o', 'n', ' ', label, ' ', 'a', 'x', 'i', 's', ' ', '(', 'm', 'i', 'l', 'l', 'i', 'm', 'e', 't', 'e', 'r', 's', ')', '\0' };
+  char radius_short_name[] = { 'r', '\0', '\0' };
+  char radius_long_name[] = { 'r', 'a', 'd', 'i', 'u', 's', '-', '\0', '\0' };
+  char radius_description[] = { 'r', 'a', 'd', 'i', 'u', 's', ' ', 'o', 'n', ' ', '\0', ' ', 'a', 'x', 'i', 's', ' ', '(', 'm', 'i', 'l', 'l', 'i', 'm', 'e', 't', 'e', 'r', 's', ')', '\0' };
+  char diameter_short_name[] = { 'd', '\0', '\0' };
+  char diameter_long_name[] = { 'd', 'i', 'a', 'm', 'e', 't', 'e', 'r', '-', '\0', '\0' };
+  char diameter_description[] = { 'd', 'i', 'a', 'm', 'e', 't', 'e', 'r', ' ', 'o', 'n', ' ', '\0', ' ', 'a', 'x', 'i', 's', ' ', '(', 'm', 'i', 'l', 'l', 'i', 'm', 'e', 't', 'e', 'r', 's', ')', '\0' };
+  char center_short_name[] = { 'c', '\0', '\0' };
+  char center_long_name[] = { 'c', 'e', 'n', 't', 'e', 'r', '-', '\0', '\0' };
+  char center_description[] = { 'c', 'e', 'n', 't', 'e', 'r', ' ', 'o', 'n', ' ', '\0', ' ', 'a', 'x', 'i', 's', ' ', '(', 'm', 'i', 'l', 'l', 'i', 'm', 'e', 't', 'e', 'r', 's', ')', '\0' };
+
+  radius_short_name[1] = label;
+  radius_long_name[7] = label;
+  radius_description[10] = label;
+  diameter_short_name[1] = label;
+  diameter_long_name[9] = label;
+  diameter_description[12] = label;
+  center_short_name[1] = label;
+  center_long_name[7] = label;
+  center_description[10] = label;
 
   sdf_cli_float(radius_short_name, radius_long_name, radius_description, radius, *radius);
 
