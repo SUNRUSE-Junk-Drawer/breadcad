@@ -15,7 +15,7 @@ ALL_EXECUTABLES = $(addprefix bin/, $(basename $(notdir $(wildcard src/executabl
 ALL_TEST_FRAMEWORK = $(wildcard test/framework/*.bash)
 ALL_TEST_RESULTS = $(addprefix test_results/, $(basename $(notdir $(wildcard test/executables/*.bash))))
 
-obj/%.o: src/%.c $(ALL_H)
+obj/%.o: src/%.c $(ALL_H) makefile
 	mkdir -p $(dir $@)
 	$(CC) -c -o $@ $<
 
