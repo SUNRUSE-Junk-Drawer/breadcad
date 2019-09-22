@@ -1,25 +1,25 @@
 function stdout_only {
-  "$@" 2>/dev/null
+  bash -c "$@" 2>/dev/null
 }
 
 function stderr_only {
-  "$@" 1>/dev/null
+  bash -c "$@" 1>/dev/null
 }
 
 function check_stdout {
-  run stdout_only $1
+  run stdout_only "$1"
   replaced=${2//$'\n'/$SDF_LINE_BREAK}
   assert_output "$replaced"
 }
 
 function check_stderr {
-  run stderr_only $1
+  run stderr_only "$1"
   replaced=${2//$'\n'/$SDF_LINE_BREAK}
   assert_output "$replaced"
 }
 
 function check_exit_successful {
-  run $1
+  run bash -c "$1"
   assert_success
 }
 
