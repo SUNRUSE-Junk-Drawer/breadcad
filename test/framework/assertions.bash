@@ -18,13 +18,8 @@ function check_stderr {
   assert_output "$replaced"
 }
 
-function check_exit_successful {
-  run bash -c "$1"
-  assert_success
-}
-
 function check_successful {
   check_stderr "$1" ""
-  check_exit_successful "$1"
   check_stdout "$1" "$2"
+  assert_success
 }
