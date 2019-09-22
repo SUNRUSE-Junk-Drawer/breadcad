@@ -17,7 +17,7 @@ ALL_TEST_RESULTS = $(addprefix test_results/, $(basename $(notdir $(wildcard tes
 
 obj/%.o: src/%.c $(ALL_H) makefile
 	mkdir -p $(dir $@)
-	$(CC) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 bin/%: obj/executables/%.o $(ALL_FRAMEWORK_O)
 	mkdir -p $(dir $@)
