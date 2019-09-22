@@ -4,6 +4,7 @@
 #include "../framework/pointer.h"
 #include "../framework/cli.h"
 #include "../framework/executable.h"
+#include "../framework/store.h"
 
 const char * sdf_executable_name = "sample";
 const char * sdf_executable_description = "sample a sdf stream at a single point in space";
