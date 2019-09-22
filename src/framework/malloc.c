@@ -6,6 +6,7 @@ void * sdf_malloc(
   size_t size,
   const char * action
 ) {
+  if (size) {
   void * allocated = malloc(size);
   if (!allocated) {
     sdf_fail(
@@ -15,4 +16,7 @@ void * sdf_malloc(
     );
   }
   return allocated;
+  } else {
+    return NULL;
+  }
 }
