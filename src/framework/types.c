@@ -73,7 +73,7 @@ void sdf_types(void) {
   void sdf_types_##type##_swap_endianness(                               \
     sdf_##type##_t * value                                               \
   ) {                                                                    \
-    int byte = 0;                                                        \
+    size_t byte = 0;                                                     \
     sdf_##type##_t copy = *value;                                        \
     sdf_u8_t * valueBytes = (sdf_u8_t*) value;                           \
     sdf_u8_t * copyBytes = (sdf_u8_t*) &copy;                            \
