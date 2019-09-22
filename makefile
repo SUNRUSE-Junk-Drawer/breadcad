@@ -21,7 +21,7 @@ obj/%.o: src/%.c $(ALL_H) makefile
 
 bin/%: obj/executables/%.o $(ALL_FRAMEWORK_O)
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ -lm
 
 test_results/%: test/executables/%.bash bin/% $(ALL_TEST_FRAMEWORK)
 	mkdir -p test_results
