@@ -117,9 +117,7 @@ void sdf_executable_ternary(
   SDF_UNUSED(c);
 }
 
-void sdf_executable_eof(
-  sdf_opcode_t opcode
-) {
+void sdf_executable_eof(void) {
 }
 
 void sdf_executable_after_last_file(void) {

@@ -173,7 +173,7 @@ static void sdf__check_whether_help(void) {
   sdf__help = SDF_BOOLEAN_FALSE;
 }
 
-static void sdf__verify_all_used() {
+static void sdf__verify_all_used(void) {
   int argument = 0;
 
   while (argument < sdf__argc) {
