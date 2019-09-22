@@ -42,7 +42,7 @@ void sdf_read_sdf(
         break;
 
       default:
-        sdf_fail("unexpected opcode arity %u\n", (unsigned int)arity);
+        sdf_fail("unexpected opcode arity %#02x\n", (unsigned int)arity);
         break;
     }
   }
