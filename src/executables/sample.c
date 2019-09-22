@@ -1,3 +1,4 @@
+#include "../framework/unused.h"
 #include "../framework/types.h"
 #include "../framework/opcode.h"
 #include "../framework/pointer.h"
@@ -26,12 +27,15 @@ void sdf_executable_before_first_file(void) {
 void sdf_executable_nullary(
   sdf_opcode_t opcode
 ) {
+  SDF_UNUSED(opcode);
 }
 
 void sdf_executable_unary(
   sdf_opcode_t opcode,
   sdf_pointer_t a
 ) {
+  SDF_UNUSED(opcode);
+  SDF_UNUSED(a);
 }
 
 void sdf_executable_binary(
@@ -39,6 +43,9 @@ void sdf_executable_binary(
   sdf_pointer_t a,
   sdf_pointer_t b
 ) {
+  SDF_UNUSED(opcode);
+  SDF_UNUSED(a);
+  SDF_UNUSED(b);
 }
 
 void sdf_executable_ternary(
@@ -47,6 +54,10 @@ void sdf_executable_ternary(
   sdf_pointer_t b,
   sdf_pointer_t c
 ) {
+  SDF_UNUSED(opcode);
+  SDF_UNUSED(a);
+  SDF_UNUSED(b);
+  SDF_UNUSED(c);
 }
 
 void sdf_executable_eof(
