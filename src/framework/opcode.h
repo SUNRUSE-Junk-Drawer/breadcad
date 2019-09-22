@@ -72,4 +72,8 @@ sdf_opcode_arity_t sdf_opcode_arity(
   sdf_opcode_t opcode
 );
 
+sdf_opcode_id_t sdf_opcode_id(
+  sdf_opcode_t opcode
+);
+
 #endif
