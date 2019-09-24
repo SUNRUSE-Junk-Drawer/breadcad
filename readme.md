@@ -30,7 +30,7 @@ An opcode is a 16-bit unsigned integer.
 | 5402   | Boolean | Boolean | Boolean | Void    | 02 | Equal                   |                    |
 | 5403   | Boolean | Boolean | Boolean | Void    | 03 | Not Equal               |                    |
 | 5500   | Boolean | Boolean | Boolean | Boolean | 00 | Conditional (A ? B : C) |                    |
-| 5A00   | Boolean | Boolean | Number  | Number  | 00 | Conditional (A ? B : C) |                    |
+| 9A00   | Number  | Boolean | Number  | Number  | 00 | Conditional (A ? B : C) |                    |
 | 6800   | Boolean | Number  | Number  | Void    | 00 | Greater Than            | A = B              |
 | 8000   | Number  | Void    | Void    | Void    | ** | Parameter               |                    |
 | A000   | Number  | Number  | Void    | Void    | 00 | Negate                  |                    |
