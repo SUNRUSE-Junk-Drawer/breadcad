@@ -5,9 +5,9 @@ executable_help="sample - sample a sdf stream at a single point in space
   usage: [sdf stream] | sample [options]
   options:
     -h, --help, /?: display this message
-    -x [number], --x [number]: location from which to sample (millimeters) (default: 0.000000)
-    -y [number], --y [number]: location from which to sample (millimeters) (default: 0.000000)
-    -z [number], --z [number]: location from which to sample (millimeters) (default: 0.000000)"
+    -x [number], --x [number]: location from which to sample on the x axis (millimeters) (default: 0.000000)
+    -y [number], --y [number]: location from which to sample on the y axis (millimeters) (default: 0.000000)
+    -z [number], --z [number]: location from which to sample on the z axis (millimeters) (default: 0.000000)"
 
 @test "help (short name)" {
   test_help "-h"

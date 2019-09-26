@@ -21,9 +21,9 @@ static sdf_f32_t sdf__y;
 static sdf_f32_t sdf__z;
 
 void sdf_executable_cli(void) {
-  sdf_cli_float("x", "x", "location from which to sample (millimeters)", &sdf__x, 0.0f);
-  sdf_cli_float("y", "y", "location from which to sample (millimeters)", &sdf__y, 0.0f);
-  sdf_cli_float("z", "z", "location from which to sample (millimeters)", &sdf__z, 0.0f);
+  sdf_cli_float("x", "x", "location from which to sample on the x axis (millimeters)", &sdf__x, 0.0f);
+  sdf_cli_float("y", "y", "location from which to sample on the y axis (millimeters)", &sdf__y, 0.0f);
+  sdf_cli_float("z", "z", "location from which to sample on the z axis (millimeters)", &sdf__z, 0.0f);
 }
 
 void sdf_executable_before_first_file(void) {
