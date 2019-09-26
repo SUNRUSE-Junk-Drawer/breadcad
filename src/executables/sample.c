@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "../framework/unused.h"
 #include "../framework/types.h"
 #include "../framework/opcode.h"
@@ -5,6 +6,8 @@
 #include "../framework/cli.h"
 #include "../framework/executable.h"
 #include "../framework/store.h"
+#include "../framework/plan.h"
+#include "../framework/execute.h"
 
 const char * sdf_executable_name = "sample";
 const char * sdf_executable_description = "sample a sdf stream at a single point in space";
@@ -56,6 +59,8 @@ void sdf_executable_ternary(
 }
 
 void sdf_executable_eof(void) {
+  sdf_plan();
+  printf("%f\n", *sdf_execute(NULL, 1));
 }
 
 void sdf_executable_after_last_file(void) {
