@@ -16,6 +16,7 @@ typedef unsigned short sdf_u16_t;
 #define SDF_U16_RANGE (SDF_U16_MAX + 1)
 
 typedef float sdf_f32_t;
+extern sdf_f32_t sdf_f32_infinity;
 
 void sdf_types(void);
 
