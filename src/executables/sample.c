@@ -1,3 +1,4 @@
+#define __USE_MINGW_ANSI_STDIO 1
 #include <stdio.h>
 #include "../framework/unused.h"
 #include "../framework/types.h"
