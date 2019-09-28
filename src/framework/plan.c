@@ -64,7 +64,7 @@ static void sdf__release_buffer_if_unused(
   size_t after_argument
 ) {
   while (after_argument < sdf_store_total_arguments) {
-    if (sdf_store_arguments[after_argument] == sdf__buffer_users[buffer]) {
+    if (sdf_store_argument_pointers[after_argument] == sdf__buffer_users[buffer]) {
       return;
     }
     after_argument++;
@@ -88,7 +88,7 @@ static void sdf__find_buffers_for_arguments(
   size_t end_of_arguments
 ) {
   while (first_argument < end_of_arguments) {
-    sdf_plan_argument_buffers[first_argument] = sdf__find_buffer_by_writing_instruction(sdf_store_arguments[first_argument]);
+    sdf_plan_argument_buffers[first_argument] = sdf__find_buffer_by_writing_instruction(sdf_store_argument_pointers[first_argument]);
     first_argument++;
   }
 }
