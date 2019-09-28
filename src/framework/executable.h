@@ -21,20 +21,26 @@ void sdf_executable_nullary(
 
 void sdf_executable_unary(
   sdf_opcode_t opcode,
-  sdf_pointer_t a
+  sdf_pointer_t argument_a_pointer,
+  sdf_f32_t argument_a_float_constant
 );
 
 void sdf_executable_binary(
   sdf_opcode_t opcode,
-  sdf_pointer_t a,
-  sdf_pointer_t b
+  sdf_pointer_t argument_a_pointer,
+  sdf_f32_t argument_a_float_constant,
+  sdf_pointer_t argument_b_pointer,
+  sdf_f32_t argument_b_float_constant
 );
 
 void sdf_executable_ternary(
   sdf_opcode_t opcode,
-  sdf_pointer_t a,
-  sdf_pointer_t b,
-  sdf_pointer_t c
+  sdf_pointer_t argument_a_pointer,
+  sdf_f32_t argument_a_float_constant,
+  sdf_pointer_t argument_b_pointer,
+  sdf_f32_t argument_b_float_constant,
+  sdf_pointer_t argument_c_pointer,
+  sdf_f32_t argument_c_float_constant
 );
 
 void sdf_executable_eof(void);

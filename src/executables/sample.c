@@ -37,26 +37,50 @@ void sdf_executable_nullary(
 
 void sdf_executable_unary(
   sdf_opcode_t opcode,
-  sdf_pointer_t a
+  sdf_pointer_t argument_a_pointer,
+  sdf_f32_t argument_a_float_constant
 ) {
-  sdf_store_unary(opcode, a);
+  SDF_UNUSED(argument_a_float_constant);
+  sdf_store_unary(
+    opcode,
+    argument_a_pointer
+  );
 }
 
 void sdf_executable_binary(
   sdf_opcode_t opcode,
-  sdf_pointer_t a,
-  sdf_pointer_t b
+  sdf_pointer_t argument_a_pointer,
+  sdf_f32_t argument_a_float_constant,
+  sdf_pointer_t argument_b_pointer,
+  sdf_f32_t argument_b_float_constant
 ) {
-  sdf_store_binary(opcode, a, b);
+  SDF_UNUSED(argument_a_float_constant);
+  SDF_UNUSED(argument_b_float_constant);
+  sdf_store_binary(
+    opcode,
+    argument_a_pointer,
+    argument_b_pointer
+  );
 }
 
 void sdf_executable_ternary(
   sdf_opcode_t opcode,
-  sdf_pointer_t a,
-  sdf_pointer_t b,
-  sdf_pointer_t c
+  sdf_pointer_t argument_a_pointer,
+  sdf_f32_t argument_a_float_constant,
+  sdf_pointer_t argument_b_pointer,
+  sdf_f32_t argument_b_float_constant,
+  sdf_pointer_t argument_c_pointer,
+  sdf_f32_t argument_c_float_constant
 ) {
-  sdf_store_ternary(opcode, a, b, c);
+  SDF_UNUSED(argument_a_float_constant);
+  SDF_UNUSED(argument_b_float_constant);
+  SDF_UNUSED(argument_c_float_constant);
+  sdf_store_ternary(
+    opcode,
+    argument_a_pointer,
+    argument_b_pointer,
+    argument_c_pointer
+  );
 }
 
 void sdf_executable_eof(void) {
