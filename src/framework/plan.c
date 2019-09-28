@@ -63,14 +63,16 @@ static void sdf__release_buffer_if_unused(
   size_t buffer,
   size_t after_argument
 ) {
-  while (after_argument < sdf_store_total_arguments) {
-    if (sdf_store_argument_pointers[after_argument] == sdf__buffer_users[buffer]) {
-      return;
+  if (buffer != SIZE_MAX) {
+    while (after_argument < sdf_store_total_arguments) {
+      if (sdf_store_argument_pointers[after_argument] == sdf__buffer_users[buffer]) {
+        return;
+      }
+      after_argument++;
     }
-    after_argument++;
-  }
 
-  sdf__buffer_users[buffer] = SIZE_MAX;
+    sdf__buffer_users[buffer] = SIZE_MAX;
+  }
 }
 
 static size_t sdf__find_buffer_by_writing_instruction(
@@ -87,8 +89,14 @@ static void sdf__find_buffers_for_arguments(
   size_t first_argument,
   size_t end_of_arguments
 ) {
+  sdf_pointer_t pointer;
   while (first_argument < end_of_arguments) {
-    sdf_plan_argument_buffers[first_argument] = sdf__find_buffer_by_writing_instruction(sdf_store_argument_pointers[first_argument]);
+    pointer = sdf_store_argument_pointers[first_argument];
+    if (pointer == SDF_POINTER_FLOAT_CONSTANT) {
+      sdf_plan_argument_buffers[first_argument] = SIZE_MAX;
+    } else {
+      sdf_plan_argument_buffers[first_argument] = sdf__find_buffer_by_writing_instruction(pointer);
+    }
     first_argument++;
   }
 }
