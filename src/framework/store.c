@@ -19,7 +19,7 @@ void sdf_store_clear(void) {
   sdf_store_arguments = NULL;
 }
 
-static void sdf__expand(
+static void sdf__store_opcode(
   sdf_opcode_t opcode
 ) {
   if (sdf_store_total_opcodes == SDF_POINTER_RANGE) {
@@ -42,14 +42,14 @@ static void sdf__store_argument(
 void sdf_store_nullary(
   sdf_opcode_t opcode
 ) {
-  sdf__expand(opcode);
+  sdf__store_opcode(opcode);
 }
 
 void sdf_store_unary(
   sdf_opcode_t opcode,
   sdf_pointer_t argument_a
 ) {
-  sdf__expand(opcode);
+  sdf__store_opcode(opcode);
   sdf__store_argument(argument_a);
 }
 
@@ -58,7 +58,7 @@ void sdf_store_binary(
   sdf_pointer_t argument_a,
   sdf_pointer_t argument_b
 ) {
-  sdf__expand(opcode);
+  sdf__store_opcode(opcode);
   sdf__store_argument(argument_a);
   sdf__store_argument(argument_b);
 }
@@ -69,7 +69,7 @@ void sdf_store_ternary(
   sdf_pointer_t argument_b,
   sdf_pointer_t argument_c
 ) {
-  sdf__expand(opcode);
+  sdf__store_opcode(opcode);
   sdf__store_argument(argument_a);
   sdf__store_argument(argument_b);
   sdf__store_argument(argument_c);
