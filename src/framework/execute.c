@@ -65,12 +65,12 @@ static void sdf__get_buffer(
   }
 }
 
-static size_t sdf__execute_instruction(
+static void sdf__execute_instruction(
   void * parameter_context,
   size_t iterations,
   void ** buffers,
   size_t instruction,
-  size_t argument
+  size_t * argument
 ) {
   sdf_opcode_t opcode = sdf_store_opcodes[instruction];
   sdf_opcode_arity_t arity = sdf_opcode_arity(opcode);
@@ -88,15 +88,15 @@ static size_t sdf__execute_instruction(
   sdf__get_buffer(buffers, sdf_plan_result_buffers[instruction], &result_buffer_boolean, &result_buffer_f32);
 
   if (arity >= 1) {
-    sdf__get_buffer(buffers, sdf_plan_argument_buffers[argument++], &argument_a_buffer_boolean, &argument_a_buffer_f32);
+    sdf__get_buffer(buffers, sdf_plan_argument_buffers[(*argument)++], &argument_a_buffer_boolean, &argument_a_buffer_f32);
   }
 
   if (arity >= 2) {
-    sdf__get_buffer(buffers, sdf_plan_argument_buffers[argument++], &argument_b_buffer_boolean, &argument_b_buffer_f32);
+    sdf__get_buffer(buffers, sdf_plan_argument_buffers[(*argument)++], &argument_b_buffer_boolean, &argument_b_buffer_f32);
   }
 
   if (arity >= 3) {
-    sdf__get_buffer(buffers, sdf_plan_argument_buffers[argument++], &argument_c_buffer_boolean, &argument_c_buffer_f32);
+    sdf__get_buffer(buffers, sdf_plan_argument_buffers[(*argument)++], &argument_c_buffer_boolean, &argument_c_buffer_f32);
   }
 
   switch (opcode) {
@@ -150,8 +150,6 @@ static size_t sdf__execute_instruction(
         sdf_fail("unsupported opcode %#04x\n", (unsigned int)opcode);
       }
   }
-
-  return argument;
 }
 
 static void sdf__free_all_non_final_buffers(
@@ -202,7 +200,7 @@ sdf_f32_t * sdf_execute(
   buffers = sdf__allocate_buffers(iterations);
 
   while (instruction < sdf_store_total_opcodes) {
-    argument = sdf__execute_instruction(parameter_context, iterations, buffers, instruction, argument);
+    sdf__execute_instruction(parameter_context, iterations, buffers, instruction, &argument);
     instruction++;
   }
 
