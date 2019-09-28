@@ -84,11 +84,34 @@ static void sdf__generate_f32_infinity(void) {
   sdf_f32_infinity = generate.f32;
 }
 
+sdf_f32_t sdf_f32_not_a_number;
+
+static void sdf__generate_f32_not_a_number(void) {
+  union {
+    sdf_u8_t u8[4];
+    sdf_f32_t f32;
+  } generate;
+  if (sdf__f32_endianness_swap) {
+    generate.u8[0] = 0x00;
+    generate.u8[1] = 0x00;
+    generate.u8[2] = 0xF8;
+    generate.u8[3] = 0x7F;
+  } else {
+    generate.u8[0] = 0x7F;
+    generate.u8[1] = 0xF8;
+    generate.u8[2] = 0x00;
+    generate.u8[3] = 0x00;
+  }
+  sdf_f32_not_a_number = generate.f32;
+}
+
+
 void sdf_types(void) {
   sdf__check_sizeof();
   sdf__check_max();
   sdf__check_byte_order();
   sdf__generate_f32_infinity();
+  sdf__generate_f32_not_a_number();
 }
 
 #define SDF_SWAP_ENDIANNESS(type)                                        \

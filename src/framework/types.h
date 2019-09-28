@@ -17,6 +17,7 @@ typedef unsigned short sdf_u16_t;
 
 typedef float sdf_f32_t;
 extern sdf_f32_t sdf_f32_infinity;
+extern sdf_f32_t sdf_f32_not_a_number;
 
 void sdf_types(void);
 
