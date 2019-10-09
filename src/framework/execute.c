@@ -16,15 +16,26 @@
     }                                                                            \
     break;
 
-#define SDF_EXECUTE_UNARY(name, argument_a_type, result_type, implementation)                \
-  case SDF_OPCODE_##name:                                                                    \
-    result_buffer_##result_type = buffers[sdf_plan_result_buffers[instruction]];             \
-    argument_a_buffer_##argument_a_type = buffers[sdf_plan_argument_buffers[(*argument)++]]; \
-    while (iteration < iterations) {                                                         \
-      argument_a_##argument_a_type = argument_a_buffer_##argument_a_type[iteration];         \
-      result_buffer_##result_type[iteration] = implementation;                               \
-      iteration++;                                                                           \
-    }                                                                                        \
+#define SDF_EXECUTE_UNARY(name, argument_a_type, result_type, implementation)          \
+  case SDF_OPCODE_##name:                                                              \
+    result_buffer_##result_type = buffers[sdf_plan_result_buffers[instruction]];       \
+    if (sdf_store_argument_pointers[*argument] == SDF_POINTER_FLOAT_CONSTANT) {        \
+      argument_a_##argument_a_type = sdf_store_argument_float_constants[*argument];    \
+      (*argument)++;                                                                   \
+      argument_a_##argument_a_type = implementation;                                   \
+      while (iteration < iterations) {                                                 \
+        result_buffer_##result_type[iteration] = argument_a_##argument_a_type;         \
+        iteration++;                                                                   \
+      }                                                                                \
+    } else {                                                                           \
+      argument_a_buffer_##argument_a_type = buffers[*argument];                        \
+      (*argument)++;                                                                   \
+      while (iteration < iterations) {                                                 \
+        argument_a_##argument_a_type = argument_a_buffer_##argument_a_type[iteration]; \
+        result_buffer_##result_type[iteration] = implementation;                       \
+        iteration++;                                                                   \
+      }                                                                                \
+    }                                                                                  \
     break;
 
 #define SDF_EXECUTE_BINARY(name, argument_a_type, argument_b_type, result_type, implementation) \
