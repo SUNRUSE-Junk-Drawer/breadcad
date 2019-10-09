@@ -277,52 +277,108 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample -x -12.216 < test/sdf/negate_x.sdf" "12.216000"
 }
 
+@test "negate constant positive" {
+  check_successful "bin/sample < test/sdf/negate_constant_positive.sdf" "-12.216000"
+}
+
+@test "negate constant negative" {
+  check_successful "bin/sample < test/sdf/negate_constant_negative.sdf" "12.216000"
+}
+
 @test "sine" {
   check_successful "bin/sample -x 12.216 < test/sdf/sine_x.sdf" "-0.343246"
+}
+
+@test "sine constant" {
+  check_successful "bin/sample < test/sdf/sine_constant.sdf" "-0.343246"
 }
 
 @test "cosine" {
   check_successful "bin/sample -x 12.216 < test/sdf/cosine_x.sdf" "0.939245"
 }
 
+@test "cosine constant" {
+  check_successful "bin/sample < test/sdf/cosine_constant.sdf" "0.939245"
+}
+
 @test "tangent" {
   check_successful "bin/sample -x 12.216 < test/sdf/tangent_x.sdf" "-0.365449"
+}
+
+@test "tangent constant" {
+  check_successful "bin/sample < test/sdf/tangent_constant.sdf" "-0.365449"
 }
 
 @test "arc sine" {
   check_successful "bin/sample -x 0.216 < test/sdf/arc_sine_x.sdf" "0.217716"
 }
 
+@test "arc sine constant" {
+  check_successful "bin/sample < test/sdf/arc_sine_constant.sdf" "0.217716"
+}
+
 @test "arc cosine" {
   check_successful "bin/sample -x 0.216 < test/sdf/arc_cosine_x.sdf" "1.353080"
+}
+
+@test "arc cosine constant" {
+  check_successful "bin/sample < test/sdf/arc_cosine_constant.sdf" "1.353080"
 }
 
 @test "arc tangent" {
   check_successful "bin/sample -x 0.216 < test/sdf/arc_tangent_x.sdf" "0.212732"
 }
 
+@test "arc tangent constant" {
+  check_successful "bin/sample < test/sdf/arc_tangent_constant.sdf" "0.212732"
+}
+
 @test "hyperbolic sine" {
   check_successful "bin/sample -x 0.216 < test/sdf/hyperbolic_sine_x.sdf" "0.217684"
+}
+
+@test "hyperbolic sine constant" {
+  check_successful "bin/sample < test/sdf/hyperbolic_sine_constant.sdf" "0.217684"
 }
 
 @test "hyperbolic cosine" {
   check_successful "bin/sample -x 0.216 < test/sdf/hyperbolic_cosine_x.sdf" "1.023419"
 }
 
+@test "hyperbolic cosine constant" {
+  check_successful "bin/sample < test/sdf/hyperbolic_cosine_constant.sdf" "1.023419"
+}
+
 @test "hyperbolic tangent" {
   check_successful "bin/sample -x 0.216 < test/sdf/hyperbolic_tangent_x.sdf" "0.212702"
+}
+
+@test "hyperbolic tangent constant" {
+  check_successful "bin/sample < test/sdf/hyperbolic_tangent_constant.sdf" "0.212702"
 }
 
 @test "hyperbolic arc sine" {
   check_successful "bin/sample -x 0.216 < test/sdf/hyperbolic_arc_sine_x.sdf" "0.214355"
 }
 
+@test "hyperbolic arc sine constant" {
+  check_successful "bin/sample < test/sdf/hyperbolic_arc_sine_constant.sdf" "0.214355"
+}
+
 @test "hyperbolic arc cosine" {
   check_successful "bin/sample -x 2.467 < test/sdf/hyperbolic_arc_cosine_x.sdf" "1.552282"
 }
 
+@test "hyperbolic arc cosine constant" {
+  check_successful "bin/sample < test/sdf/hyperbolic_arc_cosine_constant.sdf" "1.552282"
+}
+
 @test "hyperbolic arc tangent" {
   check_successful "bin/sample -x 0.216 < test/sdf/hyperbolic_arc_tangent_x.sdf" "0.219457"
+}
+
+@test "hyperbolic arc tangent constant" {
+  check_successful "bin/sample < test/sdf/hyperbolic_arc_tangent_constant.sdf" "0.219457"
 }
 
 @test "absolute positive" {
@@ -333,8 +389,20 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample -x -0.216 < test/sdf/absolute_x.sdf" "0.216000"
 }
 
+@test "absolute constant positive" {
+  check_successful "bin/sample < test/sdf/absolute_constant_positive.sdf" "0.216000"
+}
+
+@test "absolute constant negative" {
+  check_successful "bin/sample < test/sdf/absolute_constant_negative.sdf" "0.216000"
+}
+
 @test "square root" {
   check_successful "bin/sample -x 4.61304484 < test/sdf/square_root_x.sdf" "2.147800"
+}
+
+@test "square root constant" {
+  check_successful "bin/sample < test/sdf/square_root_constant.sdf" "2.147799"
 }
 
 @test "floor -3.1" {
@@ -397,6 +465,66 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample -x 3.1 < test/sdf/floor_x.sdf" "3.000000"
 }
 
+@test "floor constant -3.1" {
+  check_successful "bin/sample < test/sdf/floor_constant_negative_3.1.sdf" "-4.000000"
+}
+
+@test "floor constant -2.9" {
+  check_successful "bin/sample < test/sdf/floor_constant_negative_2.9.sdf" "-3.000000"
+}
+
+@test "floor constant -2.1" {
+  check_successful "bin/sample < test/sdf/floor_constant_negative_2.1.sdf" "-3.000000"
+}
+
+@test "floor constant -1.9" {
+  check_successful "bin/sample < test/sdf/floor_constant_negative_1.9.sdf" "-2.000000"
+}
+
+@test "floor constant -1.1" {
+  check_successful "bin/sample < test/sdf/floor_constant_negative_1.1.sdf" "-2.000000"
+}
+
+@test "floor constant -0.9" {
+  check_successful "bin/sample < test/sdf/floor_constant_negative_0.9.sdf" "-1.000000"
+}
+
+@test "floor constant -0.1" {
+  check_successful "bin/sample < test/sdf/floor_constant_negative_0.1.sdf" "-1.000000"
+}
+
+@test "floor constant 0" {
+  check_successful "bin/sample < test/sdf/floor_constant_zero.sdf" "0.000000"
+}
+
+@test "floor constant 0.1" {
+  check_successful "bin/sample < test/sdf/floor_constant_positive_0.1.sdf" "0.000000"
+}
+
+@test "floor constant 0.9" {
+  check_successful "bin/sample < test/sdf/floor_constant_positive_0.9.sdf" "0.000000"
+}
+
+@test "floor constant 1.1" {
+  check_successful "bin/sample < test/sdf/floor_constant_positive_1.1.sdf" "1.000000"
+}
+
+@test "floor constant 1.9" {
+  check_successful "bin/sample < test/sdf/floor_constant_positive_1.9.sdf" "1.000000"
+}
+
+@test "floor constant 2.1" {
+  check_successful "bin/sample < test/sdf/floor_constant_positive_2.1.sdf" "2.000000"
+}
+
+@test "floor constant 2.9" {
+  check_successful "bin/sample < test/sdf/floor_constant_positive_2.9.sdf" "2.000000"
+}
+
+@test "floor constant 3.1" {
+  check_successful "bin/sample < test/sdf/floor_constant_positive_3.1.sdf" "3.000000"
+}
+
 @test "ceiling -3.1" {
   check_successful "bin/sample -x -3.1 < test/sdf/ceiling_x.sdf" "-3.000000"
 }
@@ -457,16 +585,88 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample -x 3.1 < test/sdf/ceiling_x.sdf" "4.000000"
 }
 
+@test "ceiling constant -3.1" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_negative_3.1.sdf" "-3.000000"
+}
+
+@test "ceiling constant -2.9" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_negative_2.9.sdf" "-2.000000"
+}
+
+@test "ceiling constant -2.1" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_negative_2.1.sdf" "-2.000000"
+}
+
+@test "ceiling constant -1.9" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_negative_1.9.sdf" "-1.000000"
+}
+
+@test "ceiling constant -1.1" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_negative_1.1.sdf" "-1.000000"
+}
+
+@test "ceiling constant -0.9" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_negative_0.9.sdf" "-0.000000"
+}
+
+@test "ceiling constant -0.1" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_negative_0.1.sdf" "-0.000000"
+}
+
+@test "ceiling constant 0" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_zero.sdf" "0.000000"
+}
+
+@test "ceiling constant 0.1" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_positive_0.1.sdf" "1.000000"
+}
+
+@test "ceiling constant 0.9" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_positive_0.9.sdf" "1.000000"
+}
+
+@test "ceiling constant 1.1" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_positive_1.1.sdf" "2.000000"
+}
+
+@test "ceiling constant 1.9" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_positive_1.9.sdf" "2.000000"
+}
+
+@test "ceiling constant 2.1" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_positive_2.1.sdf" "3.000000"
+}
+
+@test "ceiling constant 2.9" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_positive_2.9.sdf" "3.000000"
+}
+
+@test "ceiling constant 3.1" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_positive_3.1.sdf" "4.000000"
+}
+
 @test "natural logarithm" {
   check_successful "bin/sample -x 0.216 < test/sdf/natural_logarithm_x.sdf" "-1.532477"
+}
+
+@test "natural logarithm constant" {
+  check_successful "bin/sample < test/sdf/natural_logarithm_constant.sdf" "-1.532477"
 }
 
 @test "logarithm 10" {
   check_successful "bin/sample -x 0.216 < test/sdf/logarithm_10_x.sdf" "-0.665546"
 }
 
+@test "logarithm 10 constant" {
+  check_successful "bin/sample < test/sdf/logarithm_10_constant.sdf" "-0.665546"
+}
+
 @test "natural power" {
   check_successful "bin/sample -x 0.216 < test/sdf/natural_power_x.sdf" "1.241102"
+}
+
+@test "natural power constant" {
+  check_successful "bin/sample < test/sdf/natural_power_constant.sdf" "1.241102"
 }
 
 @test "add" {
