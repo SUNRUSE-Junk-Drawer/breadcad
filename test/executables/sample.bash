@@ -669,76 +669,292 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample < test/sdf/natural_power_constant.sdf" "1.241102"
 }
 
-@test "add" {
+@test "add parameter parameter" {
   check_successful "bin/sample -x 3.26 -y -11.01 < test/sdf/add_x_y.sdf" "-7.750000"
 }
 
-@test "subtract" {
+@test "add parameter constant" {
+  check_successful "bin/sample -x 3.26 < test/sdf/add_x_constant.sdf" "-7.750000"
+}
+
+@test "add constant parameter" {
+  check_successful "bin/sample -x -11.01 < test/sdf/add_constant_x.sdf" "-7.750000"
+}
+
+@test "add constant constant" {
+  check_successful "bin/sample < test/sdf/add_constant_constant.sdf" "-7.750000"
+}
+
+@test "subtract parameter parameter" {
   check_successful "bin/sample -x 3.26 -y -22.15 < test/sdf/subtract_x_y.sdf" "25.410000"
 }
 
-@test "multiply" {
+@test "subtract parameter constant" {
+  check_successful "bin/sample -x 3.26 < test/sdf/subtract_x_constant.sdf" "25.410000"
+}
+
+@test "subtract constant parameter" {
+  check_successful "bin/sample -x -22.15 < test/sdf/subtract_constant_x.sdf" "25.410000"
+}
+
+@test "subtract constant constant" {
+  check_successful "bin/sample < test/sdf/subtract_constant_constant.sdf" "25.410000"
+}
+
+@test "multiply parameter parameter" {
   check_successful "bin/sample -x 3.26 -y -22.15 < test/sdf/multiply_x_y.sdf" "-72.209000"
 }
 
-@test "divide" {
+@test "multiply parameter constant" {
+  check_successful "bin/sample -x 3.26 < test/sdf/multiply_x_constant.sdf" "-72.209000"
+}
+
+@test "multiply constant parameter" {
+  check_successful "bin/sample -x -22.15 < test/sdf/multiply_constant_x.sdf" "-72.209000"
+}
+
+@test "multiply constant constant" {
+  check_successful "bin/sample < test/sdf/multiply_constant_constant.sdf" "-72.209000"
+}
+
+@test "divide parameter parameter" {
   check_successful "bin/sample -x 3.26 -y -22.15 < test/sdf/divide_x_y.sdf" "-0.147178"
 }
 
-@test "pow" {
+@test "divide parameter constant" {
+  check_successful "bin/sample -x 3.26 < test/sdf/divide_x_constant.sdf" "-0.147178"
+}
+
+@test "divide constant parameter" {
+  check_successful "bin/sample -x -22.15 < test/sdf/divide_constant_x.sdf" "-0.147178"
+}
+
+@test "divide constant constant" {
+  check_successful "bin/sample < test/sdf/divide_constant_constant.sdf" "-0.147178"
+}
+
+@test "pow parameter parameter" {
   check_successful "bin/sample -x 22.15 -y 3.26 < test/sdf/pow_x_y.sdf" "24317.466797"
 }
 
-@test "modulo -2.1 before" {
+@test "pow parameter constant" {
+  check_successful "bin/sample -x 22.15 < test/sdf/pow_x_constant.sdf" "24317.466797"
+}
+
+@test "pow constant parameter" {
+  check_successful "bin/sample -x 3.26 < test/sdf/pow_constant_x.sdf" "24317.466797"
+}
+
+@test "pow constant constant" {
+  check_successful "bin/sample < test/sdf/pow_constant_constant.sdf" "24317.466797"
+}
+
+@test "modulo parameter parameter -2.1 before" {
   check_successful "bin/sample -x -13.7 -y 3.45 < test/sdf/modulo_x_y.sdf" "-3.350000"
 }
 
-@test "modulo -2.1" {
+@test "modulo parameter parameter -2.1" {
   check_successful "bin/sample -x -10.45 -y 3.45 < test/sdf/modulo_x_y.sdf" "-0.100000"
 }
 
-@test "modulo -1.1 before" {
+@test "modulo parameter parameter -1.1 before" {
   check_successful "bin/sample -x -6.8 -y 3.45 < test/sdf/modulo_x_y.sdf" "-3.350000"
 }
 
-@test "modulo -1.1" {
+@test "modulo parameter parameter -1.1" {
   check_successful "bin/sample -x -3.55 -y 3.45 < test/sdf/modulo_x_y.sdf" "-0.100000"
 }
 
-@test "modulo -0.1 before" {
+@test "modulo parameter parameter -0.1 before" {
   check_successful "bin/sample -x -3.35 -y 3.45 < test/sdf/modulo_x_y.sdf" "-3.350000"
 }
 
-@test "modulo -0.1" {
+@test "modulo parameter parameter -0.1" {
   check_successful "bin/sample -x -0.1 -y 3.45 < test/sdf/modulo_x_y.sdf" "-0.100000"
 }
 
-@test "modulo 0" {
+@test "modulo parameter parameter 0" {
   check_successful "bin/sample -y 3.45 < test/sdf/modulo_x_y.sdf" "0.000000"
 }
 
-@test "modulo 0.1" {
+@test "modulo parameter parameter 0.1" {
   check_successful "bin/sample -x 0.1 -y 3.45 < test/sdf/modulo_x_y.sdf" "0.100000"
 }
 
-@test "modulo 0.1 before" {
+@test "modulo parameter parameter 0.1 before" {
   check_successful "bin/sample -x 3.35 -y 3.45 < test/sdf/modulo_x_y.sdf" "3.350000"
 }
 
-@test "modulo 1.1" {
+@test "modulo parameter parameter 1.1" {
   check_successful "bin/sample -x 3.55 -y 3.45 < test/sdf/modulo_x_y.sdf" "0.100000"
 }
 
-@test "modulo 1.1 before" {
+@test "modulo parameter parameter 1.1 before" {
   check_successful "bin/sample -x 6.8 -y 3.45 < test/sdf/modulo_x_y.sdf" "3.350000"
 }
 
-@test "modulo 2.1" {
+@test "modulo parameter parameter 2.1" {
   check_successful "bin/sample -x 10.45 -y 3.45 < test/sdf/modulo_x_y.sdf" "0.100000"
 }
 
-@test "modulo 2.1 before" {
+@test "modulo parameter parameter 2.1 before" {
   check_successful "bin/sample -x 13.7 -y 3.45 < test/sdf/modulo_x_y.sdf" "3.350000"
+}
+
+@test "modulo parameter constant -2.1 before" {
+  check_successful "bin/sample -x -13.7 < test/sdf/modulo_x_constant.sdf" "-3.350000"
+}
+
+@test "modulo parameter constant -2.1" {
+  check_successful "bin/sample -x -10.45 < test/sdf/modulo_x_constant.sdf" "-0.100000"
+}
+
+@test "modulo parameter constant -1.1 before" {
+  check_successful "bin/sample -x -6.8 < test/sdf/modulo_x_constant.sdf" "-3.350000"
+}
+
+@test "modulo parameter constant -1.1" {
+  check_successful "bin/sample -x -3.55 < test/sdf/modulo_x_constant.sdf" "-0.100000"
+}
+
+@test "modulo parameter constant -0.1 before" {
+  check_successful "bin/sample -x -3.35 < test/sdf/modulo_x_constant.sdf" "-3.350000"
+}
+
+@test "modulo parameter constant -0.1" {
+  check_successful "bin/sample -x -0.1 < test/sdf/modulo_x_constant.sdf" "-0.100000"
+}
+
+@test "modulo parameter constant 0" {
+  check_successful "bin/sample < test/sdf/modulo_x_constant.sdf" "0.000000"
+}
+
+@test "modulo parameter constant 0.1" {
+  check_successful "bin/sample -x 0.1 < test/sdf/modulo_x_constant.sdf" "0.100000"
+}
+
+@test "modulo parameter constant 0.1 before" {
+  check_successful "bin/sample -x 3.35 < test/sdf/modulo_x_constant.sdf" "3.350000"
+}
+
+@test "modulo parameter constant 1.1" {
+  check_successful "bin/sample -x 3.55 < test/sdf/modulo_x_constant.sdf" "0.100000"
+}
+
+@test "modulo parameter constant 1.1 before" {
+  check_successful "bin/sample -x 6.8 < test/sdf/modulo_x_constant.sdf" "3.350000"
+}
+
+@test "modulo parameter constant 2.1" {
+  check_successful "bin/sample -x 10.45 < test/sdf/modulo_x_constant.sdf" "0.100000"
+}
+
+@test "modulo parameter constant 2.1 before" {
+  check_successful "bin/sample -x 13.7 < test/sdf/modulo_x_constant.sdf" "3.350000"
+}
+
+@test "modulo constant parameter -2.1 before" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_negative_2.1_before_x.sdf" "-3.350000"
+}
+
+@test "modulo constant parameter -2.1" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_negative_2.1_x.sdf" "-0.100000"
+}
+
+@test "modulo constant parameter -1.1 before" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_negative_1.1_before_x.sdf" "-3.350000"
+}
+
+@test "modulo constant parameter -1.1" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_negative_1.1_x.sdf" "-0.100000"
+}
+
+@test "modulo constant parameter -0.1 before" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_negative_0.1_before_x.sdf" "-3.350000"
+}
+
+@test "modulo constant parameter -0.1" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_negative_0.1_x.sdf" "-0.100000"
+}
+
+@test "modulo constant parameter 0" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_zero_x.sdf" "0.000000"
+}
+
+@test "modulo constant parameter 0.1" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_positive_0.1_x.sdf" "0.100000"
+}
+
+@test "modulo constant parameter 0.1 before" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_positive_0.1_before_x.sdf" "3.350000"
+}
+
+@test "modulo constant parameter 1.1" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_positive_1.1_x.sdf" "0.100000"
+}
+
+@test "modulo constant parameter 1.1 before" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_positive_1.1_before_x.sdf" "3.350000"
+}
+
+@test "modulo constant parameter 2.1" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_positive_2.1_x.sdf" "0.100000"
+}
+
+@test "modulo constant parameter 2.1 before" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_positive_2.1_before_x.sdf" "3.350000"
+}
+
+@test "modulo constant constant -2.1 before" {
+  check_successful "bin/sample < test/sdf/modulo_constant_negative_2.1_before_constant.sdf" "-3.350000"
+}
+
+@test "modulo constant constant -2.1" {
+  check_successful "bin/sample < test/sdf/modulo_constant_negative_2.1_constant.sdf" "-0.100000"
+}
+
+@test "modulo constant constant -1.1 before" {
+  check_successful "bin/sample < test/sdf/modulo_constant_negative_1.1_before_constant.sdf" "-3.350000"
+}
+
+@test "modulo constant constant -1.1" {
+  check_successful "bin/sample < test/sdf/modulo_constant_negative_1.1_constant.sdf" "-0.100000"
+}
+
+@test "modulo constant constant -0.1 before" {
+  check_successful "bin/sample < test/sdf/modulo_constant_negative_0.1_before_constant.sdf" "-3.350000"
+}
+
+@test "modulo constant constant -0.1" {
+  check_successful "bin/sample < test/sdf/modulo_constant_negative_0.1_constant.sdf" "-0.100000"
+}
+
+@test "modulo constant constant 0" {
+  check_successful "bin/sample < test/sdf/modulo_constant_zero_constant.sdf" "0.000000"
+}
+
+@test "modulo constant constant 0.1" {
+  check_successful "bin/sample < test/sdf/modulo_constant_positive_0.1_constant.sdf" "0.100000"
+}
+
+@test "modulo constant constant 0.1 before" {
+  check_successful "bin/sample < test/sdf/modulo_constant_positive_0.1_before_constant.sdf" "3.350000"
+}
+
+@test "modulo constant constant 1.1" {
+  check_successful "bin/sample < test/sdf/modulo_constant_positive_1.1_constant.sdf" "0.100000"
+}
+
+@test "modulo constant constant 1.1 before" {
+  check_successful "bin/sample < test/sdf/modulo_constant_positive_1.1_before_constant.sdf" "3.350000"
+}
+
+@test "modulo constant constant 2.1" {
+  check_successful "bin/sample < test/sdf/modulo_constant_positive_2.1_constant.sdf" "0.100000"
+}
+
+@test "modulo constant constant 2.1 before" {
+  check_successful "bin/sample < test/sdf/modulo_constant_positive_2.1_before_constant.sdf" "3.350000"
 }
 
 @test "arc tangent 2" {
