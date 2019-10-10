@@ -261,12 +261,36 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample -x 17.216 -y 12.222 -z 15.775 < test/sdf/conditional_boolean_b.sdf" "12.222000"
 }
 
-@test "greater than (false) -> conditional number" {
+@test "greater than parameter parameter (false) -> conditional number" {
   check_successful "bin/sample -x 12.216 -y 15.222 < test/sdf/greater_than_conditional_number_x_y.sdf" "15.222000"
 }
 
-@test "greater than (true) -> conditional number" {
+@test "greater than parameter parameter (true) -> conditional number" {
   check_successful "bin/sample -x 15.222 -y 12.216 < test/sdf/greater_than_conditional_number_x_y.sdf" "15.222000"
+}
+
+@test "greater than parameter constant (false) -> conditional number" {
+  check_successful "bin/sample -x 12.216 < test/sdf/greater_than_conditional_number_x_constant.sdf" "14.217000"
+}
+
+@test "greater than parameter constant (true) -> conditional number" {
+  check_successful "bin/sample -x 15.222 < test/sdf/greater_than_conditional_number_x_constant.sdf" "15.222000"
+}
+
+@test "greater than constant parameter (false) -> conditional number" {
+  check_successful "bin/sample -x 15.222 < test/sdf/greater_than_conditional_number_constant_x.sdf" "15.222000"
+}
+
+@test "greater than constant parameter (true) -> conditional number" {
+  check_successful "bin/sample -x 12.216 < test/sdf/greater_than_conditional_number_constant_x.sdf" "14.217000"
+}
+
+@test "greater than constant constant (false) -> conditional number" {
+  check_successful "bin/sample < test/sdf/greater_than_conditional_number_constant_constant_false.sdf" "14.217000"
+}
+
+@test "greater than constant constant (true) -> conditional number" {
+  check_successful "bin/sample < test/sdf/greater_than_conditional_number_constant_constant_true.sdf" "15.222000"
 }
 
 @test "negate positive" {
