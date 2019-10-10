@@ -973,6 +973,54 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample -x -14.217 -y -37.214 < test/sdf/arc_tangent_2_x_y.sdf" "-2.776670"
 }
 
+@test "arc tangent 2 parameter constant positive negative" {
+  check_successful "bin/sample -x 14.217 < test/sdf/arc_tangent_2_x_constant_negative.sdf" "2.776670"
+}
+
+@test "arc tangent 2 parameter constant positive positive" {
+  check_successful "bin/sample -x 14.217 < test/sdf/arc_tangent_2_x_constant_positive.sdf" "0.364923"
+}
+
+@test "arc tangent 2 parameter constant negative positive" {
+  check_successful "bin/sample -x -14.217 < test/sdf/arc_tangent_2_x_constant_positive.sdf" "-0.364923"
+}
+
+@test "arc tangent 2 parameter constant negative negative" {
+  check_successful "bin/sample -x -14.217 < test/sdf/arc_tangent_2_x_constant_negative.sdf" "-2.776670"
+}
+
+@test "arc tangent 2 constant parameter positive negative" {
+  check_successful "bin/sample -x -37.214 < test/sdf/arc_tangent_2_constant_positive_x.sdf" "2.776670"
+}
+
+@test "arc tangent 2 constant parameter positive positive" {
+  check_successful "bin/sample -x 37.214 < test/sdf/arc_tangent_2_constant_positive_x.sdf" "0.364923"
+}
+
+@test "arc tangent 2 constant parameter negative positive" {
+  check_successful "bin/sample -x 37.214 < test/sdf/arc_tangent_2_constant_negative_x.sdf" "-0.364923"
+}
+
+@test "arc tangent 2 constant parameter negative negative" {
+  check_successful "bin/sample -x -37.214 < test/sdf/arc_tangent_2_constant_negative_x.sdf" "-2.776670"
+}
+
+@test "arc tangent 2 constant constant positive negative" {
+  check_successful "bin/sample < test/sdf/arc_tangent_2_constant_positive_constant_negative.sdf" "2.776670"
+}
+
+@test "arc tangent 2 constant constant positive positive" {
+  check_successful "bin/sample < test/sdf/arc_tangent_2_constant_positive_constant_positive.sdf" "0.364923"
+}
+
+@test "arc tangent 2 constant constant negative positive" {
+  check_successful "bin/sample < test/sdf/arc_tangent_2_constant_negative_constant_positive.sdf" "-0.364923"
+}
+
+@test "arc tangent 2 constant constant negative negative" {
+  check_successful "bin/sample < test/sdf/arc_tangent_2_constant_negative_constant_negative.sdf" "-2.776670"
+}
+
 @test "empty" {
   check_successful "bin/sample < test/sdf/empty.sdf" "inf"
 }
