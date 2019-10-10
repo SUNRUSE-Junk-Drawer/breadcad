@@ -957,10 +957,19 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample < test/sdf/modulo_constant_positive_2.1_before_constant.sdf" "3.350000"
 }
 
-@test "arc tangent 2" {
+@test "arc tangent 2 parameter parameter positive negative" {
   check_successful "bin/sample -x 14.217 -y -37.214 < test/sdf/arc_tangent_2_x_y.sdf" "2.776670"
+}
+
+@test "arc tangent 2 parameter parameter positive positive" {
   check_successful "bin/sample -x 14.217 -y 37.214 < test/sdf/arc_tangent_2_x_y.sdf" "0.364923"
+}
+
+@test "arc tangent 2 parameter parameter negative positive" {
   check_successful "bin/sample -x -14.217 -y 37.214 < test/sdf/arc_tangent_2_x_y.sdf" "-0.364923"
+}
+
+@test "arc tangent 2 parameter parameter negative negative" {
   check_successful "bin/sample -x -14.217 -y -37.214 < test/sdf/arc_tangent_2_x_y.sdf" "-2.776670"
 }
 
