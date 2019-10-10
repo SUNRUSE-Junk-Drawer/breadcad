@@ -1,6 +1,7 @@
 #ifndef SDF_PRIMITIVE_H
 #define SDF_PRIMITIVE_H
 
+#include <stdio.h>
 #include "types.h"
 
 typedef sdf_u8_t sdf_primitive_t;
@@ -11,5 +12,10 @@ typedef sdf_u8_t sdf_primitive_t;
 #define SDF_PRIMITIVE_RESERVED 3
 #define SDF_PRIMITIVE_MAX 3
 #define SDF_PRIMITIVE_RANGE (SDF_PRIMITIVE_MAX + 1)
+
+void sdf_primitive_print(
+  FILE * file,
+  sdf_primitive_t primitive
+);
 
 #endif
