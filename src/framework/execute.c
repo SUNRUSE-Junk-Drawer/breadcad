@@ -22,9 +22,9 @@
     if (sdf_store_argument_pointers[*argument] == SDF_POINTER_FLOAT_CONSTANT) {        \
       argument_a_##argument_a_type = sdf_store_argument_float_constants[*argument];    \
       (*argument)++;                                                                   \
-      argument_a_##argument_a_type = implementation;                                   \
+      result_##result_type = implementation;                                           \
       while (iteration < iterations) {                                                 \
-        result_buffer_##result_type[iteration] = argument_a_##argument_a_type;         \
+        result_buffer_##result_type[iteration] = result_##result_type;                 \
         iteration++;                                                                   \
       }                                                                                \
     } else {                                                                           \
@@ -47,9 +47,9 @@
       if (sdf_store_argument_pointers[*argument] == SDF_POINTER_FLOAT_CONSTANT) {               \
         argument_b_##argument_b_type = sdf_store_argument_float_constants[*argument];           \
         (*argument)++;                                                                          \
-        argument_a_##argument_a_type = implementation;                                          \
+        result_##result_type = implementation;                                                  \
         while (iteration < iterations) {                                                        \
-          result_buffer_##result_type[iteration] = argument_a_##argument_a_type;                \
+          result_buffer_##result_type[iteration] = result_##result_type;                        \
           iteration++;                                                                          \
         }                                                                                       \
       } else {                                                                                  \
@@ -138,7 +138,9 @@ static void sdf__execute_instruction(
   sdf_opcode_id_t id;
   size_t iteration = 0;
   sdf_boolean_t * result_buffer_boolean;
+  sdf_boolean_t result_boolean;
   sdf_f32_t * result_buffer_f32;
+  sdf_f32_t result_f32;
   sdf_boolean_t * argument_a_buffer_boolean;
   sdf_boolean_t argument_a_boolean;
   sdf_f32_t * argument_a_buffer_f32;
