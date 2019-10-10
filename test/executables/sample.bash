@@ -261,12 +261,36 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample -x 17.216 -y 12.222 -z 15.775 < test/sdf/conditional_boolean_b.sdf" "12.222000"
 }
 
-@test "greater than (false) -> conditional number" {
+@test "greater than parameter parameter (false) -> conditional number" {
   check_successful "bin/sample -x 12.216 -y 15.222 < test/sdf/greater_than_conditional_number_x_y.sdf" "15.222000"
 }
 
-@test "greater than (true) -> conditional number" {
+@test "greater than parameter parameter (true) -> conditional number" {
   check_successful "bin/sample -x 15.222 -y 12.216 < test/sdf/greater_than_conditional_number_x_y.sdf" "15.222000"
+}
+
+@test "greater than parameter constant (false) -> conditional number" {
+  check_successful "bin/sample -x 12.216 < test/sdf/greater_than_conditional_number_x_constant.sdf" "14.217000"
+}
+
+@test "greater than parameter constant (true) -> conditional number" {
+  check_successful "bin/sample -x 15.222 < test/sdf/greater_than_conditional_number_x_constant.sdf" "15.222000"
+}
+
+@test "greater than constant parameter (false) -> conditional number" {
+  check_successful "bin/sample -x 15.222 < test/sdf/greater_than_conditional_number_constant_x.sdf" "15.222000"
+}
+
+@test "greater than constant parameter (true) -> conditional number" {
+  check_successful "bin/sample -x 12.216 < test/sdf/greater_than_conditional_number_constant_x.sdf" "14.217000"
+}
+
+@test "greater than constant constant (false) -> conditional number" {
+  check_successful "bin/sample < test/sdf/greater_than_conditional_number_constant_constant_false.sdf" "14.217000"
+}
+
+@test "greater than constant constant (true) -> conditional number" {
+  check_successful "bin/sample < test/sdf/greater_than_conditional_number_constant_constant_true.sdf" "15.222000"
 }
 
 @test "negate positive" {
@@ -277,52 +301,108 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample -x -12.216 < test/sdf/negate_x.sdf" "12.216000"
 }
 
+@test "negate constant positive" {
+  check_successful "bin/sample < test/sdf/negate_constant_positive.sdf" "-12.216000"
+}
+
+@test "negate constant negative" {
+  check_successful "bin/sample < test/sdf/negate_constant_negative.sdf" "12.216000"
+}
+
 @test "sine" {
   check_successful "bin/sample -x 12.216 < test/sdf/sine_x.sdf" "-0.343246"
+}
+
+@test "sine constant" {
+  check_successful "bin/sample < test/sdf/sine_constant.sdf" "-0.343246"
 }
 
 @test "cosine" {
   check_successful "bin/sample -x 12.216 < test/sdf/cosine_x.sdf" "0.939245"
 }
 
+@test "cosine constant" {
+  check_successful "bin/sample < test/sdf/cosine_constant.sdf" "0.939245"
+}
+
 @test "tangent" {
   check_successful "bin/sample -x 12.216 < test/sdf/tangent_x.sdf" "-0.365449"
+}
+
+@test "tangent constant" {
+  check_successful "bin/sample < test/sdf/tangent_constant.sdf" "-0.365449"
 }
 
 @test "arc sine" {
   check_successful "bin/sample -x 0.216 < test/sdf/arc_sine_x.sdf" "0.217716"
 }
 
+@test "arc sine constant" {
+  check_successful "bin/sample < test/sdf/arc_sine_constant.sdf" "0.217716"
+}
+
 @test "arc cosine" {
   check_successful "bin/sample -x 0.216 < test/sdf/arc_cosine_x.sdf" "1.353080"
+}
+
+@test "arc cosine constant" {
+  check_successful "bin/sample < test/sdf/arc_cosine_constant.sdf" "1.353080"
 }
 
 @test "arc tangent" {
   check_successful "bin/sample -x 0.216 < test/sdf/arc_tangent_x.sdf" "0.212732"
 }
 
+@test "arc tangent constant" {
+  check_successful "bin/sample < test/sdf/arc_tangent_constant.sdf" "0.212732"
+}
+
 @test "hyperbolic sine" {
   check_successful "bin/sample -x 0.216 < test/sdf/hyperbolic_sine_x.sdf" "0.217684"
+}
+
+@test "hyperbolic sine constant" {
+  check_successful "bin/sample < test/sdf/hyperbolic_sine_constant.sdf" "0.217684"
 }
 
 @test "hyperbolic cosine" {
   check_successful "bin/sample -x 0.216 < test/sdf/hyperbolic_cosine_x.sdf" "1.023419"
 }
 
+@test "hyperbolic cosine constant" {
+  check_successful "bin/sample < test/sdf/hyperbolic_cosine_constant.sdf" "1.023419"
+}
+
 @test "hyperbolic tangent" {
   check_successful "bin/sample -x 0.216 < test/sdf/hyperbolic_tangent_x.sdf" "0.212702"
+}
+
+@test "hyperbolic tangent constant" {
+  check_successful "bin/sample < test/sdf/hyperbolic_tangent_constant.sdf" "0.212702"
 }
 
 @test "hyperbolic arc sine" {
   check_successful "bin/sample -x 0.216 < test/sdf/hyperbolic_arc_sine_x.sdf" "0.214355"
 }
 
+@test "hyperbolic arc sine constant" {
+  check_successful "bin/sample < test/sdf/hyperbolic_arc_sine_constant.sdf" "0.214355"
+}
+
 @test "hyperbolic arc cosine" {
   check_successful "bin/sample -x 2.467 < test/sdf/hyperbolic_arc_cosine_x.sdf" "1.552282"
 }
 
+@test "hyperbolic arc cosine constant" {
+  check_successful "bin/sample < test/sdf/hyperbolic_arc_cosine_constant.sdf" "1.552282"
+}
+
 @test "hyperbolic arc tangent" {
   check_successful "bin/sample -x 0.216 < test/sdf/hyperbolic_arc_tangent_x.sdf" "0.219457"
+}
+
+@test "hyperbolic arc tangent constant" {
+  check_successful "bin/sample < test/sdf/hyperbolic_arc_tangent_constant.sdf" "0.219457"
 }
 
 @test "absolute positive" {
@@ -333,8 +413,20 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample -x -0.216 < test/sdf/absolute_x.sdf" "0.216000"
 }
 
+@test "absolute constant positive" {
+  check_successful "bin/sample < test/sdf/absolute_constant_positive.sdf" "0.216000"
+}
+
+@test "absolute constant negative" {
+  check_successful "bin/sample < test/sdf/absolute_constant_negative.sdf" "0.216000"
+}
+
 @test "square root" {
   check_successful "bin/sample -x 4.61304484 < test/sdf/square_root_x.sdf" "2.147800"
+}
+
+@test "square root constant" {
+  check_successful "bin/sample < test/sdf/square_root_constant.sdf" "2.147799"
 }
 
 @test "floor -3.1" {
@@ -397,6 +489,66 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample -x 3.1 < test/sdf/floor_x.sdf" "3.000000"
 }
 
+@test "floor constant -3.1" {
+  check_successful "bin/sample < test/sdf/floor_constant_negative_3.1.sdf" "-4.000000"
+}
+
+@test "floor constant -2.9" {
+  check_successful "bin/sample < test/sdf/floor_constant_negative_2.9.sdf" "-3.000000"
+}
+
+@test "floor constant -2.1" {
+  check_successful "bin/sample < test/sdf/floor_constant_negative_2.1.sdf" "-3.000000"
+}
+
+@test "floor constant -1.9" {
+  check_successful "bin/sample < test/sdf/floor_constant_negative_1.9.sdf" "-2.000000"
+}
+
+@test "floor constant -1.1" {
+  check_successful "bin/sample < test/sdf/floor_constant_negative_1.1.sdf" "-2.000000"
+}
+
+@test "floor constant -0.9" {
+  check_successful "bin/sample < test/sdf/floor_constant_negative_0.9.sdf" "-1.000000"
+}
+
+@test "floor constant -0.1" {
+  check_successful "bin/sample < test/sdf/floor_constant_negative_0.1.sdf" "-1.000000"
+}
+
+@test "floor constant 0" {
+  check_successful "bin/sample < test/sdf/floor_constant_zero.sdf" "0.000000"
+}
+
+@test "floor constant 0.1" {
+  check_successful "bin/sample < test/sdf/floor_constant_positive_0.1.sdf" "0.000000"
+}
+
+@test "floor constant 0.9" {
+  check_successful "bin/sample < test/sdf/floor_constant_positive_0.9.sdf" "0.000000"
+}
+
+@test "floor constant 1.1" {
+  check_successful "bin/sample < test/sdf/floor_constant_positive_1.1.sdf" "1.000000"
+}
+
+@test "floor constant 1.9" {
+  check_successful "bin/sample < test/sdf/floor_constant_positive_1.9.sdf" "1.000000"
+}
+
+@test "floor constant 2.1" {
+  check_successful "bin/sample < test/sdf/floor_constant_positive_2.1.sdf" "2.000000"
+}
+
+@test "floor constant 2.9" {
+  check_successful "bin/sample < test/sdf/floor_constant_positive_2.9.sdf" "2.000000"
+}
+
+@test "floor constant 3.1" {
+  check_successful "bin/sample < test/sdf/floor_constant_positive_3.1.sdf" "3.000000"
+}
+
 @test "ceiling -3.1" {
   check_successful "bin/sample -x -3.1 < test/sdf/ceiling_x.sdf" "-3.000000"
 }
@@ -457,95 +609,440 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample -x 3.1 < test/sdf/ceiling_x.sdf" "4.000000"
 }
 
+@test "ceiling constant -3.1" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_negative_3.1.sdf" "-3.000000"
+}
+
+@test "ceiling constant -2.9" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_negative_2.9.sdf" "-2.000000"
+}
+
+@test "ceiling constant -2.1" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_negative_2.1.sdf" "-2.000000"
+}
+
+@test "ceiling constant -1.9" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_negative_1.9.sdf" "-1.000000"
+}
+
+@test "ceiling constant -1.1" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_negative_1.1.sdf" "-1.000000"
+}
+
+@test "ceiling constant -0.9" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_negative_0.9.sdf" "-0.000000"
+}
+
+@test "ceiling constant -0.1" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_negative_0.1.sdf" "-0.000000"
+}
+
+@test "ceiling constant 0" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_zero.sdf" "0.000000"
+}
+
+@test "ceiling constant 0.1" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_positive_0.1.sdf" "1.000000"
+}
+
+@test "ceiling constant 0.9" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_positive_0.9.sdf" "1.000000"
+}
+
+@test "ceiling constant 1.1" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_positive_1.1.sdf" "2.000000"
+}
+
+@test "ceiling constant 1.9" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_positive_1.9.sdf" "2.000000"
+}
+
+@test "ceiling constant 2.1" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_positive_2.1.sdf" "3.000000"
+}
+
+@test "ceiling constant 2.9" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_positive_2.9.sdf" "3.000000"
+}
+
+@test "ceiling constant 3.1" {
+  check_successful "bin/sample < test/sdf/ceiling_constant_positive_3.1.sdf" "4.000000"
+}
+
 @test "natural logarithm" {
   check_successful "bin/sample -x 0.216 < test/sdf/natural_logarithm_x.sdf" "-1.532477"
+}
+
+@test "natural logarithm constant" {
+  check_successful "bin/sample < test/sdf/natural_logarithm_constant.sdf" "-1.532477"
 }
 
 @test "logarithm 10" {
   check_successful "bin/sample -x 0.216 < test/sdf/logarithm_10_x.sdf" "-0.665546"
 }
 
+@test "logarithm 10 constant" {
+  check_successful "bin/sample < test/sdf/logarithm_10_constant.sdf" "-0.665546"
+}
+
 @test "natural power" {
   check_successful "bin/sample -x 0.216 < test/sdf/natural_power_x.sdf" "1.241102"
 }
 
-@test "add" {
+@test "natural power constant" {
+  check_successful "bin/sample < test/sdf/natural_power_constant.sdf" "1.241102"
+}
+
+@test "add parameter parameter" {
   check_successful "bin/sample -x 3.26 -y -11.01 < test/sdf/add_x_y.sdf" "-7.750000"
 }
 
-@test "subtract" {
+@test "add parameter constant" {
+  check_successful "bin/sample -x 3.26 < test/sdf/add_x_constant.sdf" "-7.750000"
+}
+
+@test "add constant parameter" {
+  check_successful "bin/sample -x -11.01 < test/sdf/add_constant_x.sdf" "-7.750000"
+}
+
+@test "add constant constant" {
+  check_successful "bin/sample < test/sdf/add_constant_constant.sdf" "-7.750000"
+}
+
+@test "subtract parameter parameter" {
   check_successful "bin/sample -x 3.26 -y -22.15 < test/sdf/subtract_x_y.sdf" "25.410000"
 }
 
-@test "multiply" {
+@test "subtract parameter constant" {
+  check_successful "bin/sample -x 3.26 < test/sdf/subtract_x_constant.sdf" "25.410000"
+}
+
+@test "subtract constant parameter" {
+  check_successful "bin/sample -x -22.15 < test/sdf/subtract_constant_x.sdf" "25.410000"
+}
+
+@test "subtract constant constant" {
+  check_successful "bin/sample < test/sdf/subtract_constant_constant.sdf" "25.410000"
+}
+
+@test "multiply parameter parameter" {
   check_successful "bin/sample -x 3.26 -y -22.15 < test/sdf/multiply_x_y.sdf" "-72.209000"
 }
 
-@test "divide" {
+@test "multiply parameter constant" {
+  check_successful "bin/sample -x 3.26 < test/sdf/multiply_x_constant.sdf" "-72.209000"
+}
+
+@test "multiply constant parameter" {
+  check_successful "bin/sample -x -22.15 < test/sdf/multiply_constant_x.sdf" "-72.209000"
+}
+
+@test "multiply constant constant" {
+  check_successful "bin/sample < test/sdf/multiply_constant_constant.sdf" "-72.209000"
+}
+
+@test "divide parameter parameter" {
   check_successful "bin/sample -x 3.26 -y -22.15 < test/sdf/divide_x_y.sdf" "-0.147178"
 }
 
-@test "pow" {
+@test "divide parameter constant" {
+  check_successful "bin/sample -x 3.26 < test/sdf/divide_x_constant.sdf" "-0.147178"
+}
+
+@test "divide constant parameter" {
+  check_successful "bin/sample -x -22.15 < test/sdf/divide_constant_x.sdf" "-0.147178"
+}
+
+@test "divide constant constant" {
+  check_successful "bin/sample < test/sdf/divide_constant_constant.sdf" "-0.147178"
+}
+
+@test "pow parameter parameter" {
   check_successful "bin/sample -x 22.15 -y 3.26 < test/sdf/pow_x_y.sdf" "24317.466797"
 }
 
-@test "modulo -2.1 before" {
+@test "pow parameter constant" {
+  check_successful "bin/sample -x 22.15 < test/sdf/pow_x_constant.sdf" "24317.466797"
+}
+
+@test "pow constant parameter" {
+  check_successful "bin/sample -x 3.26 < test/sdf/pow_constant_x.sdf" "24317.466797"
+}
+
+@test "pow constant constant" {
+  check_successful "bin/sample < test/sdf/pow_constant_constant.sdf" "24317.466797"
+}
+
+@test "modulo parameter parameter -2.1 before" {
   check_successful "bin/sample -x -13.7 -y 3.45 < test/sdf/modulo_x_y.sdf" "-3.350000"
 }
 
-@test "modulo -2.1" {
+@test "modulo parameter parameter -2.1" {
   check_successful "bin/sample -x -10.45 -y 3.45 < test/sdf/modulo_x_y.sdf" "-0.100000"
 }
 
-@test "modulo -1.1 before" {
+@test "modulo parameter parameter -1.1 before" {
   check_successful "bin/sample -x -6.8 -y 3.45 < test/sdf/modulo_x_y.sdf" "-3.350000"
 }
 
-@test "modulo -1.1" {
+@test "modulo parameter parameter -1.1" {
   check_successful "bin/sample -x -3.55 -y 3.45 < test/sdf/modulo_x_y.sdf" "-0.100000"
 }
 
-@test "modulo -0.1 before" {
+@test "modulo parameter parameter -0.1 before" {
   check_successful "bin/sample -x -3.35 -y 3.45 < test/sdf/modulo_x_y.sdf" "-3.350000"
 }
 
-@test "modulo -0.1" {
+@test "modulo parameter parameter -0.1" {
   check_successful "bin/sample -x -0.1 -y 3.45 < test/sdf/modulo_x_y.sdf" "-0.100000"
 }
 
-@test "modulo 0" {
+@test "modulo parameter parameter 0" {
   check_successful "bin/sample -y 3.45 < test/sdf/modulo_x_y.sdf" "0.000000"
 }
 
-@test "modulo 0.1" {
+@test "modulo parameter parameter 0.1" {
   check_successful "bin/sample -x 0.1 -y 3.45 < test/sdf/modulo_x_y.sdf" "0.100000"
 }
 
-@test "modulo 0.1 before" {
+@test "modulo parameter parameter 0.1 before" {
   check_successful "bin/sample -x 3.35 -y 3.45 < test/sdf/modulo_x_y.sdf" "3.350000"
 }
 
-@test "modulo 1.1" {
+@test "modulo parameter parameter 1.1" {
   check_successful "bin/sample -x 3.55 -y 3.45 < test/sdf/modulo_x_y.sdf" "0.100000"
 }
 
-@test "modulo 1.1 before" {
+@test "modulo parameter parameter 1.1 before" {
   check_successful "bin/sample -x 6.8 -y 3.45 < test/sdf/modulo_x_y.sdf" "3.350000"
 }
 
-@test "modulo 2.1" {
+@test "modulo parameter parameter 2.1" {
   check_successful "bin/sample -x 10.45 -y 3.45 < test/sdf/modulo_x_y.sdf" "0.100000"
 }
 
-@test "modulo 2.1 before" {
+@test "modulo parameter parameter 2.1 before" {
   check_successful "bin/sample -x 13.7 -y 3.45 < test/sdf/modulo_x_y.sdf" "3.350000"
 }
 
-@test "arc tangent 2" {
+@test "modulo parameter constant -2.1 before" {
+  check_successful "bin/sample -x -13.7 < test/sdf/modulo_x_constant.sdf" "-3.350000"
+}
+
+@test "modulo parameter constant -2.1" {
+  check_successful "bin/sample -x -10.45 < test/sdf/modulo_x_constant.sdf" "-0.100000"
+}
+
+@test "modulo parameter constant -1.1 before" {
+  check_successful "bin/sample -x -6.8 < test/sdf/modulo_x_constant.sdf" "-3.350000"
+}
+
+@test "modulo parameter constant -1.1" {
+  check_successful "bin/sample -x -3.55 < test/sdf/modulo_x_constant.sdf" "-0.100000"
+}
+
+@test "modulo parameter constant -0.1 before" {
+  check_successful "bin/sample -x -3.35 < test/sdf/modulo_x_constant.sdf" "-3.350000"
+}
+
+@test "modulo parameter constant -0.1" {
+  check_successful "bin/sample -x -0.1 < test/sdf/modulo_x_constant.sdf" "-0.100000"
+}
+
+@test "modulo parameter constant 0" {
+  check_successful "bin/sample < test/sdf/modulo_x_constant.sdf" "0.000000"
+}
+
+@test "modulo parameter constant 0.1" {
+  check_successful "bin/sample -x 0.1 < test/sdf/modulo_x_constant.sdf" "0.100000"
+}
+
+@test "modulo parameter constant 0.1 before" {
+  check_successful "bin/sample -x 3.35 < test/sdf/modulo_x_constant.sdf" "3.350000"
+}
+
+@test "modulo parameter constant 1.1" {
+  check_successful "bin/sample -x 3.55 < test/sdf/modulo_x_constant.sdf" "0.100000"
+}
+
+@test "modulo parameter constant 1.1 before" {
+  check_successful "bin/sample -x 6.8 < test/sdf/modulo_x_constant.sdf" "3.350000"
+}
+
+@test "modulo parameter constant 2.1" {
+  check_successful "bin/sample -x 10.45 < test/sdf/modulo_x_constant.sdf" "0.100000"
+}
+
+@test "modulo parameter constant 2.1 before" {
+  check_successful "bin/sample -x 13.7 < test/sdf/modulo_x_constant.sdf" "3.350000"
+}
+
+@test "modulo constant parameter -2.1 before" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_negative_2.1_before_x.sdf" "-3.350000"
+}
+
+@test "modulo constant parameter -2.1" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_negative_2.1_x.sdf" "-0.100000"
+}
+
+@test "modulo constant parameter -1.1 before" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_negative_1.1_before_x.sdf" "-3.350000"
+}
+
+@test "modulo constant parameter -1.1" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_negative_1.1_x.sdf" "-0.100000"
+}
+
+@test "modulo constant parameter -0.1 before" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_negative_0.1_before_x.sdf" "-3.350000"
+}
+
+@test "modulo constant parameter -0.1" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_negative_0.1_x.sdf" "-0.100000"
+}
+
+@test "modulo constant parameter 0" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_zero_x.sdf" "0.000000"
+}
+
+@test "modulo constant parameter 0.1" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_positive_0.1_x.sdf" "0.100000"
+}
+
+@test "modulo constant parameter 0.1 before" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_positive_0.1_before_x.sdf" "3.350000"
+}
+
+@test "modulo constant parameter 1.1" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_positive_1.1_x.sdf" "0.100000"
+}
+
+@test "modulo constant parameter 1.1 before" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_positive_1.1_before_x.sdf" "3.350000"
+}
+
+@test "modulo constant parameter 2.1" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_positive_2.1_x.sdf" "0.100000"
+}
+
+@test "modulo constant parameter 2.1 before" {
+  check_successful "bin/sample -x 3.45 < test/sdf/modulo_constant_positive_2.1_before_x.sdf" "3.350000"
+}
+
+@test "modulo constant constant -2.1 before" {
+  check_successful "bin/sample < test/sdf/modulo_constant_negative_2.1_before_constant.sdf" "-3.350000"
+}
+
+@test "modulo constant constant -2.1" {
+  check_successful "bin/sample < test/sdf/modulo_constant_negative_2.1_constant.sdf" "-0.100000"
+}
+
+@test "modulo constant constant -1.1 before" {
+  check_successful "bin/sample < test/sdf/modulo_constant_negative_1.1_before_constant.sdf" "-3.350000"
+}
+
+@test "modulo constant constant -1.1" {
+  check_successful "bin/sample < test/sdf/modulo_constant_negative_1.1_constant.sdf" "-0.100000"
+}
+
+@test "modulo constant constant -0.1 before" {
+  check_successful "bin/sample < test/sdf/modulo_constant_negative_0.1_before_constant.sdf" "-3.350000"
+}
+
+@test "modulo constant constant -0.1" {
+  check_successful "bin/sample < test/sdf/modulo_constant_negative_0.1_constant.sdf" "-0.100000"
+}
+
+@test "modulo constant constant 0" {
+  check_successful "bin/sample < test/sdf/modulo_constant_zero_constant.sdf" "0.000000"
+}
+
+@test "modulo constant constant 0.1" {
+  check_successful "bin/sample < test/sdf/modulo_constant_positive_0.1_constant.sdf" "0.100000"
+}
+
+@test "modulo constant constant 0.1 before" {
+  check_successful "bin/sample < test/sdf/modulo_constant_positive_0.1_before_constant.sdf" "3.350000"
+}
+
+@test "modulo constant constant 1.1" {
+  check_successful "bin/sample < test/sdf/modulo_constant_positive_1.1_constant.sdf" "0.100000"
+}
+
+@test "modulo constant constant 1.1 before" {
+  check_successful "bin/sample < test/sdf/modulo_constant_positive_1.1_before_constant.sdf" "3.350000"
+}
+
+@test "modulo constant constant 2.1" {
+  check_successful "bin/sample < test/sdf/modulo_constant_positive_2.1_constant.sdf" "0.100000"
+}
+
+@test "modulo constant constant 2.1 before" {
+  check_successful "bin/sample < test/sdf/modulo_constant_positive_2.1_before_constant.sdf" "3.350000"
+}
+
+@test "arc tangent 2 parameter parameter positive negative" {
   check_successful "bin/sample -x 14.217 -y -37.214 < test/sdf/arc_tangent_2_x_y.sdf" "2.776670"
+}
+
+@test "arc tangent 2 parameter parameter positive positive" {
   check_successful "bin/sample -x 14.217 -y 37.214 < test/sdf/arc_tangent_2_x_y.sdf" "0.364923"
+}
+
+@test "arc tangent 2 parameter parameter negative positive" {
   check_successful "bin/sample -x -14.217 -y 37.214 < test/sdf/arc_tangent_2_x_y.sdf" "-0.364923"
+}
+
+@test "arc tangent 2 parameter parameter negative negative" {
   check_successful "bin/sample -x -14.217 -y -37.214 < test/sdf/arc_tangent_2_x_y.sdf" "-2.776670"
+}
+
+@test "arc tangent 2 parameter constant positive negative" {
+  check_successful "bin/sample -x 14.217 < test/sdf/arc_tangent_2_x_constant_negative.sdf" "2.776670"
+}
+
+@test "arc tangent 2 parameter constant positive positive" {
+  check_successful "bin/sample -x 14.217 < test/sdf/arc_tangent_2_x_constant_positive.sdf" "0.364923"
+}
+
+@test "arc tangent 2 parameter constant negative positive" {
+  check_successful "bin/sample -x -14.217 < test/sdf/arc_tangent_2_x_constant_positive.sdf" "-0.364923"
+}
+
+@test "arc tangent 2 parameter constant negative negative" {
+  check_successful "bin/sample -x -14.217 < test/sdf/arc_tangent_2_x_constant_negative.sdf" "-2.776670"
+}
+
+@test "arc tangent 2 constant parameter positive negative" {
+  check_successful "bin/sample -x -37.214 < test/sdf/arc_tangent_2_constant_positive_x.sdf" "2.776670"
+}
+
+@test "arc tangent 2 constant parameter positive positive" {
+  check_successful "bin/sample -x 37.214 < test/sdf/arc_tangent_2_constant_positive_x.sdf" "0.364923"
+}
+
+@test "arc tangent 2 constant parameter negative positive" {
+  check_successful "bin/sample -x 37.214 < test/sdf/arc_tangent_2_constant_negative_x.sdf" "-0.364923"
+}
+
+@test "arc tangent 2 constant parameter negative negative" {
+  check_successful "bin/sample -x -37.214 < test/sdf/arc_tangent_2_constant_negative_x.sdf" "-2.776670"
+}
+
+@test "arc tangent 2 constant constant positive negative" {
+  check_successful "bin/sample < test/sdf/arc_tangent_2_constant_positive_constant_negative.sdf" "2.776670"
+}
+
+@test "arc tangent 2 constant constant positive positive" {
+  check_successful "bin/sample < test/sdf/arc_tangent_2_constant_positive_constant_positive.sdf" "0.364923"
+}
+
+@test "arc tangent 2 constant constant negative positive" {
+  check_successful "bin/sample < test/sdf/arc_tangent_2_constant_negative_constant_positive.sdf" "-0.364923"
+}
+
+@test "arc tangent 2 constant constant negative negative" {
+  check_successful "bin/sample < test/sdf/arc_tangent_2_constant_negative_constant_negative.sdf" "-2.776670"
 }
 
 @test "empty" {
@@ -568,12 +1065,44 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_failure "bin/sample < test/sdf/unary_argument_a_truncated.sdf" "unexpected eof reading argument a"
 }
 
+@test "unary argument a constant missing" {
+  check_failure "bin/sample < test/sdf/unary_argument_a_constant_missing.sdf" "unexpected eof reading float constant"
+}
+
+@test "unary argument a constant truncated a" {
+  check_failure "bin/sample < test/sdf/unary_argument_a_constant_truncated_a.sdf" "unexpected eof reading float constant"
+}
+
+@test "unary argument a constant truncated b" {
+  check_failure "bin/sample < test/sdf/unary_argument_a_constant_truncated_b.sdf" "unexpected eof reading float constant"
+}
+
+@test "unary argument a constant truncated c" {
+  check_failure "bin/sample < test/sdf/unary_argument_a_constant_truncated_c.sdf" "unexpected eof reading float constant"
+}
+
 @test "binary argument a missing" {
   check_failure "bin/sample < test/sdf/binary_argument_a_missing.sdf" "unexpected eof reading argument a"
 }
 
 @test "binary argument a truncated" {
   check_failure "bin/sample < test/sdf/binary_argument_a_truncated.sdf" "unexpected eof reading argument a"
+}
+
+@test "binary argument a constant missing" {
+  check_failure "bin/sample < test/sdf/binary_argument_a_constant_missing.sdf" "unexpected eof reading float constant"
+}
+
+@test "binary argument a constant truncated a" {
+  check_failure "bin/sample < test/sdf/binary_argument_a_constant_truncated_a.sdf" "unexpected eof reading float constant"
+}
+
+@test "binary argument a constant truncated b" {
+  check_failure "bin/sample < test/sdf/binary_argument_a_constant_truncated_b.sdf" "unexpected eof reading float constant"
+}
+
+@test "binary argument a constant truncated c" {
+  check_failure "bin/sample < test/sdf/binary_argument_a_constant_truncated_c.sdf" "unexpected eof reading float constant"
 }
 
 @test "binary argument b missing" {
@@ -584,12 +1113,44 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_failure "bin/sample < test/sdf/binary_argument_b_truncated.sdf" "unexpected eof reading argument b"
 }
 
+@test "binary argument b constant missing" {
+  check_failure "bin/sample < test/sdf/binary_argument_b_constant_missing.sdf" "unexpected eof reading float constant"
+}
+
+@test "binary argument b constant truncated a" {
+  check_failure "bin/sample < test/sdf/binary_argument_b_constant_truncated_a.sdf" "unexpected eof reading float constant"
+}
+
+@test "binary argument b constant truncated b" {
+  check_failure "bin/sample < test/sdf/binary_argument_b_constant_truncated_b.sdf" "unexpected eof reading float constant"
+}
+
+@test "binary argument b constant truncated c" {
+  check_failure "bin/sample < test/sdf/binary_argument_b_constant_truncated_c.sdf" "unexpected eof reading float constant"
+}
+
 @test "ternary argument a missing" {
   check_failure "bin/sample < test/sdf/ternary_argument_a_missing.sdf" "unexpected eof reading argument a"
 }
 
 @test "ternary argument a truncated" {
   check_failure "bin/sample < test/sdf/ternary_argument_a_truncated.sdf" "unexpected eof reading argument a"
+}
+
+@test "ternary argument a constant missing" {
+  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_missing.sdf" "unexpected eof reading float constant"
+}
+
+@test "ternary argument a constant truncated a" {
+  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_truncated_a.sdf" "unexpected eof reading float constant"
+}
+
+@test "ternary argument a constant truncated b" {
+  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_truncated_b.sdf" "unexpected eof reading float constant"
+}
+
+@test "ternary argument a constant truncated c" {
+  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_truncated_c.sdf" "unexpected eof reading float constant"
 }
 
 @test "ternary argument b missing" {
@@ -600,10 +1161,42 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_failure "bin/sample < test/sdf/ternary_argument_b_truncated.sdf" "unexpected eof reading argument b"
 }
 
+@test "ternary argument b constant missing" {
+  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_missing.sdf" "unexpected eof reading float constant"
+}
+
+@test "ternary argument b constant truncated a" {
+  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_truncated_a.sdf" "unexpected eof reading float constant"
+}
+
+@test "ternary argument b constant truncated b" {
+  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_truncated_b.sdf" "unexpected eof reading float constant"
+}
+
+@test "ternary argument b constant truncated c" {
+  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_truncated_c.sdf" "unexpected eof reading float constant"
+}
+
 @test "ternary argument c missing" {
   check_failure "bin/sample < test/sdf/ternary_argument_c_missing.sdf" "unexpected eof reading argument c"
 }
 
 @test "ternary argument c truncated" {
   check_failure "bin/sample < test/sdf/ternary_argument_c_truncated.sdf" "unexpected eof reading argument c"
+}
+
+@test "ternary argument c constant missing" {
+  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_missing.sdf" "unexpected eof reading float constant"
+}
+
+@test "ternary argument c constant truncated a" {
+  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_truncated_a.sdf" "unexpected eof reading float constant"
+}
+
+@test "ternary argument c constant truncated b" {
+  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_truncated_b.sdf" "unexpected eof reading float constant"
+}
+
+@test "ternary argument c constant truncated c" {
+  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_truncated_c.sdf" "unexpected eof reading float constant"
 }

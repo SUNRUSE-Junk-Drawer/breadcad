@@ -14,6 +14,7 @@ ALL_FRAMEWORK_O = $(addprefix obj/framework/, $(addsuffix .o, $(basename $(notdi
 ALL_EXECUTABLES = $(addprefix bin/, $(basename $(notdir $(wildcard src/executables/*.c))))
 ALL_TEST_FRAMEWORK = $(wildcard test/framework/*.bash)
 ALL_TEST_RESULTS = $(addprefix test_results/, $(basename $(notdir $(wildcard test/executables/*.bash))))
+ALL_TEST_SDF = $(wildcard test/sdf/*.sdf)
 
 obj/%.o: src/%.c $(ALL_H) makefile
 	mkdir -p $(dir $@)
@@ -23,7 +24,7 @@ bin/%: obj/executables/%.o $(ALL_FRAMEWORK_O)
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -o $@ $^ -lm
 
-test_results/%: test/executables/%.bash bin/% $(ALL_TEST_FRAMEWORK)
+test_results/%: test/executables/%.bash bin/% $(ALL_TEST_FRAMEWORK) $(ALL_TEST_SDF)
 	mkdir -p test_results
 	submodules/bats-core/bin/bats $<
 	touch $@

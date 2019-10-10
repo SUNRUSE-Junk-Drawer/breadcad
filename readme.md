@@ -61,11 +61,13 @@ An opcode is a 16-bit unsigned integer.
 | A805   | Number  | Number  | Number  | Void    | 05 | Modulo                  |                    |
 | A806   | Number  | Number  | Number  | Void    | 06 | Arc Tangent             |                    |
 
-Each instruction is its opcode, followed by a u16 for each of its arguments in
-order.
+Each instruction is its opcode, followed by each of its arguments in order.  An
+argument starts with a u16.
 
-An argument is the index of the result of a previous instruction.  It is an
-error to use the result of the instruction for which arguments are being
+If this is 0xFFFF, an IEEE 32-bit float constant follows.
+
+Otherwise, the u16 is the index of the result of a previous instruction.  It is
+an error to use the result of the instruction for which arguments are being
 specified, one which will be defined later in the stream, or one which never
 will.
 
