@@ -1,6 +1,7 @@
 #ifndef SDF_OPCODE_H
 #define SDF_OPCODE_H
 
+#include <stdio.h>
 #include "types.h"
 #include "primitive.h"
 
@@ -73,6 +74,11 @@ sdf_opcode_arity_t sdf_opcode_arity(
 );
 
 sdf_opcode_id_t sdf_opcode_id(
+  sdf_opcode_t opcode
+);
+
+void sdf_opcode_print(
+  FILE * file,
   sdf_opcode_t opcode
 );
 
