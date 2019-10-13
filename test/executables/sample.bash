@@ -1058,7 +1058,7 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "min parameter constant a" {
-  check_successful "bin/sample -x 3.2312 < test/sdf/min_x_constant.sdf" "3.231200"
+  check_successful "bin/sample -x 4.2771 < test/sdf/min_x_constant.sdf" "3.231200"
 }
 
 @test "min parameter constant equal" {
