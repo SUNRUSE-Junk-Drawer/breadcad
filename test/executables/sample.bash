@@ -1093,6 +1093,54 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample < test/sdf/min_constant_constant_b.sdf" "3.231200"
 }
 
+@test "max parameter parameter a" {
+  check_successful "bin/sample -x 4.2771 -y 3.2312 < test/sdf/max_x_y.sdf" "4.277100"
+}
+
+@test "max parameter parameter equal" {
+  check_successful "bin/sample -x 3.2312 -y 3.2312 < test/sdf/max_x_y.sdf" "3.231200"
+}
+
+@test "max parameter parameter b" {
+  check_successful "bin/sample -x 3.2312 -y 4.2771 < test/sdf/max_x_y.sdf" "4.277100"
+}
+
+@test "max parameter constant a" {
+  check_successful "bin/sample -x 2.8745 < test/sdf/max_x_constant.sdf" "3.231200"
+}
+
+@test "max parameter constant equal" {
+  check_successful "bin/sample -x 3.2312 < test/sdf/max_x_constant.sdf" "3.231200"
+}
+
+@test "max parameter constant b" {
+  check_successful "bin/sample -x 4.2771 < test/sdf/max_x_constant.sdf" "4.277100"
+}
+
+@test "max constant parameter a" {
+  check_successful "bin/sample -x 2.8745 < test/sdf/max_constant_x.sdf" "3.231200"
+}
+
+@test "max constant parameter equal" {
+  check_successful "bin/sample -x 3.2312 < test/sdf/max_constant_x.sdf" "3.231200"
+}
+
+@test "max constant parameter b" {
+  check_successful "bin/sample -x 4.2771 < test/sdf/max_constant_x.sdf" "4.277100"
+}
+
+@test "max constant constant a" {
+  check_successful "bin/sample < test/sdf/max_constant_constant_a.sdf" "4.242350"
+}
+
+@test "max constant constant equal" {
+  check_successful "bin/sample < test/sdf/max_constant_constant_equal.sdf" "3.231200"
+}
+
+@test "max constant constant b" {
+  check_successful "bin/sample < test/sdf/max_constant_constant_b.sdf" "4.242350"
+}
+
 @test "empty" {
   check_successful "bin/sample < test/sdf/empty.sdf" "inf"
 }

@@ -52,6 +52,7 @@ typedef sdf_u8_t sdf_opcode_arity_t;
 #define SDF_OPCODE_MODULO 0xA805
 #define SDF_OPCODE_ARC_TANGENT_2 0xA806
 #define SDF_OPCODE_MIN 0xA807
+#define SDF_OPCODE_MAX 0xA808
 
 sdf_primitive_t sdf_opcode_result(
   sdf_opcode_t opcode

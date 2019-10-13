@@ -275,6 +275,7 @@ static void sdf__execute_instruction(
     SDF_EXECUTE_BINARY(MODULO, f32, f32, f32, __builtin_fmodf(argument_a_f32, argument_b_f32))
     SDF_EXECUTE_BINARY(ARC_TANGENT_2, f32, f32, f32, __builtin_atan2f(argument_a_f32, argument_b_f32))
     SDF_EXECUTE_BINARY(MIN, f32, f32, f32, __builtin_fminf(argument_a_f32, argument_b_f32))
+    SDF_EXECUTE_BINARY(MAX, f32, f32, f32, __builtin_fmaxf(argument_a_f32, argument_b_f32))
     default:
       if (opcode >= SDF_OPCODE_PARAMETER_MIN && opcode <= SDF_OPCODE_PARAMETER_MAX) {
         id = sdf_opcode_id(opcode);

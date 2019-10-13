@@ -61,6 +61,7 @@ An opcode is a 16-bit unsigned integer.
 | A805   | Number  | Number  | Number  | Void    | 05 | Modulo                  |                    |
 | A806   | Number  | Number  | Number  | Void    | 06 | Arc Tangent             |                    |
 | A807   | Number  | Number  | Number  | Void    | 07 | Min                     |                    |
+| A808   | Number  | Number  | Number  | Void    | 07 | Max                     |                    |
 
 Each instruction is its opcode, followed by each of its arguments in order.  An
 argument starts with a u16.
