@@ -2,7 +2,9 @@
 #include "../framework/types.h"
 #include "../framework/opcode.h"
 #include "../framework/pointer.h"
+#include "../framework/argument.h"
 #include "../framework/cli.h"
+#include "../framework/write_sdf.h"
 #include "../framework/executable.h"
 
 const char * sdf_executable_name = "cuboid";
@@ -59,7 +61,29 @@ void sdf_executable_cli(void) {
   sdf__axis('z', &sdf__size_z, &sdf__center_z);
 }
 
+static sdf_argument_t sdf__generate_axis(
+  sdf_opcode_id_t parameter,
+  sdf_f32_t size,
+  sdf_boolean_t center
+) {
+  sdf_argument_t position = sdf_write_sdf_nullary(SDF_OPCODE_PARAMETER(parameter));
+  sdf_argument_t negative_distance, positive_distance;
+  if (center) {
+    negative_distance = sdf_write_sdf_binary(SDF_OPCODE_SUBTRACT, sdf_argument_float_constant(size / -2.0f), position);
+    positive_distance = sdf_write_sdf_binary(SDF_OPCODE_SUBTRACT, position, sdf_argument_float_constant(size / 2.0f));
+  } else {
+    negative_distance = sdf_write_sdf_unary(SDF_OPCODE_NEGATE, position);
+    positive_distance = sdf_write_sdf_binary(SDF_OPCODE_SUBTRACT, position, sdf_argument_float_constant(size));
+  }
+  return sdf_write_sdf_binary(SDF_OPCODE_MAX, negative_distance, positive_distance);
+}
+
 void sdf_executable_before_first_file(void) {
+  sdf_argument_t x = sdf__generate_axis(0, sdf__size_x, sdf__center_x);
+  sdf_argument_t y = sdf__generate_axis(1, sdf__size_y, sdf__center_y);
+  sdf_argument_t max_x_y = sdf_write_sdf_binary(SDF_OPCODE_MAX, x, y);
+  sdf_argument_t z = sdf__generate_axis(2, sdf__size_z, sdf__center_z);
+  sdf_write_sdf_binary(SDF_OPCODE_MAX, max_x_y, z);
 }
 
 void sdf_executable_nullary(
