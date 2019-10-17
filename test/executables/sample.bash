@@ -41,20 +41,8 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample -x 3.26 -y -22.15 -z 14.27 < test/sdf/parameter_x.sdf" "3.260000"
 }
 
-@test "parameter x missing value" {
-  check_failure "bin/sample -x" "expected a value for command line argument -x/--x"
-}
-
-@test "parameter x interrupted" {
-  check_failure "bin/sample -x -y 14.21" "unable to parse command line argument -x/--x value \"-y\" as a float"
-}
-
-@test "parameter x non-numeric" {
-  check_failure "bin/sample -x wadjilad" "unable to parse command line argument -x/--x value \"wadjilad\" as a float"
-}
-
-@test "parameter x partially numeric" {
-  check_failure "bin/sample -x 53.34wa" "unable to parse command line argument -x/--x value \"53.34wa\" as a float"
+@test "parameter x validation" {
+  float_parameter "sample" "x" "x"
 }
 
 @test "parameter y default" {
@@ -77,20 +65,8 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample -x 3.26 -y -22.15 -z 14.27 < test/sdf/parameter_y.sdf" "-22.150000"
 }
 
-@test "parameter y missing value" {
-  check_failure "bin/sample -y" "expected a value for command line argument -y/--y"
-}
-
-@test "parameter y interrupted" {
-  check_failure "bin/sample -y -z 14.21" "unable to parse command line argument -y/--y value \"-z\" as a float"
-}
-
-@test "parameter y non-numeric" {
-  check_failure "bin/sample -y wadjilad" "unable to parse command line argument -y/--y value \"wadjilad\" as a float"
-}
-
-@test "parameter y partially numeric" {
-  check_failure "bin/sample -y 53.34wa" "unable to parse command line argument -y/--y value \"53.34wa\" as a float"
+@test "parameter y validation" {
+  float_parameter "sample" "y" "y"
 }
 
 @test "parameter z default" {
@@ -113,20 +89,8 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample -x 3.26 -y -22.15 -z 14.27 < test/sdf/parameter_z.sdf" "14.270000"
 }
 
-@test "parameter z missing value" {
-  check_failure "bin/sample -z" "expected a value for command line argument -z/--z"
-}
-
-@test "parameter z interrupted" {
-  check_failure "bin/sample -z -x 14.21" "expected a value for command line argument -z/--z"
-}
-
-@test "parameter z non-numeric" {
-  check_failure "bin/sample -z wadjilad" "unable to parse command line argument -z/--z value \"wadjilad\" as a float"
-}
-
-@test "parameter z partially numeric" {
-  check_failure "bin/sample -z 53.34wa" "unable to parse command line argument -z/--z value \"53.34wa\" as a float"
+@test "parameter z validation" {
+  float_parameter "sample" "z" "z"
 }
 
 @test "parameter w" {
