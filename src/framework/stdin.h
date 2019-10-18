@@ -3,6 +3,7 @@
 
 #include "types.h"
 
-void sdf_stdin(void);
+void sdf_stdin_check(void);
+void sdf_stdin_read(void);
 
 #endif

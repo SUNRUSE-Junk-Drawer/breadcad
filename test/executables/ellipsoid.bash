@@ -29,3 +29,11 @@ executable_help="ellipsoid - generates an ellipsoid
 @test "help (query)" {
   test_help "/?"
 }
+
+@test "empty stdin" {
+  check_successful "bin/ellipsoid < test/sdf/empty.sdf | bin/sample" "inf"
+}
+
+@test "non-empty stdin" {
+  check_failure "bin/ellipsoid < test/sdf/parameter_x.sdf" "unexpected stdin"
+}
