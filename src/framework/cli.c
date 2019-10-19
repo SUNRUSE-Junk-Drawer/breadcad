@@ -6,6 +6,7 @@
 #include "types.h"
 #include "executable.h"
 #include "cli.h"
+#include "read_sdf.h"
 
 static int sdf__argc;
 static char ** sdf__argv;
@@ -197,6 +198,26 @@ void sdf_cli(int argc, char * argv[]) {
   if (sdf__help) {
     exit(0);
   } else {
-    sdf__verify_all_used();
+    if (!sdf_executable_reads_models_from_command_line_arguments) {
+      sdf__verify_all_used();
+    }
+  }
+}
+
+static void sdf__read(
+  int argument
+) {
+  FILE * file = fopen(sdf__argv[argument], "rb");
+  sdf_read_sdf(file);
+  fclose(file);
+}
+
+void sdf_cli_read(void) {
+  int argument = 0;
+  while (argument < sdf__argc) {
+    if (!sdf__used[argument]) {
+      sdf__read(argument);
+    }
+    argument++;
   }
 }
