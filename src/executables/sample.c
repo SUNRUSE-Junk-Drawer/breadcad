@@ -39,11 +39,7 @@ void sdf_executable_unary(
   sdf_opcode_t opcode,
   sdf_argument_t argument_a
 ) {
-  sdf_store_unary(
-    opcode,
-    argument_a.pointer,
-    argument_a.float_constant
-  );
+  sdf_store_unary(opcode, argument_a);
 }
 
 void sdf_executable_binary(
@@ -51,13 +47,7 @@ void sdf_executable_binary(
   sdf_argument_t argument_a,
   sdf_argument_t argument_b
 ) {
-  sdf_store_binary(
-    opcode,
-    argument_a.pointer,
-    argument_a.float_constant,
-    argument_b.pointer,
-    argument_b.float_constant
-  );
+  sdf_store_binary(opcode, argument_a, argument_b);
 }
 
 void sdf_executable_ternary(
@@ -66,15 +56,7 @@ void sdf_executable_ternary(
   sdf_argument_t argument_b,
   sdf_argument_t argument_c
 ) {
-  sdf_store_ternary(
-    opcode,
-    argument_a.pointer,
-    argument_a.float_constant,
-    argument_b.pointer,
-    argument_b.float_constant,
-    argument_c.pointer,
-    argument_c.float_constant
-  );
+  sdf_store_ternary(opcode, argument_a, argument_b, argument_c);
 }
 
 void sdf_executable_eof(void) {

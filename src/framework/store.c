@@ -3,6 +3,7 @@
 #include "malloc.h"
 #include "opcode.h"
 #include "pointer.h"
+#include "argument.h"
 #include "store.h"
 
 size_t sdf_store_total_opcodes = 0;
@@ -53,36 +54,30 @@ void sdf_store_nullary(
 
 void sdf_store_unary(
   sdf_opcode_t opcode,
-  sdf_pointer_t argument_a_pointer,
-  sdf_f32_t argument_a_float_constant
+  sdf_argument_t argument_a
 ) {
   sdf__store_opcode(opcode);
-  sdf__store_argument(argument_a_pointer, argument_a_float_constant);
+  sdf__store_argument(argument_a.pointer, argument_a.float_constant);
 }
 
 void sdf_store_binary(
   sdf_opcode_t opcode,
-  sdf_pointer_t argument_a_pointer,
-  sdf_f32_t argument_a_float_constant,
-  sdf_pointer_t argument_b_pointer,
-  sdf_f32_t argument_b_float_constant
+  sdf_argument_t argument_a,
+  sdf_argument_t argument_b
 ) {
   sdf__store_opcode(opcode);
-  sdf__store_argument(argument_a_pointer, argument_a_float_constant);
-  sdf__store_argument(argument_b_pointer, argument_b_float_constant);
+  sdf__store_argument(argument_a.pointer, argument_a.float_constant);
+  sdf__store_argument(argument_b.pointer, argument_b.float_constant);
 }
 
 void sdf_store_ternary(
   sdf_opcode_t opcode,
-  sdf_pointer_t argument_a_pointer,
-  sdf_f32_t argument_a_float_constant,
-  sdf_pointer_t argument_b_pointer,
-  sdf_f32_t argument_b_float_constant,
-  sdf_pointer_t argument_c_pointer,
-  sdf_f32_t argument_c_float_constant
+  sdf_argument_t argument_a,
+  sdf_argument_t argument_b,
+  sdf_argument_t argument_c
 ) {
   sdf__store_opcode(opcode);
-  sdf__store_argument(argument_a_pointer, argument_a_float_constant);
-  sdf__store_argument(argument_b_pointer, argument_b_float_constant);
-  sdf__store_argument(argument_c_pointer, argument_c_float_constant);
+  sdf__store_argument(argument_a.pointer, argument_a.float_constant);
+  sdf__store_argument(argument_b.pointer, argument_b.float_constant);
+  sdf__store_argument(argument_c.pointer, argument_c.float_constant);
 }
