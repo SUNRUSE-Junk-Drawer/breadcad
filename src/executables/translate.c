@@ -64,11 +64,15 @@ void sdf_executable_nullary(
     parameter = sdf_opcode_id(opcode);
     if (!sdf__parameters_generated[parameter]) {
       original_parameter = sdf_write_sdf_nullary(opcode);
-      result = sdf_write_sdf_binary(
-        SDF_OPCODE_SUBTRACT,
-        original_parameter,
-        sdf_argument_float_constant(sdf__translation[parameter])
-      );
+      if (sdf__translation[parameter]) {
+        result = sdf_write_sdf_binary(
+          SDF_OPCODE_SUBTRACT,
+          original_parameter,
+          sdf_argument_float_constant(sdf__translation[parameter])
+        );
+      } else {
+        result = original_parameter;
+      }
       sdf__manipulated_parameters[parameter] = result;
       sdf__parameters_generated[parameter] = SDF_BOOLEAN_TRUE;
     } else {
