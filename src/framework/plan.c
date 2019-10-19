@@ -65,7 +65,7 @@ static void sdf__release_buffer_if_unused(
 ) {
   if (buffer != SIZE_MAX) {
     while (after_argument < sdf_store_total_arguments) {
-      if (sdf_store_argument_pointers[after_argument] == sdf__buffer_users[buffer]) {
+      if (sdf_store_arguments[after_argument].pointer == sdf__buffer_users[buffer]) {
         return;
       }
       after_argument++;
@@ -91,7 +91,7 @@ static void sdf__find_buffers_for_arguments(
 ) {
   sdf_pointer_t pointer;
   while (first_argument < end_of_arguments) {
-    pointer = sdf_store_argument_pointers[first_argument];
+    pointer = sdf_store_arguments[first_argument].pointer;
     if (pointer == SDF_POINTER_FLOAT_CONSTANT) {
       sdf_plan_argument_buffers[first_argument] = SIZE_MAX;
     } else {

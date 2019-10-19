@@ -3,14 +3,12 @@
 
 #include <stdlib.h>
 #include "opcode.h"
-#include "pointer.h"
 #include "argument.h"
 
 extern size_t sdf_store_total_opcodes;
 extern sdf_opcode_t * sdf_store_opcodes;
 extern size_t sdf_store_total_arguments;
-extern sdf_pointer_t * sdf_store_argument_pointers;
-extern sdf_f32_t * sdf_store_argument_float_constants;
+extern sdf_argument_t * sdf_store_arguments;
 
 void sdf_store_clear(void);
 
