@@ -158,11 +158,14 @@ static void sdf__check_whether_help(void) {
       sdf__help = SDF_BOOLEAN_TRUE;
       printf("%s - %s\n", sdf_executable_name, sdf_executable_description);
       printf(
-        "  usage: %s%s [options]%s\n",
+        "  usage: %s%s [options",
         sdf_executable_usage_prefix,
-        sdf_executable_name,
-        sdf_executable_usage_suffix
+        sdf_executable_name
       );
+      if (sdf_executable_reads_models_from_command_line_arguments) {
+        printf(", paths to sdf streams");
+      }
+      printf("]%s\n", sdf_executable_usage_suffix);
       printf("  options:\n");
       printf("    -h, --help, /?: display this message\n");
       return;
