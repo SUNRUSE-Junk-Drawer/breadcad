@@ -11,6 +11,7 @@ const char * sdf_executable_description = "generates a cuboid";
 const char * sdf_executable_usage_prefix = "";
 const char * sdf_executable_usage_suffix = " | [consumer of sdf stream]";
 const sdf_boolean_t sdf_executable_reads_model_from_stdin = SDF_BOOLEAN_FALSE;
+const sdf_boolean_t sdf_executable_reads_models_from_command_line_arguments = SDF_BOOLEAN_FALSE;
 
 static sdf_f32_t sdf__size_x;
 static sdf_f32_t sdf__size_y;
