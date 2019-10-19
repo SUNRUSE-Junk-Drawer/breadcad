@@ -14,6 +14,7 @@ const char * sdf_executable_description = "translates the geometry described by 
 const char * sdf_executable_usage_prefix = "[sdf stream] | ";
 const char * sdf_executable_usage_suffix = " | [consumer of sdf stream]";
 const sdf_boolean_t sdf_executable_reads_model_from_stdin = SDF_BOOLEAN_TRUE;
+const sdf_boolean_t sdf_executable_reads_models_from_command_line_arguments = SDF_BOOLEAN_FALSE;
 
 static sdf_f32_t sdf__translation[3];
 static sdf_boolean_t sdf__parameters_generated[] = { SDF_BOOLEAN_FALSE, SDF_BOOLEAN_FALSE, SDF_BOOLEAN_FALSE };

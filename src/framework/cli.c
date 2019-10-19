@@ -6,6 +6,7 @@
 #include "types.h"
 #include "executable.h"
 #include "cli.h"
+#include "read_sdf.h"
 
 static int sdf__argc;
 static char ** sdf__argv;
@@ -158,11 +159,14 @@ static void sdf__check_whether_help(void) {
       sdf__help = SDF_BOOLEAN_TRUE;
       printf("%s - %s\n", sdf_executable_name, sdf_executable_description);
       printf(
-        "  usage: %s%s [options]%s\n",
+        "  usage: %s%s [options",
         sdf_executable_usage_prefix,
-        sdf_executable_name,
-        sdf_executable_usage_suffix
+        sdf_executable_name
       );
+      if (sdf_executable_reads_models_from_command_line_arguments) {
+        printf(", paths to sdf streams");
+      }
+      printf("]%s\n", sdf_executable_usage_suffix);
       printf("  options:\n");
       printf("    -h, --help, /?: display this message\n");
       return;
@@ -194,6 +198,26 @@ void sdf_cli(int argc, char * argv[]) {
   if (sdf__help) {
     exit(0);
   } else {
-    sdf__verify_all_used();
+    if (!sdf_executable_reads_models_from_command_line_arguments) {
+      sdf__verify_all_used();
+    }
+  }
+}
+
+static void sdf__read(
+  int argument
+) {
+  FILE * file = fopen(sdf__argv[argument], "rb");
+  sdf_read_sdf(file);
+  fclose(file);
+}
+
+void sdf_cli_read(void) {
+  int argument = 0;
+  while (argument < sdf__argc) {
+    if (!sdf__used[argument]) {
+      sdf__read(argument);
+    }
+    argument++;
   }
 }

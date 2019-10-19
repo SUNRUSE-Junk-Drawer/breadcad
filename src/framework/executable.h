@@ -10,6 +10,7 @@ extern const char * sdf_executable_description;
 extern const char * sdf_executable_usage_prefix;
 extern const char * sdf_executable_usage_suffix;
 extern const sdf_boolean_t sdf_executable_reads_model_from_stdin;
+extern const sdf_boolean_t sdf_executable_reads_models_from_command_line_arguments;
 
 void sdf_executable_cli(void);
 

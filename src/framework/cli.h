@@ -18,4 +18,6 @@ void sdf_cli_float(
 
 void sdf_cli(int argc, char * argv[]);
 
+void sdf_cli_read(void);
+
 #endif

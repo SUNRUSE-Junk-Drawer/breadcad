@@ -11,11 +11,11 @@
   ) {                                                               \
     size_t bytes = fread(value, 1, sizeof(sdf_##type##_t), file);   \
     if (bytes < sizeof(sdf_##type##_t)) {                           \
-      if (!feof(stdin)) {                                           \
+      if (!feof(file)) {                                            \
         sdf_fail(                                                   \
           "error reading %s (ferror: %d)\n",                        \
           what,                                                     \
-          ferror(stdin)                                             \
+          ferror(file)                                              \
         );                                                          \
         /* Required to satisfy compiler; will always exit above. */ \
         return SDF_BOOLEAN_FALSE;                                   \
@@ -31,8 +31,8 @@
       sdf_fail(                                                     \
         "error reading %s (ferror: %d, feof: %d)\n",                \
         what,                                                       \
-        ferror(stdin),                                              \
-        feof(stdin)                                                 \
+        ferror(file) ,                                              \
+        feof(file)                                                  \
       );                                                            \
       /* Required to satisfy compiler; will always exit above. */   \
       return SDF_BOOLEAN_FALSE;                                     \

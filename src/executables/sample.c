@@ -15,6 +15,7 @@ const char * sdf_executable_description = "sample a sdf stream at a single point
 const char * sdf_executable_usage_prefix = "[sdf stream] | ";
 const char * sdf_executable_usage_suffix = "";
 const sdf_boolean_t sdf_executable_reads_model_from_stdin = SDF_BOOLEAN_TRUE;
+const sdf_boolean_t sdf_executable_reads_models_from_command_line_arguments = SDF_BOOLEAN_FALSE;
 
 static sdf_f32_t sdf__x;
 static sdf_f32_t sdf__y;
