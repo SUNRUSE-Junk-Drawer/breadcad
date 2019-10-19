@@ -98,3 +98,15 @@ function test_cuboid {
 @test "y z long" {
   test_cuboid "--y 20 --z 25" "0.5" "0.4" "1.6" "20.5" "20.4" "27.6" "25.5" "25.4" "28.6"
 }
+
+@test "x validation" {
+  float_parameter "translate" "x" "x"
+}
+
+@test "y validation" {
+  float_parameter "translate" "y" "y"
+}
+
+@test "z validation" {
+  float_parameter "translate" "z" "z"
+}
