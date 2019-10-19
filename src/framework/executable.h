@@ -3,7 +3,7 @@
 
 #include "types.h"
 #include "opcode.h"
-#include "pointer.h"
+#include "argument.h"
 
 extern const char * sdf_executable_name;
 extern const char * sdf_executable_description;
@@ -21,26 +21,20 @@ void sdf_executable_nullary(
 
 void sdf_executable_unary(
   sdf_opcode_t opcode,
-  sdf_pointer_t argument_a_pointer,
-  sdf_f32_t argument_a_float_constant
+  sdf_argument_t argument_a
 );
 
 void sdf_executable_binary(
   sdf_opcode_t opcode,
-  sdf_pointer_t argument_a_pointer,
-  sdf_f32_t argument_a_float_constant,
-  sdf_pointer_t argument_b_pointer,
-  sdf_f32_t argument_b_float_constant
+  sdf_argument_t argument_a,
+  sdf_argument_t argument_b
 );
 
 void sdf_executable_ternary(
   sdf_opcode_t opcode,
-  sdf_pointer_t argument_a_pointer,
-  sdf_f32_t argument_a_float_constant,
-  sdf_pointer_t argument_b_pointer,
-  sdf_f32_t argument_b_float_constant,
-  sdf_pointer_t argument_c_pointer,
-  sdf_f32_t argument_c_float_constant
+  sdf_argument_t argument_a,
+  sdf_argument_t argument_b,
+  sdf_argument_t argument_c
 );
 
 void sdf_executable_eof(void);

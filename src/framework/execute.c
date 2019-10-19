@@ -19,8 +19,8 @@
 #define SDF_EXECUTE_UNARY(name, argument_a_type, result_type, implementation)              \
   case SDF_OPCODE_##name:                                                                  \
     result_buffer_##result_type = buffers[sdf_plan_result_buffers[instruction]];           \
-    if (sdf_store_argument_pointers[*argument] == SDF_POINTER_FLOAT_CONSTANT) {            \
-      argument_a_##argument_a_type = sdf_store_argument_float_constants[*argument];        \
+    if (sdf_store_arguments[*argument].pointer == SDF_POINTER_FLOAT_CONSTANT) {            \
+      argument_a_##argument_a_type = sdf_store_arguments[*argument].float_constant;        \
       (*argument)++;                                                                       \
       result_##result_type = implementation;                                               \
       while (iteration < iterations) {                                                     \
@@ -41,11 +41,11 @@
 #define SDF_EXECUTE_BINARY(name, argument_a_type, argument_b_type, result_type, implementation) \
   case SDF_OPCODE_##name:                                                                       \
     result_buffer_##result_type = buffers[sdf_plan_result_buffers[instruction]];                \
-    if (sdf_store_argument_pointers[*argument] == SDF_POINTER_FLOAT_CONSTANT) {                 \
-      argument_a_##argument_a_type = sdf_store_argument_float_constants[*argument];             \
+    if (sdf_store_arguments[*argument].pointer == SDF_POINTER_FLOAT_CONSTANT) {                 \
+      argument_a_##argument_a_type = sdf_store_arguments[*argument].float_constant;             \
       (*argument)++;                                                                            \
-      if (sdf_store_argument_pointers[*argument] == SDF_POINTER_FLOAT_CONSTANT) {               \
-        argument_b_##argument_b_type = sdf_store_argument_float_constants[*argument];           \
+      if (sdf_store_arguments[*argument].pointer == SDF_POINTER_FLOAT_CONSTANT) {               \
+        argument_b_##argument_b_type = sdf_store_arguments[*argument].float_constant;           \
         (*argument)++;                                                                          \
         result_##result_type = implementation;                                                  \
         while (iteration < iterations) {                                                        \
@@ -64,8 +64,8 @@
     } else {                                                                                    \
       argument_a_buffer_##argument_a_type = buffers[sdf_plan_argument_buffers[*argument]];      \
       (*argument)++;                                                                            \
-      if (sdf_store_argument_pointers[*argument] == SDF_POINTER_FLOAT_CONSTANT) {               \
-        argument_b_##argument_b_type = sdf_store_argument_float_constants[*argument];           \
+      if (sdf_store_arguments[*argument].pointer == SDF_POINTER_FLOAT_CONSTANT) {               \
+        argument_b_##argument_b_type = sdf_store_arguments[*argument].float_constant;           \
         (*argument)++;                                                                          \
         while (iteration < iterations) {                                                        \
           argument_a_##argument_a_type = argument_a_buffer_##argument_a_type[iteration];        \
@@ -88,14 +88,14 @@
 #define SDF_EXECUTE_TERNARY(name, argument_a_type, argument_b_type, argument_c_type, result_type, implementation) \
   case SDF_OPCODE_##name:                                                                                         \
     result_buffer_##result_type = buffers[sdf_plan_result_buffers[instruction]];                                  \
-    if (sdf_store_argument_pointers[*argument] == SDF_POINTER_FLOAT_CONSTANT) {                                   \
-      argument_a_##argument_a_type = sdf_store_argument_float_constants[*argument];                               \
+    if (sdf_store_arguments[*argument].pointer == SDF_POINTER_FLOAT_CONSTANT) {                                   \
+      argument_a_##argument_a_type = sdf_store_arguments[*argument].float_constant;                               \
       (*argument)++;                                                                                              \
-      if (sdf_store_argument_pointers[*argument] == SDF_POINTER_FLOAT_CONSTANT) {                                 \
-        argument_b_##argument_b_type = sdf_store_argument_float_constants[*argument];                             \
+      if (sdf_store_arguments[*argument].pointer == SDF_POINTER_FLOAT_CONSTANT) {                                 \
+        argument_b_##argument_b_type = sdf_store_arguments[*argument].float_constant;                             \
         (*argument)++;                                                                                            \
-        if (sdf_store_argument_pointers[*argument] == SDF_POINTER_FLOAT_CONSTANT) {                               \
-          argument_c_##argument_c_type = sdf_store_argument_float_constants[*argument];                           \
+        if (sdf_store_arguments[*argument].pointer == SDF_POINTER_FLOAT_CONSTANT) {                               \
+          argument_c_##argument_c_type = sdf_store_arguments[*argument].float_constant;                           \
           (*argument)++;                                                                                          \
           result_##result_type = implementation;                                                                  \
           while (iteration < iterations) {                                                                        \
@@ -114,8 +114,8 @@
       } else {                                                                                                    \
         argument_b_buffer_##argument_b_type = buffers[sdf_plan_argument_buffers[*argument]];                      \
         (*argument)++;                                                                                            \
-        if (sdf_store_argument_pointers[*argument] == SDF_POINTER_FLOAT_CONSTANT) {                               \
-          argument_c_##argument_c_type = sdf_store_argument_float_constants[*argument];                           \
+        if (sdf_store_arguments[*argument].pointer == SDF_POINTER_FLOAT_CONSTANT) {                               \
+          argument_c_##argument_c_type = sdf_store_arguments[*argument].float_constant;                           \
           (*argument)++;                                                                                          \
           while (iteration < iterations) {                                                                        \
             argument_b_##argument_b_type = argument_b_buffer_##argument_b_type[iteration];                        \
@@ -136,11 +136,11 @@
     } else {                                                                                                      \
       argument_a_buffer_##argument_a_type = buffers[sdf_plan_argument_buffers[*argument]];                        \
       (*argument)++;                                                                                              \
-      if (sdf_store_argument_pointers[*argument] == SDF_POINTER_FLOAT_CONSTANT) {                                 \
-        argument_b_##argument_b_type = sdf_store_argument_float_constants[*argument];                             \
+      if (sdf_store_arguments[*argument].pointer == SDF_POINTER_FLOAT_CONSTANT) {                                 \
+        argument_b_##argument_b_type = sdf_store_arguments[*argument].float_constant;                             \
         (*argument)++;                                                                                            \
-        if (sdf_store_argument_pointers[*argument] == SDF_POINTER_FLOAT_CONSTANT) {                               \
-          argument_c_##argument_c_type = sdf_store_argument_float_constants[*argument];                           \
+        if (sdf_store_arguments[*argument].pointer == SDF_POINTER_FLOAT_CONSTANT) {                               \
+          argument_c_##argument_c_type = sdf_store_arguments[*argument].float_constant;                           \
           (*argument)++;                                                                                          \
           while (iteration < iterations) {                                                                        \
             argument_a_##argument_a_type = argument_a_buffer_##argument_a_type[iteration];                        \
@@ -160,8 +160,8 @@
       } else {                                                                                                    \
         argument_b_buffer_##argument_b_type = buffers[sdf_plan_argument_buffers[*argument]];                      \
         (*argument)++;                                                                                            \
-        if (sdf_store_argument_pointers[*argument] == SDF_POINTER_FLOAT_CONSTANT) {                               \
-          argument_c_##argument_c_type = sdf_store_argument_float_constants[*argument];                           \
+        if (sdf_store_arguments[*argument].pointer == SDF_POINTER_FLOAT_CONSTANT) {                               \
+          argument_c_##argument_c_type = sdf_store_arguments[*argument].float_constant;                           \
           (*argument)++;                                                                                          \
           while (iteration < iterations) {                                                                        \
             argument_a_##argument_a_type = argument_a_buffer_##argument_a_type[iteration];                        \
