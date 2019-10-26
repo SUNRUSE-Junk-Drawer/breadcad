@@ -9,7 +9,7 @@
 #include "../framework/executable.h"
 #include "../framework/write_sdf.h"
 
-const char * sdf_executable_name = "intersect";
+const char * sdf_executable_name = "intersection";
 const char * sdf_executable_description = "combines any number of sdf streams using a csg intersection";
 const char * sdf_executable_usage_prefix = "";
 const char * sdf_executable_usage_suffix = " | [consumer of sdf stream]";
