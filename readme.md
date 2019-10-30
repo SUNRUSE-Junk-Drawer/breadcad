@@ -66,12 +66,16 @@ An opcode is a 16-bit unsigned integer.
 Each instruction is its opcode, followed by each of its arguments in order.  An
 argument starts with a u16.
 
-If this is 0xFFFF, an IEEE 32-bit float constant follows.
+| Argument      | Meaning                              |
+| ------------- | ------------------------------------ |
+| 0x0000-0xFFFC | The result of a previous instruction |
+| 0xFFFD        | False                                |
+| 0xFFFE        | True                                 |
+| 0xFFFF        | IEEE 32-bit float constant follows   |
 
-Otherwise, the u16 is the index of the result of a previous instruction.  It is
-an error to use the result of the instruction for which arguments are being
-specified, one which will be defined later in the stream, or one which never
-will.
+It is an error to use the result of the instruction for which arguments are
+being specified, one which will be defined later in the stream, or one which
+never will.
 
 It is also an error to use an argument of a primitive type which does not match
 that of the parameter it is providing a value for.
