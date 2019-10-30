@@ -92,7 +92,7 @@ static void sdf__find_buffers_for_arguments(
   sdf_pointer_t pointer;
   while (first_argument < end_of_arguments) {
     pointer = sdf_store_arguments[first_argument].pointer;
-    if (pointer == SDF_POINTER_FLOAT_CONSTANT) {
+    if (pointer > SDF_POINTER_MAX) {
       sdf_plan_argument_buffers[first_argument] = SIZE_MAX;
     } else {
       sdf_plan_argument_buffers[first_argument] = sdf__find_buffer_by_writing_instruction(pointer);

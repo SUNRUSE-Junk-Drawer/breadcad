@@ -48,7 +48,7 @@ static void sdf__record_remapped_pointer(
 static sdf_argument_t sdf__remap_argument(
   sdf_argument_t argument
 ) {
-  if (argument.pointer == SDF_POINTER_FLOAT_CONSTANT) {
+  if (argument.pointer > SDF_POINTER_MAX) {
     return argument;
   }
 

@@ -31,7 +31,7 @@ static sdf_boolean_t sdf__empty_file = SDF_BOOLEAN_TRUE;
 static sdf_argument_t sdf__write_argument(
   sdf_argument_t argument
 ) {
-  if (argument.pointer == SDF_POINTER_FLOAT_CONSTANT) {
+  if (argument.pointer > SDF_POINTER_MAX) {
     return argument;
   } else {
     argument.pointer += sdf__pointer_offset;

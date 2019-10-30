@@ -33,7 +33,7 @@ static sdf_argument_t sdf__value_to_subtract_from;
 static sdf_argument_t sdf__write_argument(
   sdf_argument_t argument
 ) {
-  if (argument.pointer == SDF_POINTER_FLOAT_CONSTANT) {
+  if (argument.pointer > SDF_POINTER_MAX) {
     return argument;
   } else {
     argument.pointer += sdf__pointer_offset;
