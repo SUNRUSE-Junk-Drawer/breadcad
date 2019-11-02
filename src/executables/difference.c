@@ -134,7 +134,7 @@ void sdf_executable_after_last_file(void) {
   }
 }
 
-sdf_f32_t sdf_executable_get_parameter(
+sdf_number_t sdf_executable_get_parameter(
   void * parameter_context,
   size_t iteration,
   sdf_opcode_id_t id

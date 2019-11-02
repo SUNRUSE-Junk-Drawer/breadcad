@@ -15,14 +15,14 @@ typedef unsigned short sdf_u16_t;
 #define SDF_U16_MAX 65535
 #define SDF_U16_RANGE (SDF_U16_MAX + 1)
 
-typedef float sdf_f32_t;
-extern sdf_f32_t sdf_f32_infinity;
-extern sdf_f32_t sdf_f32_not_a_number;
+typedef float sdf_number_t;
+extern sdf_number_t sdf_number_infinity;
+extern sdf_number_t sdf_number_not_a_number;
 
 void sdf_types(void);
 
 void sdf_types_u16_swap_endianness(sdf_u16_t * value);
-void sdf_types_f32_swap_endianness(sdf_f32_t * value);
+void sdf_types_number_swap_endianness(sdf_number_t * value);
 
 #ifndef SIZE_MAX
 #define SIZE_MAX ((size_t)(-1))

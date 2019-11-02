@@ -35,19 +35,19 @@ executable_help="cuboid - generates a cuboid
 }
 
 @test "parameter size" {
-  float_parameter "cuboid" "s" "size"
+  number_parameter "cuboid" "s" "size"
 }
 
 @test "parameter size x" {
-  float_parameter "cuboid" "sx" "size-x"
+  number_parameter "cuboid" "sx" "size-x"
 }
 
 @test "parameter size y" {
-  float_parameter "cuboid" "sy" "size-y"
+  number_parameter "cuboid" "sy" "size-y"
 }
 
 @test "parameter size z" {
-  float_parameter "cuboid" "sz" "size-z"
+  number_parameter "cuboid" "sz" "size-z"
 }
 
 @test "distances" {

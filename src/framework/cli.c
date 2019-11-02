@@ -82,12 +82,12 @@ void sdf_cli_flag(
   * pointer_to_result = argument != -1 ? SDF_BOOLEAN_TRUE : SDF_BOOLEAN_FALSE;
 }
 
-void sdf_cli_float(
+void sdf_cli_number(
   const char * short_name,
   const char * long_name,
   const char * description,
-  sdf_f32_t * pointer_to_result,
-  sdf_f32_t default_value
+  sdf_number_t * pointer_to_result,
+  sdf_number_t default_value
 ) {
   const char * value;
   char waste;
@@ -102,7 +102,7 @@ void sdf_cli_float(
   if (value) {
     if (sscanf(value, "%f%c", pointer_to_result, &waste) != 1) {
       sdf_fail(
-        "unable to parse command line argument -%s/--%s value \"%s\" as a float\n",
+        "unable to parse command line argument -%s/--%s value \"%s\" as a number\n",
         short_name,
         long_name,
         value

@@ -16,14 +16,14 @@ const char * sdf_executable_usage_suffix = " | [consumer of sdf stream]";
 const sdf_boolean_t sdf_executable_reads_model_from_stdin = SDF_BOOLEAN_TRUE;
 const sdf_boolean_t sdf_executable_reads_models_from_command_line_arguments = SDF_BOOLEAN_FALSE;
 
-static sdf_f32_t sdf__translation[3];
+static sdf_number_t sdf__translation[3];
 static sdf_boolean_t sdf__parameters_generated[] = { SDF_BOOLEAN_FALSE, SDF_BOOLEAN_FALSE, SDF_BOOLEAN_FALSE };
 static sdf_argument_t sdf__manipulated_parameters[3];
 
 void sdf_executable_cli(void) {
-  sdf_cli_float("x", "x", "translation on the x axis (millimeters)", &sdf__translation[0], 0.0f);
-  sdf_cli_float("y", "y", "translation on the y axis (millimeters)", &sdf__translation[1], 0.0f);
-  sdf_cli_float("z", "z", "translation on the z axis (millimeters)", &sdf__translation[2], 0.0f);
+  sdf_cli_number("x", "x", "translation on the x axis (millimeters)", &sdf__translation[0], 0.0f);
+  sdf_cli_number("y", "y", "translation on the y axis (millimeters)", &sdf__translation[1], 0.0f);
+  sdf_cli_number("z", "z", "translation on the z axis (millimeters)", &sdf__translation[2], 0.0f);
 }
 
 static sdf_pointer_t * sdf__remapped_pointers = NULL;
@@ -69,7 +69,7 @@ void sdf_executable_nullary(
         result = sdf_write_sdf_binary(
           SDF_OPCODE_SUBTRACT,
           original_parameter,
-          sdf_argument_float_constant(sdf__translation[parameter])
+          sdf_argument_number_constant(sdf__translation[parameter])
         );
       } else {
         result = original_parameter;
@@ -133,7 +133,7 @@ void sdf_executable_eof(void) {
 void sdf_executable_after_last_file(void) {
 }
 
-sdf_f32_t sdf_executable_get_parameter(
+sdf_number_t sdf_executable_get_parameter(
   void * parameter_context,
   size_t iteration,
   sdf_opcode_id_t id

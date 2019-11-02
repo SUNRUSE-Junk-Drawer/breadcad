@@ -31,11 +31,11 @@ executable_help="cylinder - generates a cylinder along the z axis
 }
 
 @test "parameter size xy" {
-  float_parameter "cylinder" "sxy" "size-xy"
+  number_parameter "cylinder" "sxy" "size-xy"
 }
 
 @test "parameter size z" {
-  float_parameter "cylinder" "sz" "size-z"
+  number_parameter "cylinder" "sz" "size-z"
 }
 
 @test "distances" {

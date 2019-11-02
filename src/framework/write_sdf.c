@@ -11,8 +11,8 @@ static void sdf__write_argument(
   sdf_argument_t argument
 ) {
   sdf_write_u16(stdout, argument.pointer, "argument pointer");
-  if (argument.pointer == SDF_POINTER_FLOAT_CONSTANT) {
-    sdf_write_f32(stdout, argument.float_constant, "argument float constant");
+  if (argument.pointer == SDF_POINTER_NUMBER_CONSTANT) {
+    sdf_write_number(stdout, argument.number_constant, "argument number constant");
   }
 }
 

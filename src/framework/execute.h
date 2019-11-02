@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-sdf_f32_t * sdf_execute(
+sdf_number_t * sdf_execute(
   void * parameter_context,
   size_t iterations
 );

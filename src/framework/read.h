@@ -17,6 +17,6 @@
   );
 
 SDF_READ_TYPE(u16)
-SDF_READ_TYPE(f32)
+SDF_READ_TYPE(number)
 
 #endif

@@ -16,14 +16,14 @@ const char * sdf_executable_usage_suffix = " | [consumer of sdf stream]";
 const sdf_boolean_t sdf_executable_reads_model_from_stdin = SDF_BOOLEAN_TRUE;
 const sdf_boolean_t sdf_executable_reads_models_from_command_line_arguments = SDF_BOOLEAN_FALSE;
 
-static sdf_f32_t sdf__rotation[3];
+static sdf_number_t sdf__rotation[3];
 static sdf_argument_t sdf__modified_parameters[3];
 static sdf_boolean_t sdf__performed_rotation = SDF_BOOLEAN_FALSE;
 
 void sdf_executable_cli(void) {
-  sdf_cli_float("x", "x", "rotation around the x axis (degrees)", &sdf__rotation[0], 0.0f);
-  sdf_cli_float("y", "y", "rotation around the y axis (degrees)", &sdf__rotation[1], 0.0f);
-  sdf_cli_float("z", "z", "rotation around the z axis (degrees)", &sdf__rotation[2], 0.0f);
+  sdf_cli_number("x", "x", "rotation around the x axis (degrees)", &sdf__rotation[0], 0.0f);
+  sdf_cli_number("y", "y", "rotation around the y axis (degrees)", &sdf__rotation[1], 0.0f);
+  sdf_cli_number("z", "z", "rotation around the z axis (degrees)", &sdf__rotation[2], 0.0f);
 }
 
 static sdf_pointer_t * sdf__remapped_pointers = NULL;
@@ -92,9 +92,9 @@ static void sdf__apply_rotation(
   first_rotated_axis = sdf__modified_parameters[sdf__first_rotated_axis(axis)];
   second_rotated_axis = sdf__modified_parameters[sdf__second_rotated_axis(axis)];
 
-  coefficient_a = sdf_argument_float_constant(__builtin_sinf(sdf__rotation[axis]));
-  coefficient_a_negated = sdf_argument_float_constant(-__builtin_sinf(sdf__rotation[axis]));
-  coefficient_b = sdf_argument_float_constant(__builtin_cosf(sdf__rotation[axis]));
+  coefficient_a = sdf_argument_number_constant(__builtin_sinf(sdf__rotation[axis]));
+  coefficient_a_negated = sdf_argument_number_constant(-__builtin_sinf(sdf__rotation[axis]));
+  coefficient_b = sdf_argument_number_constant(__builtin_cosf(sdf__rotation[axis]));
 
   first_axis = sdf_write_sdf_binary(
     SDF_OPCODE_MULTIPLY,
@@ -234,7 +234,7 @@ void sdf_executable_eof(void) {
 void sdf_executable_after_last_file(void) {
 }
 
-sdf_f32_t sdf_executable_get_parameter(
+sdf_number_t sdf_executable_get_parameter(
   void * parameter_context,
   size_t iteration,
   sdf_opcode_id_t id

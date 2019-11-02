@@ -42,7 +42,7 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "parameter x validation" {
-  float_parameter "sample" "x" "x"
+  number_parameter "sample" "x" "x"
 }
 
 @test "parameter y default" {
@@ -66,7 +66,7 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "parameter y validation" {
-  float_parameter "sample" "y" "y"
+  number_parameter "sample" "y" "y"
 }
 
 @test "parameter z default" {
@@ -90,7 +90,7 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "parameter z validation" {
-  float_parameter "sample" "z" "z"
+  number_parameter "sample" "z" "z"
 }
 
 @test "parameter w" {
@@ -1126,19 +1126,19 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "unary argument a constant missing" {
-  check_failure "bin/sample < test/sdf/unary_argument_a_constant_missing.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/unary_argument_a_constant_missing.sdf" "unexpected eof reading number constant"
 }
 
 @test "unary argument a constant truncated a" {
-  check_failure "bin/sample < test/sdf/unary_argument_a_constant_truncated_a.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/unary_argument_a_constant_truncated_a.sdf" "unexpected eof reading number constant"
 }
 
 @test "unary argument a constant truncated b" {
-  check_failure "bin/sample < test/sdf/unary_argument_a_constant_truncated_b.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/unary_argument_a_constant_truncated_b.sdf" "unexpected eof reading number constant"
 }
 
 @test "unary argument a constant truncated c" {
-  check_failure "bin/sample < test/sdf/unary_argument_a_constant_truncated_c.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/unary_argument_a_constant_truncated_c.sdf" "unexpected eof reading number constant"
 }
 
 @test "binary argument a missing" {
@@ -1150,19 +1150,19 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "binary argument a constant missing" {
-  check_failure "bin/sample < test/sdf/binary_argument_a_constant_missing.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/binary_argument_a_constant_missing.sdf" "unexpected eof reading number constant"
 }
 
 @test "binary argument a constant truncated a" {
-  check_failure "bin/sample < test/sdf/binary_argument_a_constant_truncated_a.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/binary_argument_a_constant_truncated_a.sdf" "unexpected eof reading number constant"
 }
 
 @test "binary argument a constant truncated b" {
-  check_failure "bin/sample < test/sdf/binary_argument_a_constant_truncated_b.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/binary_argument_a_constant_truncated_b.sdf" "unexpected eof reading number constant"
 }
 
 @test "binary argument a constant truncated c" {
-  check_failure "bin/sample < test/sdf/binary_argument_a_constant_truncated_c.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/binary_argument_a_constant_truncated_c.sdf" "unexpected eof reading number constant"
 }
 
 @test "binary argument b missing" {
@@ -1174,19 +1174,19 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "binary argument b constant missing" {
-  check_failure "bin/sample < test/sdf/binary_argument_b_constant_missing.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/binary_argument_b_constant_missing.sdf" "unexpected eof reading number constant"
 }
 
 @test "binary argument b constant truncated a" {
-  check_failure "bin/sample < test/sdf/binary_argument_b_constant_truncated_a.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/binary_argument_b_constant_truncated_a.sdf" "unexpected eof reading number constant"
 }
 
 @test "binary argument b constant truncated b" {
-  check_failure "bin/sample < test/sdf/binary_argument_b_constant_truncated_b.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/binary_argument_b_constant_truncated_b.sdf" "unexpected eof reading number constant"
 }
 
 @test "binary argument b constant truncated c" {
-  check_failure "bin/sample < test/sdf/binary_argument_b_constant_truncated_c.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/binary_argument_b_constant_truncated_c.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument a missing" {
@@ -1198,19 +1198,19 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "ternary argument a constant missing" {
-  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_missing.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_missing.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument a constant truncated a" {
-  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_truncated_a.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_truncated_a.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument a constant truncated b" {
-  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_truncated_b.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_truncated_b.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument a constant truncated c" {
-  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_truncated_c.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_truncated_c.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument b missing" {
@@ -1222,19 +1222,19 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "ternary argument b constant missing" {
-  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_missing.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_missing.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument b constant truncated a" {
-  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_truncated_a.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_truncated_a.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument b constant truncated b" {
-  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_truncated_b.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_truncated_b.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument b constant truncated c" {
-  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_truncated_c.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_truncated_c.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument c missing" {
@@ -1246,17 +1246,17 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "ternary argument c constant missing" {
-  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_missing.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_missing.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument c constant truncated a" {
-  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_truncated_a.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_truncated_a.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument c constant truncated b" {
-  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_truncated_b.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_truncated_b.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument c constant truncated c" {
-  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_truncated_c.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_truncated_c.sdf" "unexpected eof reading number constant"
 }
