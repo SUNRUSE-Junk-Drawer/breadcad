@@ -121,7 +121,7 @@ static void sdf__perform_subtraction(void) {
     sdf__last_written
   );
   sdf_write_sdf_binary(
-    SDF_OPCODE_MAX,
+    SDF_OPCODE_MAXIMUM,
     sdf__value_to_subtract_from,
     negated
   );

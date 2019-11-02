@@ -58,19 +58,19 @@ static sdf_argument_t sdf__distance_z(void) {
     negative_distance = sdf_write_sdf_unary(SDF_OPCODE_NEGATE, position);
     positive_distance = sdf_write_sdf_binary(SDF_OPCODE_SUBTRACT, position, sdf_argument_number_constant(sdf__size_z));
   }
-  return sdf_write_sdf_binary(SDF_OPCODE_MAX, negative_distance, positive_distance);
+  return sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, negative_distance, positive_distance);
 }
 
 void sdf_executable_before_first_file(void) {
   sdf_argument_t distance_xy = sdf__distance_xy();
   sdf_argument_t distance_z = sdf__distance_z();
-  sdf_argument_t distance_xy_positive = sdf_write_sdf_binary(SDF_OPCODE_MAX, distance_xy, sdf_argument_number_constant(0.0f));
+  sdf_argument_t distance_xy_positive = sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, distance_xy, sdf_argument_number_constant(0.0f));
   sdf_argument_t distance_xy_positive_squared = sdf_write_sdf_binary(SDF_OPCODE_MULTIPLY, distance_xy_positive, distance_xy_positive);
-  sdf_argument_t distance_z_positive = sdf_write_sdf_binary(SDF_OPCODE_MAX, distance_z, sdf_argument_number_constant(0.0f));
+  sdf_argument_t distance_z_positive = sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, distance_z, sdf_argument_number_constant(0.0f));
   sdf_argument_t distance_z_positive_squared = sdf_write_sdf_binary(SDF_OPCODE_MULTIPLY, distance_z_positive, distance_z_positive);
   sdf_argument_t positive_distance_squared = sdf_write_sdf_binary(SDF_OPCODE_ADD, distance_xy_positive_squared, distance_z_positive_squared);
   sdf_argument_t positive_distance = sdf_write_sdf_unary(SDF_OPCODE_SQUARE_ROOT, positive_distance_squared);
-  sdf_argument_t greatest_distance = sdf_write_sdf_binary(SDF_OPCODE_MAX, distance_xy, distance_z);
+  sdf_argument_t greatest_distance = sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, distance_xy, distance_z);
   sdf_argument_t negative_distance = sdf_write_sdf_binary(SDF_OPCODE_MIN, greatest_distance, sdf_argument_number_constant(0.0f));
 
   sdf_write_sdf_binary(SDF_OPCODE_ADD, positive_distance, negative_distance);

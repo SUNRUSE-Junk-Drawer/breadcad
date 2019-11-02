@@ -75,7 +75,7 @@ static sdf_argument_t sdf__generate_axis(
     negative_distance = sdf_write_sdf_unary(SDF_OPCODE_NEGATE, position);
     positive_distance = sdf_write_sdf_binary(SDF_OPCODE_SUBTRACT, position, sdf_argument_number_constant(size));
   }
-  return sdf_write_sdf_binary(SDF_OPCODE_MAX, negative_distance, positive_distance);
+  return sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, negative_distance, positive_distance);
 }
 
 void sdf_executable_before_first_file(void) {
@@ -83,18 +83,18 @@ void sdf_executable_before_first_file(void) {
   sdf_argument_t y = sdf__generate_axis(1, sdf__size_y, sdf__center_y);
   sdf_argument_t z = sdf__generate_axis(2, sdf__size_z, sdf__center_z);
 
-  sdf_argument_t x_positive = sdf_write_sdf_binary(SDF_OPCODE_MAX, x, sdf_argument_number_constant(0.0f));
+  sdf_argument_t x_positive = sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, x, sdf_argument_number_constant(0.0f));
   sdf_argument_t x_positive_squared = sdf_write_sdf_binary(SDF_OPCODE_MULTIPLY, x_positive, x_positive);
-  sdf_argument_t y_positive = sdf_write_sdf_binary(SDF_OPCODE_MAX, y, sdf_argument_number_constant(0.0f));
+  sdf_argument_t y_positive = sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, y, sdf_argument_number_constant(0.0f));
   sdf_argument_t y_positive_squared = sdf_write_sdf_binary(SDF_OPCODE_MULTIPLY, y_positive, y_positive);
-  sdf_argument_t z_positive = sdf_write_sdf_binary(SDF_OPCODE_MAX, z, sdf_argument_number_constant(0.0f));
+  sdf_argument_t z_positive = sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, z, sdf_argument_number_constant(0.0f));
   sdf_argument_t z_positive_squared = sdf_write_sdf_binary(SDF_OPCODE_MULTIPLY, z_positive, z_positive);
   sdf_argument_t xy_positive_squared = sdf_write_sdf_binary(SDF_OPCODE_ADD, x_positive_squared, y_positive_squared);
   sdf_argument_t positive_squared = sdf_write_sdf_binary(SDF_OPCODE_ADD, xy_positive_squared, z_positive_squared);
   sdf_argument_t positive = sdf_write_sdf_unary(SDF_OPCODE_SQUARE_ROOT, positive_squared);
 
-  sdf_argument_t xy_greatest = sdf_write_sdf_binary(SDF_OPCODE_MAX, x, y);
-  sdf_argument_t greatest = sdf_write_sdf_binary(SDF_OPCODE_MAX, xy_greatest, z);
+  sdf_argument_t xy_greatest = sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, x, y);
+  sdf_argument_t greatest = sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, xy_greatest, z);
   sdf_argument_t negative = sdf_write_sdf_binary(SDF_OPCODE_MIN, greatest, sdf_argument_number_constant(0.0f));
 
   sdf_write_sdf_binary(SDF_OPCODE_ADD, positive, negative);

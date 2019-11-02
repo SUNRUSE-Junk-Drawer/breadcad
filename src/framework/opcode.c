@@ -278,8 +278,8 @@ void sdf_opcode_print(
         fprintf(file, "min                   ");
         break;
 
-      case SDF_OPCODE_MAX:
-        fprintf(file, "max                   ");
+      case SDF_OPCODE_MAXIMUM:
+        fprintf(file, "maximum               ");
         break;
 
       default:
