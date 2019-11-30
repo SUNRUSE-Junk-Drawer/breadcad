@@ -373,56 +373,260 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample < test/sdf/not_equal_true_true.sdf" "-22.150000"
 }
 
-# conditional_boolean_a is the following:
-# X
-# Y
-# Z
-# X > Z
-# X > Y
-# Y > Z
-# X > Z ? X > Y : Y > Z
-# (X > Z ? X > Y : Y > Z) ? X : Y
-
-@test "conditional boolean false false false" {
-  check_successful "bin/sample -x 12.216 -y 15.222 -z 17.775 < test/sdf/conditional_boolean_a.sdf" "15.222000"
+@test "conditional boolean parameter parameter parameter false false false" {
+  check_successful "bin/sample -x 1 -y 1 -z 1 < test/sdf/conditional_boolean_parameter_parameter_parameter.sdf" "-22.150000"
 }
 
-@test "conditional boolean false true false" {
-  check_successful "bin/sample -x 15.216 -y 12.222 -z 17.775 < test/sdf/conditional_boolean_a.sdf" "12.222000"
+@test "conditional boolean parameter parameter parameter false false true" {
+  check_successful "bin/sample -x 1 -y 1 -z 3 < test/sdf/conditional_boolean_parameter_parameter_parameter.sdf" "3.260000"
 }
 
-@test "conditional boolean false false true" {
-  check_successful "bin/sample -x 12.216 -y 17.222 -z 15.775 < test/sdf/conditional_boolean_a.sdf" "12.216000"
+@test "conditional boolean parameter parameter parameter false true false" {
+  check_successful "bin/sample -x 1 -y 3 -z 1 < test/sdf/conditional_boolean_parameter_parameter_parameter.sdf" "-22.150000"
 }
 
-@test "conditional boolean true true true" {
-  check_successful "bin/sample -x 17.775 -y 15.222 -z 12.216 < test/sdf/conditional_boolean_a.sdf" "17.775000"
+@test "conditional boolean parameter parameter parameter false true true" {
+  check_successful "bin/sample -x 1 -y 3 -z 3 < test/sdf/conditional_boolean_parameter_parameter_parameter.sdf" "3.260000"
 }
 
-@test "conditional boolean true true false" {
-  check_successful "bin/sample -x 17.775 -y 12.222 -z 15.216 < test/sdf/conditional_boolean_a.sdf" "17.775000"
+@test "conditional boolean parameter parameter parameter true false false" {
+  check_successful "bin/sample -x 3 -y 1 -z 1 < test/sdf/conditional_boolean_parameter_parameter_parameter.sdf" "-22.150000"
 }
 
-# conditional_boolean_b is the following:
-# X
-# Y
-# Z
-# X > Y
-# Y > Z
-# X > Z
-# X > Y ? Y > Z : X > Z
-# (X > Y ? Y > Z : X > Z) ? X : Y
-
-@test "conditional boolean false true true" {
-  check_successful "bin/sample -x 15.216 -y 17.222 -z 12.775 < test/sdf/conditional_boolean_b.sdf" "15.216000"
+@test "conditional boolean parameter parameter parameter true false true" {
+  check_successful "bin/sample -x 3 -y 1 -z 3 < test/sdf/conditional_boolean_parameter_parameter_parameter.sdf" "-22.150000"
 }
 
-@test "conditional boolean true false false" {
-  check_successful "bin/sample -x 15.216 -y 12.222 -z 17.775 < test/sdf/conditional_boolean_b.sdf" "12.222000"
+@test "conditional boolean parameter parameter parameter true true false" {
+  check_successful "bin/sample -x 3 -y 3 -z 1 < test/sdf/conditional_boolean_parameter_parameter_parameter.sdf" "3.260000"
 }
 
-@test "conditional boolean true false true" {
-  check_successful "bin/sample -x 17.216 -y 12.222 -z 15.775 < test/sdf/conditional_boolean_b.sdf" "12.222000"
+@test "conditional boolean parameter parameter parameter true true true" {
+  check_successful "bin/sample -x 3 -y 3 -z 3 < test/sdf/conditional_boolean_parameter_parameter_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter parameter constant false false false" {
+  check_successful "bin/sample -x 1 -y 1 < test/sdf/conditional_boolean_parameter_parameter_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter parameter constant false false true" {
+  check_successful "bin/sample -x 1 -y 1 < test/sdf/conditional_boolean_parameter_parameter_true.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter parameter constant false true false" {
+  check_successful "bin/sample -x 1 -y 3 < test/sdf/conditional_boolean_parameter_parameter_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter parameter constant false true true" {
+  check_successful "bin/sample -x 1 -y 3 < test/sdf/conditional_boolean_parameter_parameter_true.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter parameter constant true false false" {
+  check_successful "bin/sample -x 3 -y 1 < test/sdf/conditional_boolean_parameter_parameter_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter parameter constant true false true" {
+  check_successful "bin/sample -x 3 -y 1 < test/sdf/conditional_boolean_parameter_parameter_true.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter parameter constant true true false" {
+  check_successful "bin/sample -x 3 -y 3 < test/sdf/conditional_boolean_parameter_parameter_false.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter parameter constant true true true" {
+  check_successful "bin/sample -x 3 -y 3 < test/sdf/conditional_boolean_parameter_parameter_true.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter constant parameter false false false" {
+  check_successful "bin/sample -x 1 -y 1 < test/sdf/conditional_boolean_parameter_false_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter constant parameter false false true" {
+  check_successful "bin/sample -x 1 -y 3 < test/sdf/conditional_boolean_parameter_false_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter constant parameter false true false" {
+  check_successful "bin/sample -x 1 -y 1 < test/sdf/conditional_boolean_parameter_true_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter constant parameter false true true" {
+  check_successful "bin/sample -x 1 -y 3 < test/sdf/conditional_boolean_parameter_true_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter constant parameter true false false" {
+  check_successful "bin/sample -x 3 -y 1 < test/sdf/conditional_boolean_parameter_false_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter constant parameter true false true" {
+  check_successful "bin/sample -x 3 -y 3 < test/sdf/conditional_boolean_parameter_false_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter constant parameter true true false" {
+  check_successful "bin/sample -x 3 -y 1 < test/sdf/conditional_boolean_parameter_true_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter constant parameter true true true" {
+  check_successful "bin/sample -x 3 -y 3 < test/sdf/conditional_boolean_parameter_true_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter constant constant false false false" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_parameter_false_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter constant constant false false true" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_parameter_false_true.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter constant constant false true false" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_parameter_true_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter constant constant false true true" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_parameter_true_true.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter constant constant true false false" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_parameter_false_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter constant constant true false true" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_parameter_false_true.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter constant constant true true false" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_parameter_true_false.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter constant constant true true true" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_parameter_true_true.sdf" "3.260000"
+}
+
+@test "conditional boolean constant parameter parameter false false false" {
+  check_successful "bin/sample -x 1 -y 1 < test/sdf/conditional_boolean_false_parameter_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant parameter parameter false false true" {
+  check_successful "bin/sample -x 1 -y 3 < test/sdf/conditional_boolean_false_parameter_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean constant parameter parameter false true false" {
+  check_successful "bin/sample -x 3 -y 1 < test/sdf/conditional_boolean_false_parameter_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant parameter parameter false true true" {
+  check_successful "bin/sample -x 3 -y 3 < test/sdf/conditional_boolean_false_parameter_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean constant parameter parameter true false false" {
+  check_successful "bin/sample -x 1 -y 1 < test/sdf/conditional_boolean_true_parameter_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant parameter parameter true false true" {
+  check_successful "bin/sample -x 1 -y 3 < test/sdf/conditional_boolean_true_parameter_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant parameter parameter true true false" {
+  check_successful "bin/sample -x 3 -y 1 < test/sdf/conditional_boolean_true_parameter_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean constant parameter parameter true true true" {
+  check_successful "bin/sample -x 3 -y 3 < test/sdf/conditional_boolean_true_parameter_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean constant parameter constant false false false" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_false_parameter_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant parameter constant false false true" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_false_parameter_true.sdf" "3.260000"
+}
+
+@test "conditional boolean constant parameter constant false true false" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_false_parameter_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant parameter constant false true true" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_false_parameter_true.sdf" "3.260000"
+}
+
+@test "conditional boolean constant parameter constant true false false" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_true_parameter_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant parameter constant true false true" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_true_parameter_true.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant parameter constant true true false" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_true_parameter_false.sdf" "3.260000"
+}
+
+@test "conditional boolean constant parameter constant true true true" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_true_parameter_true.sdf" "3.260000"
+}
+
+@test "conditional boolean constant constant parameter false false false" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_false_false_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant constant parameter false false true" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_false_false_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean constant constant parameter false true false" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_false_true_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant constant parameter false true true" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_false_true_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean constant constant parameter true false false" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_true_false_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant constant parameter true false true" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_true_false_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant constant parameter true true false" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_true_true_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean constant constant parameter true true true" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_true_true_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean constant constant constant false false false" {
+  check_successful "bin/sample < test/sdf/conditional_boolean_false_false_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant constant constant false false true" {
+  check_successful "bin/sample < test/sdf/conditional_boolean_false_false_true.sdf" "3.260000"
+}
+
+@test "conditional boolean constant constant constant false true false" {
+  check_successful "bin/sample < test/sdf/conditional_boolean_false_true_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant constant constant false true true" {
+  check_successful "bin/sample < test/sdf/conditional_boolean_false_true_true.sdf" "3.260000"
+}
+
+@test "conditional boolean constant constant constant true false false" {
+  check_successful "bin/sample < test/sdf/conditional_boolean_true_false_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant constant constant true false true" {
+  check_successful "bin/sample < test/sdf/conditional_boolean_true_false_true.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant constant constant true true false" {
+  check_successful "bin/sample < test/sdf/conditional_boolean_true_true_false.sdf" "3.260000"
+}
+
+@test "conditional boolean constant constant constant true true true" {
+  check_successful "bin/sample < test/sdf/conditional_boolean_true_true_true.sdf" "3.260000"
 }
 
 @test "greater than parameter parameter (false) -> conditional number" {
