@@ -7,15 +7,15 @@ sdf_argument_t sdf_argument_pointer(
 ) {
   sdf_argument_t argument;
   argument.pointer = pointer;
-  argument.float_constant = sdf_f32_not_a_number;
+  argument.number_constant = sdf_number_not_a_number;
   return argument;
 }
 
-sdf_argument_t sdf_argument_float_constant(
-  sdf_f32_t float_constant
+sdf_argument_t sdf_argument_number_constant(
+  sdf_number_t number_constant
 ) {
   sdf_argument_t argument;
-  argument.pointer = SDF_POINTER_FLOAT_CONSTANT;
-  argument.float_constant = float_constant;
+  argument.pointer = SDF_POINTER_NUMBER_CONSTANT;
+  argument.number_constant = number_constant;
   return argument;
 }

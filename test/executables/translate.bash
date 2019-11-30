@@ -100,13 +100,13 @@ function test_cuboid {
 }
 
 @test "x validation" {
-  float_parameter "translate" "x" "x"
+  number_parameter "translate" "x" "x"
 }
 
 @test "y validation" {
-  float_parameter "translate" "y" "y"
+  number_parameter "translate" "y" "y"
 }
 
 @test "z validation" {
-  float_parameter "translate" "z" "z"
+  number_parameter "translate" "z" "z"
 }

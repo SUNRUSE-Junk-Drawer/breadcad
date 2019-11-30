@@ -16,12 +16,12 @@ const char * sdf_executable_usage_suffix = " | [consumer of sdf stream]";
 const sdf_boolean_t sdf_executable_reads_model_from_stdin = SDF_BOOLEAN_TRUE;
 const sdf_boolean_t sdf_executable_reads_models_from_command_line_arguments = SDF_BOOLEAN_FALSE;
 
-static sdf_f32_t sdf__factor;
+static sdf_number_t sdf__factor;
 static sdf_boolean_t sdf__parameters_generated[] = { SDF_BOOLEAN_FALSE, SDF_BOOLEAN_FALSE, SDF_BOOLEAN_FALSE };
 static sdf_argument_t sdf__manipulated_parameters[3];
 
 void sdf_executable_cli(void) {
-  sdf_cli_float("f", "factor", "scaling factor (coefficient)", &sdf__factor, 1.0f);
+  sdf_cli_number("f", "factor", "scaling factor (coefficient)", &sdf__factor, 1.0f);
 }
 
 static sdf_pointer_t * sdf__remapped_pointers = NULL;
@@ -46,7 +46,7 @@ static void sdf__record_remapped_pointer(
 static sdf_argument_t sdf__remap_argument(
   sdf_argument_t argument
 ) {
-  if (argument.pointer == SDF_POINTER_FLOAT_CONSTANT) {
+  if (argument.pointer > SDF_POINTER_MAX) {
     return argument;
   }
 
@@ -67,7 +67,7 @@ void sdf_executable_nullary(
         result = sdf_write_sdf_binary(
           SDF_OPCODE_MULTIPLY,
           original_parameter,
-          sdf_argument_float_constant(1.0f / sdf__factor)
+          sdf_argument_number_constant(1.0f / sdf__factor)
         );
       } else {
         result = original_parameter;
@@ -133,12 +133,12 @@ void sdf_executable_after_last_file(void) {
     sdf_write_sdf_binary(
       SDF_OPCODE_MULTIPLY,
       sdf_argument_pointer(sdf__remapped_pointers[sdf__read_instructions - 1]),
-      sdf_argument_float_constant(sdf__factor)
+      sdf_argument_number_constant(sdf__factor)
     );
   }
 }
 
-sdf_f32_t sdf_executable_get_parameter(
+sdf_number_t sdf_executable_get_parameter(
   void * parameter_context,
   size_t iteration,
   sdf_opcode_id_t id

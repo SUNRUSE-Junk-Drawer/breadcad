@@ -58,5 +58,5 @@ function test_cuboid {
 }
 
 @test "factor validation" {
-  float_parameter "scale" "f" "factor"
+  number_parameter "scale" "f" "factor"
 }

@@ -161,13 +161,13 @@ executable_help="rotate - rotates the geometry described by a sdf stream
 }
 
 @test "x validation" {
-  float_parameter "rotate" "x" "x"
+  number_parameter "rotate" "x" "x"
 }
 
 @test "y validation" {
-  float_parameter "rotate" "y" "y"
+  number_parameter "rotate" "y" "y"
 }
 
 @test "z validation" {
-  float_parameter "rotate" "z" "z"
+  number_parameter "rotate" "z" "z"
 }

@@ -12,6 +12,6 @@
   );
 
 SDF_WRITE_TYPE(u16)
-SDF_WRITE_TYPE(f32)
+SDF_WRITE_TYPE(number)
 
 #endif

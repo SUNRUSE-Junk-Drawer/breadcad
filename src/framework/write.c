@@ -17,4 +17,4 @@
   }
 
 SDF_WRITE(u16)
-SDF_WRITE(f32)
+SDF_WRITE(number)

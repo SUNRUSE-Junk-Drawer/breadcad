@@ -33,7 +33,7 @@ static sdf_argument_t sdf__value_to_subtract_from;
 static sdf_argument_t sdf__write_argument(
   sdf_argument_t argument
 ) {
-  if (argument.pointer == SDF_POINTER_FLOAT_CONSTANT) {
+  if (argument.pointer > SDF_POINTER_MAX) {
     return argument;
   } else {
     argument.pointer += sdf__pointer_offset;
@@ -121,7 +121,7 @@ static void sdf__perform_subtraction(void) {
     sdf__last_written
   );
   sdf_write_sdf_binary(
-    SDF_OPCODE_MAX,
+    SDF_OPCODE_MAXIMUM,
     sdf__value_to_subtract_from,
     negated
   );
@@ -134,7 +134,7 @@ void sdf_executable_after_last_file(void) {
   }
 }
 
-sdf_f32_t sdf_executable_get_parameter(
+sdf_number_t sdf_executable_get_parameter(
   void * parameter_context,
   size_t iteration,
   sdf_opcode_id_t id

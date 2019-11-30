@@ -14,10 +14,10 @@ static sdf_argument_t sdf__read_argument(
 ) {
   sdf_argument_t output;
   output.pointer = sdf_read_u16(file, what);
-  if (output.pointer == SDF_POINTER_FLOAT_CONSTANT) {
-    output.float_constant = sdf_read_f32(file, "float constant");
+  if (output.pointer == SDF_POINTER_NUMBER_CONSTANT) {
+    output.number_constant = sdf_read_number(file, "number constant");
   } else {
-    output.float_constant = sdf_f32_not_a_number;
+    output.number_constant = sdf_number_not_a_number;
   }
   return output;
 }

@@ -17,14 +17,14 @@ const char * sdf_executable_usage_suffix = "";
 const sdf_boolean_t sdf_executable_reads_model_from_stdin = SDF_BOOLEAN_TRUE;
 const sdf_boolean_t sdf_executable_reads_models_from_command_line_arguments = SDF_BOOLEAN_FALSE;
 
-static sdf_f32_t sdf__x;
-static sdf_f32_t sdf__y;
-static sdf_f32_t sdf__z;
+static sdf_number_t sdf__x;
+static sdf_number_t sdf__y;
+static sdf_number_t sdf__z;
 
 void sdf_executable_cli(void) {
-  sdf_cli_float("x", "x", "location from which to sample on the x axis (millimeters)", &sdf__x, 0.0f);
-  sdf_cli_float("y", "y", "location from which to sample on the y axis (millimeters)", &sdf__y, 0.0f);
-  sdf_cli_float("z", "z", "location from which to sample on the z axis (millimeters)", &sdf__z, 0.0f);
+  sdf_cli_number("x", "x", "location from which to sample on the x axis (millimeters)", &sdf__x, 0.0f);
+  sdf_cli_number("y", "y", "location from which to sample on the y axis (millimeters)", &sdf__y, 0.0f);
+  sdf_cli_number("z", "z", "location from which to sample on the z axis (millimeters)", &sdf__z, 0.0f);
 }
 
 void sdf_executable_before_first_file(void) {
@@ -68,7 +68,7 @@ void sdf_executable_eof(void) {
 void sdf_executable_after_last_file(void) {
 }
 
-sdf_f32_t sdf_executable_get_parameter(
+sdf_number_t sdf_executable_get_parameter(
   void * parameter_context,
   size_t iteration,
   sdf_opcode_id_t id

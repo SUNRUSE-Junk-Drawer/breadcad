@@ -13,9 +13,9 @@ const char * sdf_executable_usage_suffix = " | [consumer of sdf stream]";
 const sdf_boolean_t sdf_executable_reads_model_from_stdin = SDF_BOOLEAN_FALSE;
 const sdf_boolean_t sdf_executable_reads_models_from_command_line_arguments = SDF_BOOLEAN_FALSE;
 
-static sdf_f32_t sdf__size_x;
-static sdf_f32_t sdf__size_y;
-static sdf_f32_t sdf__size_z;
+static sdf_number_t sdf__size_x;
+static sdf_number_t sdf__size_y;
+static sdf_number_t sdf__size_z;
 
 static sdf_boolean_t sdf__center_x;
 static sdf_boolean_t sdf__center_y;
@@ -23,7 +23,7 @@ static sdf_boolean_t sdf__center_z;
 
 static void sdf__axis(
   char label,
-  sdf_f32_t * size,
+  sdf_number_t * size,
   sdf_boolean_t * center
 ) {
   sdf_boolean_t center_temp;
@@ -42,14 +42,14 @@ static void sdf__axis(
   center_long_name[7] = label;
   center_description[10] = label;
 
-  sdf_cli_float(size_short_name, size_long_name, size_description, size, *size);
+  sdf_cli_number(size_short_name, size_long_name, size_description, size, *size);
 
   sdf_cli_flag(center_short_name, center_long_name, center_description, &center_temp);
   *center = center_temp || *center;
 }
 
 void sdf_executable_cli(void) {
-  sdf_cli_float("s", "size", "size on all axes (millimeters)", &sdf__size_z, 1.0f);
+  sdf_cli_number("s", "size", "size on all axes (millimeters)", &sdf__size_z, 1.0f);
 
   sdf__size_x = sdf__size_y = sdf__size_z;
 
@@ -63,19 +63,19 @@ void sdf_executable_cli(void) {
 
 static sdf_argument_t sdf__generate_axis(
   sdf_opcode_id_t parameter,
-  sdf_f32_t size,
+  sdf_number_t size,
   sdf_boolean_t center
 ) {
   sdf_argument_t position = sdf_write_sdf_nullary(SDF_OPCODE_PARAMETER(parameter));
   sdf_argument_t negative_distance, positive_distance;
   if (center) {
-    negative_distance = sdf_write_sdf_binary(SDF_OPCODE_SUBTRACT, sdf_argument_float_constant(size / -2.0f), position);
-    positive_distance = sdf_write_sdf_binary(SDF_OPCODE_SUBTRACT, position, sdf_argument_float_constant(size / 2.0f));
+    negative_distance = sdf_write_sdf_binary(SDF_OPCODE_SUBTRACT, sdf_argument_number_constant(size / -2.0f), position);
+    positive_distance = sdf_write_sdf_binary(SDF_OPCODE_SUBTRACT, position, sdf_argument_number_constant(size / 2.0f));
   } else {
     negative_distance = sdf_write_sdf_unary(SDF_OPCODE_NEGATE, position);
-    positive_distance = sdf_write_sdf_binary(SDF_OPCODE_SUBTRACT, position, sdf_argument_float_constant(size));
+    positive_distance = sdf_write_sdf_binary(SDF_OPCODE_SUBTRACT, position, sdf_argument_number_constant(size));
   }
-  return sdf_write_sdf_binary(SDF_OPCODE_MAX, negative_distance, positive_distance);
+  return sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, negative_distance, positive_distance);
 }
 
 void sdf_executable_before_first_file(void) {
@@ -83,19 +83,19 @@ void sdf_executable_before_first_file(void) {
   sdf_argument_t y = sdf__generate_axis(1, sdf__size_y, sdf__center_y);
   sdf_argument_t z = sdf__generate_axis(2, sdf__size_z, sdf__center_z);
 
-  sdf_argument_t x_positive = sdf_write_sdf_binary(SDF_OPCODE_MAX, x, sdf_argument_float_constant(0.0f));
+  sdf_argument_t x_positive = sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, x, sdf_argument_number_constant(0.0f));
   sdf_argument_t x_positive_squared = sdf_write_sdf_binary(SDF_OPCODE_MULTIPLY, x_positive, x_positive);
-  sdf_argument_t y_positive = sdf_write_sdf_binary(SDF_OPCODE_MAX, y, sdf_argument_float_constant(0.0f));
+  sdf_argument_t y_positive = sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, y, sdf_argument_number_constant(0.0f));
   sdf_argument_t y_positive_squared = sdf_write_sdf_binary(SDF_OPCODE_MULTIPLY, y_positive, y_positive);
-  sdf_argument_t z_positive = sdf_write_sdf_binary(SDF_OPCODE_MAX, z, sdf_argument_float_constant(0.0f));
+  sdf_argument_t z_positive = sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, z, sdf_argument_number_constant(0.0f));
   sdf_argument_t z_positive_squared = sdf_write_sdf_binary(SDF_OPCODE_MULTIPLY, z_positive, z_positive);
   sdf_argument_t xy_positive_squared = sdf_write_sdf_binary(SDF_OPCODE_ADD, x_positive_squared, y_positive_squared);
   sdf_argument_t positive_squared = sdf_write_sdf_binary(SDF_OPCODE_ADD, xy_positive_squared, z_positive_squared);
   sdf_argument_t positive = sdf_write_sdf_unary(SDF_OPCODE_SQUARE_ROOT, positive_squared);
 
-  sdf_argument_t xy_greatest = sdf_write_sdf_binary(SDF_OPCODE_MAX, x, y);
-  sdf_argument_t greatest = sdf_write_sdf_binary(SDF_OPCODE_MAX, xy_greatest, z);
-  sdf_argument_t negative = sdf_write_sdf_binary(SDF_OPCODE_MIN, greatest, sdf_argument_float_constant(0.0f));
+  sdf_argument_t xy_greatest = sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, x, y);
+  sdf_argument_t greatest = sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, xy_greatest, z);
+  sdf_argument_t negative = sdf_write_sdf_binary(SDF_OPCODE_MIN, greatest, sdf_argument_number_constant(0.0f));
 
   sdf_write_sdf_binary(SDF_OPCODE_ADD, positive, negative);
 }
@@ -142,7 +142,7 @@ void sdf_executable_eof(void) {
 void sdf_executable_after_last_file(void) {
 }
 
-sdf_f32_t sdf_executable_get_parameter(
+sdf_number_t sdf_executable_get_parameter(
   void * parameter_context,
   size_t iteration,
   sdf_opcode_id_t id

@@ -12,7 +12,7 @@
 static void sdf__check_sizeof(void) {
   SDF_CHECK_SIZEOF(u8, 1)
   SDF_CHECK_SIZEOF(u16, 2)
-  SDF_CHECK_SIZEOF(f32, 4)
+  SDF_CHECK_SIZEOF(number, 4)
 }
 
 #define SDF_CHECK_MAX(type, expectedMax)              \
@@ -29,13 +29,13 @@ static void sdf__check_max(void) {
 }
 
 static sdf_boolean_t sdf__u16_endianness_swap;
-static sdf_boolean_t sdf__f32_endianness_swap;
+static sdf_boolean_t sdf__number_endianness_swap;
 
 static void sdf__check_byte_order(void) {
   union {
     sdf_u8_t u8[4];
     sdf_u16_t u16;
-    sdf_f32_t f32;
+    sdf_number_t number;
   } check;
 
   check.u8[0] = 74;
@@ -54,23 +54,23 @@ static void sdf__check_byte_order(void) {
       sdf_fail("unexpected endianness; u16[74, 149] = %u\n", (unsigned int)check.u16);
   }
 
-  if (check.f32 == 4893668.500000f) {
-    sdf__f32_endianness_swap = SDF_BOOLEAN_FALSE;
-  } else if (check.f32 == -883028.62500f) {
-    sdf__f32_endianness_swap = SDF_BOOLEAN_TRUE;
+  if (check.number == 4893668.500000f) {
+    sdf__number_endianness_swap = SDF_BOOLEAN_FALSE;
+  } else if (check.number == -883028.62500f) {
+    sdf__number_endianness_swap = SDF_BOOLEAN_TRUE;
   } else {
-    sdf_fail("unexpected endianness; f32[74, 149, 87, 201] = %f\n", check.f32);
+    sdf_fail("unexpected endianness; number[74, 149, 87, 201] = %f\n", check.number);
   }
 }
 
-sdf_f32_t sdf_f32_infinity;
+sdf_number_t sdf_number_infinity;
 
-static void sdf__generate_f32_infinity(void) {
+static void sdf__generate_number_infinity(void) {
   union {
     sdf_u8_t u8[4];
-    sdf_f32_t f32;
+    sdf_number_t number;
   } generate;
-  if (sdf__f32_endianness_swap) {
+  if (sdf__number_endianness_swap) {
     generate.u8[0] = 0x00;
     generate.u8[1] = 0x00;
     generate.u8[2] = 0x80;
@@ -81,17 +81,17 @@ static void sdf__generate_f32_infinity(void) {
     generate.u8[2] = 0x00;
     generate.u8[3] = 0x00;
   }
-  sdf_f32_infinity = generate.f32;
+  sdf_number_infinity = generate.number;
 }
 
-sdf_f32_t sdf_f32_not_a_number;
+sdf_number_t sdf_number_not_a_number;
 
-static void sdf__generate_f32_not_a_number(void) {
+static void sdf__generate_number_not_a_number(void) {
   union {
     sdf_u8_t u8[4];
-    sdf_f32_t f32;
+    sdf_number_t number;
   } generate;
-  if (sdf__f32_endianness_swap) {
+  if (sdf__number_endianness_swap) {
     generate.u8[0] = 0x00;
     generate.u8[1] = 0x00;
     generate.u8[2] = 0xF8;
@@ -102,7 +102,7 @@ static void sdf__generate_f32_not_a_number(void) {
     generate.u8[2] = 0x00;
     generate.u8[3] = 0x00;
   }
-  sdf_f32_not_a_number = generate.f32;
+  sdf_number_not_a_number = generate.number;
 }
 
 
@@ -110,8 +110,8 @@ void sdf_types(void) {
   sdf__check_sizeof();
   sdf__check_max();
   sdf__check_byte_order();
-  sdf__generate_f32_infinity();
-  sdf__generate_f32_not_a_number();
+  sdf__generate_number_infinity();
+  sdf__generate_number_not_a_number();
 }
 
 #define SDF_SWAP_ENDIANNESS(type)                                        \
@@ -131,4 +131,4 @@ void sdf_types(void) {
   }
 
 SDF_SWAP_ENDIANNESS(u16)
-SDF_SWAP_ENDIANNESS(f32)
+SDF_SWAP_ENDIANNESS(number)

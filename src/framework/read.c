@@ -54,4 +54,4 @@
   }
 
 SDF_READ(u16)
-SDF_READ(f32)
+SDF_READ(number)

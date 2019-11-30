@@ -42,7 +42,7 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "parameter x validation" {
-  float_parameter "sample" "x" "x"
+  number_parameter "sample" "x" "x"
 }
 
 @test "parameter y default" {
@@ -66,7 +66,7 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "parameter y validation" {
-  float_parameter "sample" "y" "y"
+  number_parameter "sample" "y" "y"
 }
 
 @test "parameter z default" {
@@ -90,7 +90,7 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "parameter z validation" {
-  float_parameter "sample" "z" "z"
+  number_parameter "sample" "z" "z"
 }
 
 @test "parameter w" {
@@ -101,128 +101,532 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample -x 3.26 -y -22.15 -z 14.27 < test/sdf/parameter_w.sdf" "0.000000"
 }
 
-@test "not false" {
-  check_successful "bin/sample -x 12.216 -y 15.222 < test/sdf/not.sdf" "12.216000"
+@test "not parameter false" {
+  check_successful "bin/sample -x 12.216 -y 15.222 < test/sdf/not_parameter.sdf" "12.216000"
 }
 
-@test "not true" {
-  check_successful "bin/sample -x 15.222 -y 12.216 < test/sdf/not.sdf" "12.216000"
+@test "not parameter true" {
+  check_successful "bin/sample -x 15.222 -y 12.216 < test/sdf/not_parameter.sdf" "12.216000"
 }
 
-@test "and false false" {
-  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/and.sdf" "22.150000"
+@test "not constant false" {
+  check_successful "bin/sample < test/sdf/not_false.sdf" "3.260000"
 }
 
-@test "and false true" {
-  check_successful "bin/sample -x 14.27 -y 22.15 -z 3.26 < test/sdf/and.sdf" "22.150000"
+@test "not constant true" {
+  check_successful "bin/sample < test/sdf/not_true.sdf" "-22.150000"
 }
 
-@test "and true false" {
-  check_successful "bin/sample -x 14.27 -y 3.26 -z 22.15 < test/sdf/and.sdf" "3.260000"
+@test "and parameter parameter false false" {
+  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/and_parameter_parameter.sdf" "22.150000"
 }
 
-@test "and true true" {
-  check_successful "bin/sample -x 22.15 -y 14.27 -z 3.26 < test/sdf/and.sdf" "22.150000"
+@test "and parameter parameter false true" {
+  check_successful "bin/sample -x 14.27 -y 22.15 -z 3.26 < test/sdf/and_parameter_parameter.sdf" "22.150000"
 }
 
-@test "or false false" {
-  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/or.sdf" "22.150000"
+@test "and parameter parameter true false" {
+  check_successful "bin/sample -x 14.27 -y 3.26 -z 22.15 < test/sdf/and_parameter_parameter.sdf" "3.260000"
 }
 
-@test "or false true" {
-  check_successful "bin/sample -x 14.27 -y 22.15 -z 3.26 < test/sdf/or.sdf" "14.270000"
+@test "and parameter parameter true true" {
+  check_successful "bin/sample -x 22.15 -y 14.27 -z 3.26 < test/sdf/and_parameter_parameter.sdf" "22.150000"
 }
 
-@test "or true false" {
-  check_successful "bin/sample -x 14.27 -y 3.26 -z 22.15 < test/sdf/or.sdf" "14.270000"
+@test "and parameter constant false false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/and_parameter_false.sdf" "-22.150000"
 }
 
-@test "or true true" {
-  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/or.sdf" "22.150000"
+@test "and parameter constant false true" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/and_parameter_true.sdf" "-22.150000"
 }
 
-@test "equal false false" {
-  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/equal.sdf" "3.260000"
+@test "and parameter constant true false" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/and_parameter_false.sdf" "-22.150000"
 }
 
-@test "equal false true" {
-  check_successful "bin/sample -x 14.27 -y 22.15 -z 3.26 < test/sdf/equal.sdf" "22.150000"
+@test "and parameter constant true true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/and_parameter_true.sdf" "3.260000"
 }
 
-@test "equal true false" {
-  check_successful "bin/sample -x 14.27 -y 3.26 -z 22.15 < test/sdf/equal.sdf" "3.260000"
+@test "and constant parameter false false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/and_false_parameter.sdf" "-22.150000"
 }
 
-@test "equal true true" {
-  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/equal.sdf" "3.260000"
+@test "and constant parameter false true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/and_false_parameter.sdf" "-22.150000"
 }
 
-@test "not equal false false" {
-  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/not_equal.sdf" "22.150000"
+@test "and constant parameter true false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/and_true_parameter.sdf" "-22.150000"
 }
 
-@test "not equal false true" {
-  check_successful "bin/sample -x 14.27 -y 22.15 -z 3.26 < test/sdf/not_equal.sdf" "14.270000"
+@test "and constant parameter true true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/and_true_parameter.sdf" "3.260000"
 }
 
-@test "not equal true false" {
-  check_successful "bin/sample -x 14.27 -y 3.26 -z 22.15 < test/sdf/not_equal.sdf" "14.270000"
+@test "and constant constant false false" {
+  check_successful "bin/sample < test/sdf/and_false_false.sdf" "-22.150000"
 }
 
-@test "not equal true true" {
-  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/not_equal.sdf" "22.150000"
+@test "and constant constant false true" {
+  check_successful "bin/sample < test/sdf/and_false_true.sdf" "-22.150000"
 }
 
-# conditional_boolean_a is the following:
-# X
-# Y
-# Z
-# X > Z
-# X > Y
-# Y > Z
-# X > Z ? X > Y : Y > Z
-# (X > Z ? X > Y : Y > Z) ? X : Y
-
-@test "conditional boolean false false false" {
-  check_successful "bin/sample -x 12.216 -y 15.222 -z 17.775 < test/sdf/conditional_boolean_a.sdf" "15.222000"
+@test "and constant constant true false" {
+  check_successful "bin/sample < test/sdf/and_true_false.sdf" "-22.150000"
 }
 
-@test "conditional boolean false true false" {
-  check_successful "bin/sample -x 15.216 -y 12.222 -z 17.775 < test/sdf/conditional_boolean_a.sdf" "12.222000"
+@test "and constant constant true true" {
+  check_successful "bin/sample < test/sdf/and_true_true.sdf" "3.260000"
 }
 
-@test "conditional boolean false false true" {
-  check_successful "bin/sample -x 12.216 -y 17.222 -z 15.775 < test/sdf/conditional_boolean_a.sdf" "12.216000"
+@test "or parameter parameter false false" {
+  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/or_parameter_parameter.sdf" "22.150000"
 }
 
-@test "conditional boolean true true true" {
-  check_successful "bin/sample -x 17.775 -y 15.222 -z 12.216 < test/sdf/conditional_boolean_a.sdf" "17.775000"
+@test "or parameter parameter false true" {
+  check_successful "bin/sample -x 14.27 -y 22.15 -z 3.26 < test/sdf/or_parameter_parameter.sdf" "14.270000"
 }
 
-@test "conditional boolean true true false" {
-  check_successful "bin/sample -x 17.775 -y 12.222 -z 15.216 < test/sdf/conditional_boolean_a.sdf" "17.775000"
+@test "or parameter parameter true false" {
+  check_successful "bin/sample -x 14.27 -y 3.26 -z 22.15 < test/sdf/or_parameter_parameter.sdf" "14.270000"
 }
 
-# conditional_boolean_b is the following:
-# X
-# Y
-# Z
-# X > Y
-# Y > Z
-# X > Z
-# X > Y ? Y > Z : X > Z
-# (X > Y ? Y > Z : X > Z) ? X : Y
-
-@test "conditional boolean false true true" {
-  check_successful "bin/sample -x 15.216 -y 17.222 -z 12.775 < test/sdf/conditional_boolean_b.sdf" "15.216000"
+@test "or parameter parameter true true" {
+  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/or_parameter_parameter.sdf" "22.150000"
 }
 
-@test "conditional boolean true false false" {
-  check_successful "bin/sample -x 15.216 -y 12.222 -z 17.775 < test/sdf/conditional_boolean_b.sdf" "12.222000"
+@test "or parameter constant false false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/or_parameter_false.sdf" "-22.150000"
 }
 
-@test "conditional boolean true false true" {
-  check_successful "bin/sample -x 17.216 -y 12.222 -z 15.775 < test/sdf/conditional_boolean_b.sdf" "12.222000"
+@test "or parameter constant false true" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/or_parameter_true.sdf" "3.260000"
+}
+
+@test "or parameter constant true false" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/or_parameter_false.sdf" "3.260000"
+}
+
+@test "or parameter constant true true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/or_parameter_true.sdf" "3.260000"
+}
+
+@test "or constant parameter false false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/or_false_parameter.sdf" "-22.150000"
+}
+
+@test "or constant parameter false true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/or_false_parameter.sdf" "3.260000"
+}
+
+@test "or constant parameter true false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/or_true_parameter.sdf" "3.260000"
+}
+
+@test "or constant parameter true true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/or_true_parameter.sdf" "3.260000"
+}
+
+@test "or constant constant false false" {
+  check_successful "bin/sample < test/sdf/or_false_false.sdf" "-22.150000"
+}
+
+@test "or constant constant false true" {
+  check_successful "bin/sample < test/sdf/or_false_true.sdf" "3.260000"
+}
+
+@test "or constant constant true false" {
+  check_successful "bin/sample < test/sdf/or_true_false.sdf" "3.260000"
+}
+
+@test "or constant constant true true" {
+  check_successful "bin/sample < test/sdf/or_true_true.sdf" "3.260000"
+}
+
+@test "equal parameter parameter false false" {
+  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/equal_parameter_parameter.sdf" "3.260000"
+}
+
+@test "equal parameter parameter false true" {
+  check_successful "bin/sample -x 14.27 -y 22.15 -z 3.26 < test/sdf/equal_parameter_parameter.sdf" "22.150000"
+}
+
+@test "equal parameter parameter true false" {
+  check_successful "bin/sample -x 14.27 -y 3.26 -z 22.15 < test/sdf/equal_parameter_parameter.sdf" "3.260000"
+}
+
+@test "equal parameter parameter true true" {
+  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/equal_parameter_parameter.sdf" "3.260000"
+}
+
+@test "equal parameter constant false false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/equal_parameter_false.sdf" "3.260000"
+}
+
+@test "equal parameter constant false true" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/equal_parameter_true.sdf" "-22.150000"
+}
+
+@test "equal parameter constant true false" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/equal_parameter_false.sdf" "-22.150000"
+}
+
+@test "equal parameter constant true true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/equal_parameter_true.sdf" "3.260000"
+}
+
+@test "equal constant parameter false false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/equal_false_parameter.sdf" "3.260000"
+}
+
+@test "equal constant parameter false true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/equal_false_parameter.sdf" "-22.150000"
+}
+
+@test "equal constant parameter true false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/equal_true_parameter.sdf" "-22.150000"
+}
+
+@test "equal constant parameter true true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/equal_true_parameter.sdf" "3.260000"
+}
+
+@test "equal constant constant false false" {
+  check_successful "bin/sample < test/sdf/equal_false_false.sdf" "3.260000"
+}
+
+@test "equal constant constant false true" {
+  check_successful "bin/sample < test/sdf/equal_false_true.sdf" "-22.150000"
+}
+
+@test "equal constant constant true false" {
+  check_successful "bin/sample < test/sdf/equal_true_false.sdf" "-22.150000"
+}
+
+@test "equal constant constant true true" {
+  check_successful "bin/sample < test/sdf/equal_true_true.sdf" "3.260000"
+}
+
+@test "not equal parameter parameter false false" {
+  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/not_equal_parameter_parameter.sdf" "22.150000"
+}
+
+@test "not equal parameter parameter false true" {
+  check_successful "bin/sample -x 14.27 -y 22.15 -z 3.26 < test/sdf/not_equal_parameter_parameter.sdf" "14.270000"
+}
+
+@test "not equal parameter parameter true false" {
+  check_successful "bin/sample -x 14.27 -y 3.26 -z 22.15 < test/sdf/not_equal_parameter_parameter.sdf" "14.270000"
+}
+
+@test "not equal parameter parameter true true" {
+  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/not_equal_parameter_parameter.sdf" "22.150000"
+}
+
+@test "not equal parameter constant false false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/not_equal_parameter_false.sdf" "-22.150000"
+}
+
+@test "not equal parameter constant false true" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/not_equal_parameter_true.sdf" "3.260000"
+}
+
+@test "not equal parameter constant true false" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/not_equal_parameter_false.sdf" "3.260000"
+}
+
+@test "not equal parameter constant true true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/not_equal_parameter_true.sdf"  "-22.150000"
+}
+
+@test "not equal constant parameter false false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/not_equal_false_parameter.sdf" "-22.150000"
+}
+
+@test "not equal constant parameter false true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/not_equal_false_parameter.sdf" "3.260000"
+}
+
+@test "not equal constant parameter true false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/not_equal_true_parameter.sdf" "3.260000"
+}
+
+@test "not equal constant parameter true true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/not_equal_true_parameter.sdf" "-22.150000"
+}
+
+@test "not equal constant constant false false" {
+  check_successful "bin/sample < test/sdf/not_equal_false_false.sdf" "-22.150000"
+}
+
+@test "not equal constant constant false true" {
+  check_successful "bin/sample < test/sdf/not_equal_false_true.sdf" "3.260000"
+}
+
+@test "not equal constant constant true false" {
+  check_successful "bin/sample < test/sdf/not_equal_true_false.sdf" "3.260000"
+}
+
+@test "not equal constant constant true true" {
+  check_successful "bin/sample < test/sdf/not_equal_true_true.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter parameter parameter false false false" {
+  check_successful "bin/sample -x 1 -y 1 -z 1 < test/sdf/conditional_boolean_parameter_parameter_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter parameter parameter false false true" {
+  check_successful "bin/sample -x 1 -y 1 -z 3 < test/sdf/conditional_boolean_parameter_parameter_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter parameter parameter false true false" {
+  check_successful "bin/sample -x 1 -y 3 -z 1 < test/sdf/conditional_boolean_parameter_parameter_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter parameter parameter false true true" {
+  check_successful "bin/sample -x 1 -y 3 -z 3 < test/sdf/conditional_boolean_parameter_parameter_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter parameter parameter true false false" {
+  check_successful "bin/sample -x 3 -y 1 -z 1 < test/sdf/conditional_boolean_parameter_parameter_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter parameter parameter true false true" {
+  check_successful "bin/sample -x 3 -y 1 -z 3 < test/sdf/conditional_boolean_parameter_parameter_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter parameter parameter true true false" {
+  check_successful "bin/sample -x 3 -y 3 -z 1 < test/sdf/conditional_boolean_parameter_parameter_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter parameter parameter true true true" {
+  check_successful "bin/sample -x 3 -y 3 -z 3 < test/sdf/conditional_boolean_parameter_parameter_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter parameter constant false false false" {
+  check_successful "bin/sample -x 1 -y 1 < test/sdf/conditional_boolean_parameter_parameter_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter parameter constant false false true" {
+  check_successful "bin/sample -x 1 -y 1 < test/sdf/conditional_boolean_parameter_parameter_true.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter parameter constant false true false" {
+  check_successful "bin/sample -x 1 -y 3 < test/sdf/conditional_boolean_parameter_parameter_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter parameter constant false true true" {
+  check_successful "bin/sample -x 1 -y 3 < test/sdf/conditional_boolean_parameter_parameter_true.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter parameter constant true false false" {
+  check_successful "bin/sample -x 3 -y 1 < test/sdf/conditional_boolean_parameter_parameter_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter parameter constant true false true" {
+  check_successful "bin/sample -x 3 -y 1 < test/sdf/conditional_boolean_parameter_parameter_true.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter parameter constant true true false" {
+  check_successful "bin/sample -x 3 -y 3 < test/sdf/conditional_boolean_parameter_parameter_false.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter parameter constant true true true" {
+  check_successful "bin/sample -x 3 -y 3 < test/sdf/conditional_boolean_parameter_parameter_true.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter constant parameter false false false" {
+  check_successful "bin/sample -x 1 -y 1 < test/sdf/conditional_boolean_parameter_false_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter constant parameter false false true" {
+  check_successful "bin/sample -x 1 -y 3 < test/sdf/conditional_boolean_parameter_false_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter constant parameter false true false" {
+  check_successful "bin/sample -x 1 -y 1 < test/sdf/conditional_boolean_parameter_true_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter constant parameter false true true" {
+  check_successful "bin/sample -x 1 -y 3 < test/sdf/conditional_boolean_parameter_true_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter constant parameter true false false" {
+  check_successful "bin/sample -x 3 -y 1 < test/sdf/conditional_boolean_parameter_false_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter constant parameter true false true" {
+  check_successful "bin/sample -x 3 -y 3 < test/sdf/conditional_boolean_parameter_false_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter constant parameter true true false" {
+  check_successful "bin/sample -x 3 -y 1 < test/sdf/conditional_boolean_parameter_true_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter constant parameter true true true" {
+  check_successful "bin/sample -x 3 -y 3 < test/sdf/conditional_boolean_parameter_true_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter constant constant false false false" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_parameter_false_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter constant constant false false true" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_parameter_false_true.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter constant constant false true false" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_parameter_true_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter constant constant false true true" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_parameter_true_true.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter constant constant true false false" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_parameter_false_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter constant constant true false true" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_parameter_false_true.sdf" "-22.150000"
+}
+
+@test "conditional boolean parameter constant constant true true false" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_parameter_true_false.sdf" "3.260000"
+}
+
+@test "conditional boolean parameter constant constant true true true" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_parameter_true_true.sdf" "3.260000"
+}
+
+@test "conditional boolean constant parameter parameter false false false" {
+  check_successful "bin/sample -x 1 -y 1 < test/sdf/conditional_boolean_false_parameter_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant parameter parameter false false true" {
+  check_successful "bin/sample -x 1 -y 3 < test/sdf/conditional_boolean_false_parameter_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean constant parameter parameter false true false" {
+  check_successful "bin/sample -x 3 -y 1 < test/sdf/conditional_boolean_false_parameter_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant parameter parameter false true true" {
+  check_successful "bin/sample -x 3 -y 3 < test/sdf/conditional_boolean_false_parameter_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean constant parameter parameter true false false" {
+  check_successful "bin/sample -x 1 -y 1 < test/sdf/conditional_boolean_true_parameter_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant parameter parameter true false true" {
+  check_successful "bin/sample -x 1 -y 3 < test/sdf/conditional_boolean_true_parameter_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant parameter parameter true true false" {
+  check_successful "bin/sample -x 3 -y 1 < test/sdf/conditional_boolean_true_parameter_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean constant parameter parameter true true true" {
+  check_successful "bin/sample -x 3 -y 3 < test/sdf/conditional_boolean_true_parameter_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean constant parameter constant false false false" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_false_parameter_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant parameter constant false false true" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_false_parameter_true.sdf" "3.260000"
+}
+
+@test "conditional boolean constant parameter constant false true false" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_false_parameter_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant parameter constant false true true" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_false_parameter_true.sdf" "3.260000"
+}
+
+@test "conditional boolean constant parameter constant true false false" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_true_parameter_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant parameter constant true false true" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_true_parameter_true.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant parameter constant true true false" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_true_parameter_false.sdf" "3.260000"
+}
+
+@test "conditional boolean constant parameter constant true true true" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_true_parameter_true.sdf" "3.260000"
+}
+
+@test "conditional boolean constant constant parameter false false false" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_false_false_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant constant parameter false false true" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_false_false_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean constant constant parameter false true false" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_false_true_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant constant parameter false true true" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_false_true_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean constant constant parameter true false false" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_true_false_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant constant parameter true false true" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_true_false_parameter.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant constant parameter true true false" {
+  check_successful "bin/sample -x 1 < test/sdf/conditional_boolean_true_true_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean constant constant parameter true true true" {
+  check_successful "bin/sample -x 3 < test/sdf/conditional_boolean_true_true_parameter.sdf" "3.260000"
+}
+
+@test "conditional boolean constant constant constant false false false" {
+  check_successful "bin/sample < test/sdf/conditional_boolean_false_false_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant constant constant false false true" {
+  check_successful "bin/sample < test/sdf/conditional_boolean_false_false_true.sdf" "3.260000"
+}
+
+@test "conditional boolean constant constant constant false true false" {
+  check_successful "bin/sample < test/sdf/conditional_boolean_false_true_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant constant constant false true true" {
+  check_successful "bin/sample < test/sdf/conditional_boolean_false_true_true.sdf" "3.260000"
+}
+
+@test "conditional boolean constant constant constant true false false" {
+  check_successful "bin/sample < test/sdf/conditional_boolean_true_false_false.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant constant constant true false true" {
+  check_successful "bin/sample < test/sdf/conditional_boolean_true_false_true.sdf" "-22.150000"
+}
+
+@test "conditional boolean constant constant constant true true false" {
+  check_successful "bin/sample < test/sdf/conditional_boolean_true_true_false.sdf" "3.260000"
+}
+
+@test "conditional boolean constant constant constant true true true" {
+  check_successful "bin/sample < test/sdf/conditional_boolean_true_true_true.sdf" "3.260000"
 }
 
 @test "greater than parameter parameter (false) -> conditional number" {
@@ -255,6 +659,38 @@ executable_help="sample - sample a sdf stream at a single point in space
 
 @test "greater than constant constant (true) -> conditional number" {
   check_successful "bin/sample < test/sdf/greater_than_conditional_number_constant_constant_true.sdf" "15.222000"
+}
+
+@test "conditional number constant parameter parameter false" {
+  check_successful "bin/sample -x 15.222 -y 12.216 < test/sdf/conditional_number_false_parameter_parameter.sdf" "12.216000"
+}
+
+@test "conditional number constant parameter parameter true" {
+  check_successful "bin/sample -x 15.222 -y 12.216 < test/sdf/conditional_number_true_parameter_parameter.sdf" "15.222000"
+}
+
+@test "conditional number constant parameter constant false" {
+check_successful "bin/sample -x 15.222 < test/sdf/conditional_number_false_parameter_constant.sdf" "-22.150000"
+}
+
+@test "conditional number constant parameter constant true" {
+check_successful "bin/sample -x 15.222 < test/sdf/conditional_number_true_parameter_constant.sdf" "15.222000"
+}
+
+@test "conditional number constant constant parameter false" {
+check_successful "bin/sample -x 15.222 < test/sdf/conditional_number_false_constant_parameter.sdf" "15.222000"
+}
+
+@test "conditional number constant constant parameter true" {
+check_successful "bin/sample -x 15.222 < test/sdf/conditional_number_true_constant_parameter.sdf" "-22.150000"
+}
+
+@test "conditional number constant constant constant false" {
+  check_successful "bin/sample < test/sdf/conditional_number_false_constant_constant.sdf" "-22.150000"
+}
+
+@test "conditional number constant constant constant true" {
+  check_successful "bin/sample < test/sdf/conditional_number_true_constant_constant.sdf" "3.260000"
 }
 
 @test "negate positive" {
@@ -1126,19 +1562,19 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "unary argument a constant missing" {
-  check_failure "bin/sample < test/sdf/unary_argument_a_constant_missing.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/unary_argument_a_constant_missing.sdf" "unexpected eof reading number constant"
 }
 
 @test "unary argument a constant truncated a" {
-  check_failure "bin/sample < test/sdf/unary_argument_a_constant_truncated_a.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/unary_argument_a_constant_truncated_a.sdf" "unexpected eof reading number constant"
 }
 
 @test "unary argument a constant truncated b" {
-  check_failure "bin/sample < test/sdf/unary_argument_a_constant_truncated_b.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/unary_argument_a_constant_truncated_b.sdf" "unexpected eof reading number constant"
 }
 
 @test "unary argument a constant truncated c" {
-  check_failure "bin/sample < test/sdf/unary_argument_a_constant_truncated_c.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/unary_argument_a_constant_truncated_c.sdf" "unexpected eof reading number constant"
 }
 
 @test "binary argument a missing" {
@@ -1150,19 +1586,19 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "binary argument a constant missing" {
-  check_failure "bin/sample < test/sdf/binary_argument_a_constant_missing.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/binary_argument_a_constant_missing.sdf" "unexpected eof reading number constant"
 }
 
 @test "binary argument a constant truncated a" {
-  check_failure "bin/sample < test/sdf/binary_argument_a_constant_truncated_a.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/binary_argument_a_constant_truncated_a.sdf" "unexpected eof reading number constant"
 }
 
 @test "binary argument a constant truncated b" {
-  check_failure "bin/sample < test/sdf/binary_argument_a_constant_truncated_b.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/binary_argument_a_constant_truncated_b.sdf" "unexpected eof reading number constant"
 }
 
 @test "binary argument a constant truncated c" {
-  check_failure "bin/sample < test/sdf/binary_argument_a_constant_truncated_c.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/binary_argument_a_constant_truncated_c.sdf" "unexpected eof reading number constant"
 }
 
 @test "binary argument b missing" {
@@ -1174,19 +1610,19 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "binary argument b constant missing" {
-  check_failure "bin/sample < test/sdf/binary_argument_b_constant_missing.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/binary_argument_b_constant_missing.sdf" "unexpected eof reading number constant"
 }
 
 @test "binary argument b constant truncated a" {
-  check_failure "bin/sample < test/sdf/binary_argument_b_constant_truncated_a.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/binary_argument_b_constant_truncated_a.sdf" "unexpected eof reading number constant"
 }
 
 @test "binary argument b constant truncated b" {
-  check_failure "bin/sample < test/sdf/binary_argument_b_constant_truncated_b.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/binary_argument_b_constant_truncated_b.sdf" "unexpected eof reading number constant"
 }
 
 @test "binary argument b constant truncated c" {
-  check_failure "bin/sample < test/sdf/binary_argument_b_constant_truncated_c.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/binary_argument_b_constant_truncated_c.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument a missing" {
@@ -1198,19 +1634,19 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "ternary argument a constant missing" {
-  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_missing.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_missing.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument a constant truncated a" {
-  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_truncated_a.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_truncated_a.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument a constant truncated b" {
-  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_truncated_b.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_truncated_b.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument a constant truncated c" {
-  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_truncated_c.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_a_constant_truncated_c.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument b missing" {
@@ -1222,19 +1658,19 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "ternary argument b constant missing" {
-  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_missing.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_missing.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument b constant truncated a" {
-  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_truncated_a.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_truncated_a.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument b constant truncated b" {
-  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_truncated_b.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_truncated_b.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument b constant truncated c" {
-  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_truncated_c.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_b_constant_truncated_c.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument c missing" {
@@ -1246,17 +1682,17 @@ executable_help="sample - sample a sdf stream at a single point in space
 }
 
 @test "ternary argument c constant missing" {
-  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_missing.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_missing.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument c constant truncated a" {
-  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_truncated_a.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_truncated_a.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument c constant truncated b" {
-  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_truncated_b.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_truncated_b.sdf" "unexpected eof reading number constant"
 }
 
 @test "ternary argument c constant truncated c" {
-  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_truncated_c.sdf" "unexpected eof reading float constant"
+  check_failure "bin/sample < test/sdf/ternary_argument_c_constant_truncated_c.sdf" "unexpected eof reading number constant"
 }
