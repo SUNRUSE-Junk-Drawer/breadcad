@@ -457,6 +457,38 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample < test/sdf/greater_than_conditional_number_constant_constant_true.sdf" "15.222000"
 }
 
+@test "conditional number constant parameter parameter false" {
+  check_successful "bin/sample -x 15.222 -y 12.216 < test/sdf/conditional_number_false_parameter_parameter.sdf" "12.216000"
+}
+
+@test "conditional number constant parameter parameter true" {
+  check_successful "bin/sample -x 15.222 -y 12.216 < test/sdf/conditional_number_true_parameter_parameter.sdf" "15.222000"
+}
+
+@test "conditional number constant parameter constant false" {
+check_successful "bin/sample -x 15.222 < test/sdf/conditional_number_false_parameter_constant.sdf" "-22.150000"
+}
+
+@test "conditional number constant parameter constant true" {
+check_successful "bin/sample -x 15.222 < test/sdf/conditional_number_true_parameter_constant.sdf" "15.222000"
+}
+
+@test "conditional number constant constant parameter false" {
+check_successful "bin/sample -x 15.222 < test/sdf/conditional_number_false_constant_parameter.sdf" "15.222000"
+}
+
+@test "conditional number constant constant parameter true" {
+check_successful "bin/sample -x 15.222 < test/sdf/conditional_number_true_constant_parameter.sdf" "-22.150000"
+}
+
+@test "conditional number constant constant constant false" {
+  check_successful "bin/sample < test/sdf/conditional_number_false_constant_constant.sdf" "-22.150000"
+}
+
+@test "conditional number constant constant constant true" {
+  check_successful "bin/sample < test/sdf/conditional_number_true_constant_constant.sdf" "3.260000"
+}
+
 @test "negate positive" {
   check_successful "bin/sample -x 12.216 < test/sdf/negate_x.sdf" "-12.216000"
 }
