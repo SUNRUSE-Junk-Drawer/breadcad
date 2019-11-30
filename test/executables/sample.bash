@@ -117,68 +117,260 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample < test/sdf/not_true.sdf" "-22.150000"
 }
 
-@test "and false false" {
-  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/and.sdf" "22.150000"
+@test "and parameter parameter false false" {
+  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/and_parameter_parameter.sdf" "22.150000"
 }
 
-@test "and false true" {
-  check_successful "bin/sample -x 14.27 -y 22.15 -z 3.26 < test/sdf/and.sdf" "22.150000"
+@test "and parameter parameter false true" {
+  check_successful "bin/sample -x 14.27 -y 22.15 -z 3.26 < test/sdf/and_parameter_parameter.sdf" "22.150000"
 }
 
-@test "and true false" {
-  check_successful "bin/sample -x 14.27 -y 3.26 -z 22.15 < test/sdf/and.sdf" "3.260000"
+@test "and parameter parameter true false" {
+  check_successful "bin/sample -x 14.27 -y 3.26 -z 22.15 < test/sdf/and_parameter_parameter.sdf" "3.260000"
 }
 
-@test "and true true" {
-  check_successful "bin/sample -x 22.15 -y 14.27 -z 3.26 < test/sdf/and.sdf" "22.150000"
+@test "and parameter parameter true true" {
+  check_successful "bin/sample -x 22.15 -y 14.27 -z 3.26 < test/sdf/and_parameter_parameter.sdf" "22.150000"
 }
 
-@test "or false false" {
-  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/or.sdf" "22.150000"
+@test "and parameter constant false false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/and_parameter_false.sdf" "-22.150000"
 }
 
-@test "or false true" {
-  check_successful "bin/sample -x 14.27 -y 22.15 -z 3.26 < test/sdf/or.sdf" "14.270000"
+@test "and parameter constant false true" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/and_parameter_true.sdf" "-22.150000"
 }
 
-@test "or true false" {
-  check_successful "bin/sample -x 14.27 -y 3.26 -z 22.15 < test/sdf/or.sdf" "14.270000"
+@test "and parameter constant true false" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/and_parameter_false.sdf" "-22.150000"
 }
 
-@test "or true true" {
-  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/or.sdf" "22.150000"
+@test "and parameter constant true true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/and_parameter_true.sdf" "3.260000"
 }
 
-@test "equal false false" {
-  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/equal.sdf" "3.260000"
+@test "and constant parameter false false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/and_false_parameter.sdf" "-22.150000"
 }
 
-@test "equal false true" {
-  check_successful "bin/sample -x 14.27 -y 22.15 -z 3.26 < test/sdf/equal.sdf" "22.150000"
+@test "and constant parameter false true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/and_false_parameter.sdf" "-22.150000"
 }
 
-@test "equal true false" {
-  check_successful "bin/sample -x 14.27 -y 3.26 -z 22.15 < test/sdf/equal.sdf" "3.260000"
+@test "and constant parameter true false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/and_true_parameter.sdf" "-22.150000"
 }
 
-@test "equal true true" {
-  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/equal.sdf" "3.260000"
+@test "and constant parameter true true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/and_true_parameter.sdf" "3.260000"
 }
 
-@test "not equal false false" {
-  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/not_equal.sdf" "22.150000"
+@test "and constant constant false false" {
+  check_successful "bin/sample < test/sdf/and_false_false.sdf" "-22.150000"
 }
 
-@test "not equal false true" {
-  check_successful "bin/sample -x 14.27 -y 22.15 -z 3.26 < test/sdf/not_equal.sdf" "14.270000"
+@test "and constant constant false true" {
+  check_successful "bin/sample < test/sdf/and_false_true.sdf" "-22.150000"
 }
 
-@test "not equal true false" {
-  check_successful "bin/sample -x 14.27 -y 3.26 -z 22.15 < test/sdf/not_equal.sdf" "14.270000"
+@test "and constant constant true false" {
+  check_successful "bin/sample < test/sdf/and_true_false.sdf" "-22.150000"
 }
 
-@test "not equal true true" {
-  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/not_equal.sdf" "22.150000"
+@test "and constant constant true true" {
+  check_successful "bin/sample < test/sdf/and_true_true.sdf" "3.260000"
+}
+
+@test "or parameter parameter false false" {
+  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/or_parameter_parameter.sdf" "22.150000"
+}
+
+@test "or parameter parameter false true" {
+  check_successful "bin/sample -x 14.27 -y 22.15 -z 3.26 < test/sdf/or_parameter_parameter.sdf" "14.270000"
+}
+
+@test "or parameter parameter true false" {
+  check_successful "bin/sample -x 14.27 -y 3.26 -z 22.15 < test/sdf/or_parameter_parameter.sdf" "14.270000"
+}
+
+@test "or parameter parameter true true" {
+  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/or_parameter_parameter.sdf" "22.150000"
+}
+
+@test "or parameter constant false false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/or_parameter_false.sdf" "-22.150000"
+}
+
+@test "or parameter constant false true" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/or_parameter_true.sdf" "3.260000"
+}
+
+@test "or parameter constant true false" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/or_parameter_false.sdf" "3.260000"
+}
+
+@test "or parameter constant true true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/or_parameter_true.sdf" "3.260000"
+}
+
+@test "or constant parameter false false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/or_false_parameter.sdf" "-22.150000"
+}
+
+@test "or constant parameter false true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/or_false_parameter.sdf" "3.260000"
+}
+
+@test "or constant parameter true false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/or_true_parameter.sdf" "3.260000"
+}
+
+@test "or constant parameter true true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/or_true_parameter.sdf" "3.260000"
+}
+
+@test "or constant constant false false" {
+  check_successful "bin/sample < test/sdf/or_false_false.sdf" "-22.150000"
+}
+
+@test "or constant constant false true" {
+  check_successful "bin/sample < test/sdf/or_false_true.sdf" "3.260000"
+}
+
+@test "or constant constant true false" {
+  check_successful "bin/sample < test/sdf/or_true_false.sdf" "3.260000"
+}
+
+@test "or constant constant true true" {
+  check_successful "bin/sample < test/sdf/or_true_true.sdf" "3.260000"
+}
+
+@test "equal parameter parameter false false" {
+  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/equal_parameter_parameter.sdf" "3.260000"
+}
+
+@test "equal parameter parameter false true" {
+  check_successful "bin/sample -x 14.27 -y 22.15 -z 3.26 < test/sdf/equal_parameter_parameter.sdf" "22.150000"
+}
+
+@test "equal parameter parameter true false" {
+  check_successful "bin/sample -x 14.27 -y 3.26 -z 22.15 < test/sdf/equal_parameter_parameter.sdf" "3.260000"
+}
+
+@test "equal parameter parameter true true" {
+  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/equal_parameter_parameter.sdf" "3.260000"
+}
+
+@test "equal parameter constant false false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/equal_parameter_false.sdf" "3.260000"
+}
+
+@test "equal parameter constant false true" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/equal_parameter_true.sdf" "-22.150000"
+}
+
+@test "equal parameter constant true false" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/equal_parameter_false.sdf" "-22.150000"
+}
+
+@test "equal parameter constant true true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/equal_parameter_true.sdf" "3.260000"
+}
+
+@test "equal constant parameter false false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/equal_false_parameter.sdf" "3.260000"
+}
+
+@test "equal constant parameter false true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/equal_false_parameter.sdf" "-22.150000"
+}
+
+@test "equal constant parameter true false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/equal_true_parameter.sdf" "-22.150000"
+}
+
+@test "equal constant parameter true true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/equal_true_parameter.sdf" "3.260000"
+}
+
+@test "equal constant constant false false" {
+  check_successful "bin/sample < test/sdf/equal_false_false.sdf" "3.260000"
+}
+
+@test "equal constant constant false true" {
+  check_successful "bin/sample < test/sdf/equal_false_true.sdf" "-22.150000"
+}
+
+@test "equal constant constant true false" {
+  check_successful "bin/sample < test/sdf/equal_true_false.sdf" "-22.150000"
+}
+
+@test "equal constant constant true true" {
+  check_successful "bin/sample < test/sdf/equal_true_true.sdf" "3.260000"
+}
+
+@test "not equal parameter parameter false false" {
+  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/not_equal_parameter_parameter.sdf" "22.150000"
+}
+
+@test "not equal parameter parameter false true" {
+  check_successful "bin/sample -x 14.27 -y 22.15 -z 3.26 < test/sdf/not_equal_parameter_parameter.sdf" "14.270000"
+}
+
+@test "not equal parameter parameter true false" {
+  check_successful "bin/sample -x 14.27 -y 3.26 -z 22.15 < test/sdf/not_equal_parameter_parameter.sdf" "14.270000"
+}
+
+@test "not equal parameter parameter true true" {
+  check_successful "bin/sample -x 3.26 -y 22.15 -z 14.27 < test/sdf/not_equal_parameter_parameter.sdf" "22.150000"
+}
+
+@test "not equal parameter constant false false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/not_equal_parameter_false.sdf" "-22.150000"
+}
+
+@test "not equal parameter constant false true" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/not_equal_parameter_true.sdf" "3.260000"
+}
+
+@test "not equal parameter constant true false" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/not_equal_parameter_false.sdf" "3.260000"
+}
+
+@test "not equal parameter constant true true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/not_equal_parameter_true.sdf"  "-22.150000"
+}
+
+@test "not equal constant parameter false false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/not_equal_false_parameter.sdf" "-22.150000"
+}
+
+@test "not equal constant parameter false true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/not_equal_false_parameter.sdf" "3.260000"
+}
+
+@test "not equal constant parameter true false" {
+  check_successful "bin/sample -x 1 -y 2 < test/sdf/not_equal_true_parameter.sdf" "3.260000"
+}
+
+@test "not equal constant parameter true true" {
+  check_successful "bin/sample -x 2 -y 1 < test/sdf/not_equal_true_parameter.sdf" "-22.150000"
+}
+
+@test "not equal constant constant false false" {
+  check_successful "bin/sample < test/sdf/not_equal_false_false.sdf" "-22.150000"
+}
+
+@test "not equal constant constant false true" {
+  check_successful "bin/sample < test/sdf/not_equal_false_true.sdf" "3.260000"
+}
+
+@test "not equal constant constant true false" {
+  check_successful "bin/sample < test/sdf/not_equal_true_false.sdf" "3.260000"
+}
+
+@test "not equal constant constant true true" {
+  check_successful "bin/sample < test/sdf/not_equal_true_true.sdf" "-22.150000"
 }
 
 # conditional_boolean_a is the following:
