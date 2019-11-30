@@ -101,12 +101,20 @@ executable_help="sample - sample a sdf stream at a single point in space
   check_successful "bin/sample -x 3.26 -y -22.15 -z 14.27 < test/sdf/parameter_w.sdf" "0.000000"
 }
 
-@test "not false" {
-  check_successful "bin/sample -x 12.216 -y 15.222 < test/sdf/not.sdf" "12.216000"
+@test "not parameter false" {
+  check_successful "bin/sample -x 12.216 -y 15.222 < test/sdf/not_parameter.sdf" "12.216000"
 }
 
-@test "not true" {
-  check_successful "bin/sample -x 15.222 -y 12.216 < test/sdf/not.sdf" "12.216000"
+@test "not parameter true" {
+  check_successful "bin/sample -x 15.222 -y 12.216 < test/sdf/not_parameter.sdf" "12.216000"
+}
+
+@test "not constant false" {
+  check_successful "bin/sample < test/sdf/not_false.sdf" "3.260000"
+}
+
+@test "not constant true" {
+  check_successful "bin/sample < test/sdf/not_true.sdf" "-22.150000"
 }
 
 @test "and false false" {
