@@ -26,7 +26,7 @@ $(SDF_EXECUTABLE_PREFIX)%: obj/executables/%.o $(ALL_FRAMEWORK_O)
 
 test_results/%: test/executables/%.bash $(ALL_EXECUTABLES) $(ALL_TEST_FRAMEWORK) $(ALL_TEST_SDF)
 	mkdir -p test_results
-	submodules/bats-core/bin/bats $<
+	bash submodules/bats-core/bin/bats $<
 	touch $@
 
 .PHONY: all clean test
