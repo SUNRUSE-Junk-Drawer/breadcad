@@ -4,7 +4,7 @@
     {
       "label": "Run",
       "type": "shell",
-      "command": "bash setup.bash make test",
+      "command": "bash setup.bash 'bin/' make test",
       "windows": {
         "options": {
           "shell": {

@@ -4,21 +4,17 @@ matrix:
       language: c
       compiler: gcc
       script:
-        - make
-        - bash setup.bash make test
+        - bash setup.bash 'bin/' make
     - os: linux
       language: c
       compiler: clang
       script:
-        - make
-        - bash setup.bash make test
+        - bash setup.bash 'bin/' make
     - os: windows
       language: c
       script:
-        - mingw32-make
-        - bash setup.bash mingw32-make test
+        - bash setup.bash 'bin/' mingw32-make
     - os: osx
       language: c
       script:
-        - make
-        - bash setup.bash make test
+        - bash setup.bash 'bin/' make
