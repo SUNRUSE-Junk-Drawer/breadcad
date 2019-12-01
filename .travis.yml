@@ -4,24 +4,17 @@ matrix:
       language: c
       compiler: gcc
       script:
-        - make
-        - bash setup.bash make test
+        - bash setup.bash 'bin/sdf_' make
     - os: linux
       language: c
       compiler: clang
       script:
-        - make
-        - bash setup.bash make test
+        - bash setup.bash 'bin/sdf_' make
     - os: windows
       language: c
-      install:
-        - choco install --limit-output --no-progress --yes make
-        - submodules/bats-core/install.sh ..
       script:
-        - make
-        - bash setup.bash make test
+        - bash setup.bash 'bin/sdf_' mingw32-make
     - os: osx
       language: c
       script:
-        - make
-        - bash setup.bash make test
+        - bash setup.bash 'bin/sdf_' make

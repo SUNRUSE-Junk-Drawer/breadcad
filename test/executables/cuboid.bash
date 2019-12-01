@@ -27,11 +27,11 @@ executable_help="cuboid - generates a cuboid
 }
 
 @test "empty stdin" {
-  check_successful "bin/cuboid < test/sdf/empty.sdf | bin/sample" "0.000000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid < test/sdf/empty.sdf | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000"
 }
 
 @test "non-empty stdin" {
-  check_failure "bin/cuboid < test/sdf/parameter_x.sdf" "unexpected stdin"
+  check_failure "${SDF_EXECUTABLE_PREFIX}cuboid < test/sdf/parameter_x.sdf" "unexpected stdin"
 }
 
 @test "parameter size" {
@@ -51,532 +51,532 @@ executable_help="cuboid - generates a cuboid
 }
 
 @test "distances" {
-  check_successful "bin/cuboid | bin/sample -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid | bin/sample -x 0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid | bin/sample -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid | bin/sample -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid | bin/sample -x 0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid | bin/sample -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --center-x | bin/sample -x -0.500000 -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --center-x | bin/sample -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --center-x | bin/sample -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --center-x | bin/sample -x -0.500000 -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --center-x | bin/sample -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --center-x | bin/sample -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --center-y | bin/sample -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --center-y | bin/sample -x 0.500000 -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --center-y | bin/sample -x 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --center-y | bin/sample -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --center-y | bin/sample -x 0.500000 -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --center-y | bin/sample -x 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --center-z | bin/sample -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --center-z | bin/sample -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --center-z | bin/sample -x 0.500000 -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --center-z | bin/sample -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --center-z | bin/sample -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --center-z | bin/sample -x 0.500000 -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --center-x --center-y | bin/sample -x -0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --center-x --center-y | bin/sample -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --center-x --center-y | bin/sample -x -0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --center-x --center-y | bin/sample -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --center-y --center-z | bin/sample -x 0.500000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --center-y --center-z | bin/sample -x 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --center-y --center-z | bin/sample -x 0.500000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --center-y --center-z | bin/sample -x 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --center-x --center-z | bin/sample -x -0.500000 -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --center-x --center-z | bin/sample -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --center-x --center-z | bin/sample -x -0.500000 -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --center-x --center-z | bin/sample -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --center | bin/sample -x -0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --center | bin/sample -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --center | bin/sample -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --center | bin/sample -x -0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --center | bin/sample -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --center | bin/sample -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 | bin/sample -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 | bin/sample -x 1.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 | bin/sample -x 1.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 | bin/sample -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 | bin/sample -x 1.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 | bin/sample -x 1.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --center-x | bin/sample -x -1.500000 -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --center-x | bin/sample -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --center-x | bin/sample -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --center-x | bin/sample -x -1.500000 -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --center-x | bin/sample -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --center-x | bin/sample -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --center-y | bin/sample -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --center-y | bin/sample -x 1.500000 -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --center-y | bin/sample -x 1.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --center-y | bin/sample -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --center-y | bin/sample -x 1.500000 -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --center-y | bin/sample -x 1.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --center-z | bin/sample -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --center-z | bin/sample -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --center-z | bin/sample -x 1.500000 -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --center-z | bin/sample -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --center-z | bin/sample -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --center-z | bin/sample -x 1.500000 -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --center-x --center-y | bin/sample -x -1.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --center-x --center-y | bin/sample -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --center-x --center-y | bin/sample -x -1.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --center-x --center-y | bin/sample -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --center-y --center-z | bin/sample -x 1.500000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --center-y --center-z | bin/sample -x 1.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --center-y --center-z | bin/sample -x 1.500000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --center-y --center-z | bin/sample -x 1.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --center-x --center-z | bin/sample -x -1.500000 -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --center-x --center-z | bin/sample -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --center-x --center-z | bin/sample -x -1.500000 -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --center-x --center-z | bin/sample -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --center | bin/sample -x -1.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --center | bin/sample -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --center | bin/sample -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --center | bin/sample -x -1.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --center | bin/sample -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --center | bin/sample -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 | bin/sample -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 | bin/sample -x 0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 | bin/sample -x 0.500000 -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 | bin/sample -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 | bin/sample -x 0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 | bin/sample -x 0.500000 -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --center-x | bin/sample -x -0.500000 -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --center-x | bin/sample -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --center-x | bin/sample -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --center-x | bin/sample -x -0.500000 -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --center-x | bin/sample -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --center-x | bin/sample -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --center-y | bin/sample -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --center-y | bin/sample -x 0.500000 -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --center-y | bin/sample -x 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --center-y | bin/sample -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --center-y | bin/sample -x 0.500000 -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --center-y | bin/sample -x 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --center-z | bin/sample -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --center-z | bin/sample -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --center-z | bin/sample -x 0.500000 -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --center-z | bin/sample -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --center-z | bin/sample -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --center-z | bin/sample -x 0.500000 -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --center-x --center-y | bin/sample -x -0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --center-x --center-y | bin/sample -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --center-x --center-y | bin/sample -x -0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --center-x --center-y | bin/sample -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --center-y --center-z | bin/sample -x 0.500000 -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --center-y --center-z | bin/sample -x 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --center-y --center-z | bin/sample -x 0.500000 -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --center-y --center-z | bin/sample -x 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --center-x --center-z | bin/sample -x -0.500000 -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --center-x --center-z | bin/sample -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --center-x --center-z | bin/sample -x -0.500000 -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --center-x --center-z | bin/sample -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --center | bin/sample -x -0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --center | bin/sample -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --center | bin/sample -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --center | bin/sample -x -0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --center | bin/sample -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --center | bin/sample -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-z 5 | bin/sample -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-z 5 | bin/sample -x 0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-z 5 | bin/sample -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-z 5 | bin/sample -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-z 5 | bin/sample -x 0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-z 5 | bin/sample -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-z 5 --center-x | bin/sample -x -0.500000 -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-z 5 --center-x | bin/sample -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-z 5 --center-x | bin/sample -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-z 5 --center-x | bin/sample -x -0.500000 -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-z 5 --center-x | bin/sample -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-z 5 --center-x | bin/sample -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-z 5 --center-y | bin/sample -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-z 5 --center-y | bin/sample -x 0.500000 -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-z 5 --center-y | bin/sample -x 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-z 5 --center-y | bin/sample -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-z 5 --center-y | bin/sample -x 0.500000 -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-z 5 --center-y | bin/sample -x 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-z 5 --center-z | bin/sample -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-z 5 --center-z | bin/sample -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-z 5 --center-z | bin/sample -x 0.500000 -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-z 5 --center-z | bin/sample -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-z 5 --center-z | bin/sample -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-z 5 --center-z | bin/sample -x 0.500000 -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-z 5 --center-x --center-y | bin/sample -x -0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-z 5 --center-x --center-y | bin/sample -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-z 5 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-z 5 --center-x --center-y | bin/sample -x -0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-z 5 --center-x --center-y | bin/sample -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-z 5 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-z 5 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-z 5 --center-y --center-z | bin/sample -x 0.500000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-z 5 --center-y --center-z | bin/sample -x 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-z 5 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-z 5 --center-y --center-z | bin/sample -x 0.500000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-z 5 --center-y --center-z | bin/sample -x 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-z 5 --center-x --center-z | bin/sample -x -0.500000 -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-z 5 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-z 5 --center-x --center-z | bin/sample -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-z 5 --center-x --center-z | bin/sample -x -0.500000 -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-z 5 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-z 5 --center-x --center-z | bin/sample -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-z 5 --center | bin/sample -x -0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-z 5 --center | bin/sample -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-z 5 --center | bin/sample -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-z 5 --center | bin/sample -x -0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-z 5 --center | bin/sample -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-z 5 --center | bin/sample -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 | bin/sample -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 | bin/sample -x 1.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 | bin/sample -x 1.500000 -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 | bin/sample -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 | bin/sample -x 1.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 | bin/sample -x 1.500000 -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-x | bin/sample -x -1.500000 -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-x | bin/sample -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-x | bin/sample -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-x | bin/sample -x -1.500000 -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-x | bin/sample -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-x | bin/sample -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-y | bin/sample -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-y | bin/sample -x 1.500000 -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-y | bin/sample -x 1.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-y | bin/sample -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-y | bin/sample -x 1.500000 -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-y | bin/sample -x 1.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-z | bin/sample -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-z | bin/sample -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-z | bin/sample -x 1.500000 -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-z | bin/sample -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-z | bin/sample -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-z | bin/sample -x 1.500000 -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-x --center-y | bin/sample -x -1.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-x --center-y | bin/sample -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-x --center-y | bin/sample -x -1.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-x --center-y | bin/sample -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-y --center-z | bin/sample -x 1.500000 -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-y --center-z | bin/sample -x 1.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-y --center-z | bin/sample -x 1.500000 -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-y --center-z | bin/sample -x 1.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-x --center-z | bin/sample -x -1.500000 -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-x --center-z | bin/sample -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-x --center-z | bin/sample -x -1.500000 -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center-x --center-z | bin/sample -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center | bin/sample -x -1.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center | bin/sample -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center | bin/sample -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center | bin/sample -x -1.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center | bin/sample -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-y 4 --center | bin/sample -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 | bin/sample -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 | bin/sample -x 1.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 | bin/sample -x 1.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 | bin/sample -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 | bin/sample -x 1.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 | bin/sample -x 1.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-x | bin/sample -x -1.500000 -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-x | bin/sample -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-x | bin/sample -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-x | bin/sample -x -1.500000 -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-x | bin/sample -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-x | bin/sample -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-y | bin/sample -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-y | bin/sample -x 1.500000 -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-y | bin/sample -x 1.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-y | bin/sample -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-y | bin/sample -x 1.500000 -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-y | bin/sample -x 1.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-z | bin/sample -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-z | bin/sample -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-z | bin/sample -x 1.500000 -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-z | bin/sample -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-z | bin/sample -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-z | bin/sample -x 1.500000 -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-x --center-y | bin/sample -x -1.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-x --center-y | bin/sample -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-x --center-y | bin/sample -x -1.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-x --center-y | bin/sample -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-y --center-z | bin/sample -x 1.500000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-y --center-z | bin/sample -x 1.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-y --center-z | bin/sample -x 1.500000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-y --center-z | bin/sample -x 1.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-x --center-z | bin/sample -x -1.500000 -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-x --center-z | bin/sample -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-x --center-z | bin/sample -x -1.500000 -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center-x --center-z | bin/sample -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center | bin/sample -x -1.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center | bin/sample -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center | bin/sample -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center | bin/sample -x -1.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center | bin/sample -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-x 3 --size-z 5 --center | bin/sample -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 | bin/sample -y 2.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 | bin/sample -x 0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 | bin/sample -x 0.500000 -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 | bin/sample -y 2.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 | bin/sample -x 0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 | bin/sample -x 0.500000 -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-x | bin/sample -x -0.500000 -y 2.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-x | bin/sample -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-x | bin/sample -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-x | bin/sample -x -0.500000 -y 2.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-x | bin/sample -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-x | bin/sample -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-y | bin/sample -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-y | bin/sample -x 0.500000 -y -2.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-y | bin/sample -x 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-y | bin/sample -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-y | bin/sample -x 0.500000 -y -2.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-y | bin/sample -x 0.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-z | bin/sample -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-z | bin/sample -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-z | bin/sample -x 0.500000 -y 2.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-z | bin/sample -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-z | bin/sample -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-z | bin/sample -x 0.500000 -y 2.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-x --center-y | bin/sample -x -0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-x --center-y | bin/sample -y -2.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-x --center-y | bin/sample -x -0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-x --center-y | bin/sample -y -2.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-y --center-z | bin/sample -x 0.500000 -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-y --center-z | bin/sample -x 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-y --center-z | bin/sample -x 0.500000 -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-y --center-z | bin/sample -x 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-x --center-z | bin/sample -x -0.500000 -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-x --center-z | bin/sample -y 2.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-x --center-z | bin/sample -x -0.500000 -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center-x --center-z | bin/sample -y 2.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center | bin/sample -x -0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center | bin/sample -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center | bin/sample -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center | bin/sample -x -0.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center | bin/sample -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size-y 4 --size-z 5 --center | bin/sample -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 | bin/sample -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 | bin/sample -x 1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 | bin/sample -x 1.000000 -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 | bin/sample -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 | bin/sample -x 1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 | bin/sample -x 1.000000 -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --center-x | bin/sample -x -1.000000 -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --center-x | bin/sample -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --center-x | bin/sample -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --center-x | bin/sample -x -1.000000 -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --center-x | bin/sample -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --center-x | bin/sample -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --center-y | bin/sample -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --center-y | bin/sample -x 1.000000 -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --center-y | bin/sample -x 1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --center-y | bin/sample -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --center-y | bin/sample -x 1.000000 -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --center-y | bin/sample -x 1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --center-z | bin/sample -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --center-z | bin/sample -x 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --center-z | bin/sample -x 1.000000 -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --center-z | bin/sample -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --center-z | bin/sample -x 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --center-z | bin/sample -x 1.000000 -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --center-x --center-y | bin/sample -x -1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --center-x --center-y | bin/sample -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --center-x --center-y | bin/sample -x -1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --center-x --center-y | bin/sample -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --center-y --center-z | bin/sample -x 1.000000 -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --center-y --center-z | bin/sample -x 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --center-y --center-z | bin/sample -x 1.000000 -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --center-y --center-z | bin/sample -x 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --center-x --center-z | bin/sample -x -1.000000 -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --center-x --center-z | bin/sample -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --center-x --center-z | bin/sample -x -1.000000 -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --center-x --center-z | bin/sample -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --center | bin/sample -x -1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --center | bin/sample -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --center | bin/sample -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --center | bin/sample -x -1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --center | bin/sample -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --center | bin/sample -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-x 3 | bin/sample -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 | bin/sample -x 1.500000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 | bin/sample -x 1.500000 -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-x 3 | bin/sample -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 | bin/sample -x 1.500000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 | bin/sample -x 1.500000 -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-x | bin/sample -x -1.500000 -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-x | bin/sample -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-x | bin/sample -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-x | bin/sample -x -1.500000 -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-x | bin/sample -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-x | bin/sample -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-y | bin/sample -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-y | bin/sample -x 1.500000 -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-y | bin/sample -x 1.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-y | bin/sample -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-y | bin/sample -x 1.500000 -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-y | bin/sample -x 1.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-z | bin/sample -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-z | bin/sample -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-z | bin/sample -x 1.500000 -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-z | bin/sample -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-z | bin/sample -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-z | bin/sample -x 1.500000 -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-x --center-y | bin/sample -x -1.500000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-x --center-y | bin/sample -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-x --center-y | bin/sample -x -1.500000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-x --center-y | bin/sample -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-y --center-z | bin/sample -x 1.500000 -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-y --center-z | bin/sample -x 1.500000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-y --center-z | bin/sample -x 1.500000 -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-y --center-z | bin/sample -x 1.500000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-x --center-z | bin/sample -x -1.500000 -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-x --center-z | bin/sample -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-x --center-z | bin/sample -x -1.500000 -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center-x --center-z | bin/sample -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center | bin/sample -x -1.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center | bin/sample -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center | bin/sample -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center | bin/sample -x -1.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center | bin/sample -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-x 3 --center | bin/sample -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-y 4 | bin/sample -y 2.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 | bin/sample -x 1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 | bin/sample -x 1.000000 -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-y 4 | bin/sample -y 2.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 | bin/sample -x 1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 | bin/sample -x 1.000000 -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-x | bin/sample -x -1.000000 -y 2.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-x | bin/sample -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-x | bin/sample -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-x | bin/sample -x -1.000000 -y 2.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-x | bin/sample -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-x | bin/sample -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-y | bin/sample -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-y | bin/sample -x 1.000000 -y -2.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-y | bin/sample -x 1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-y | bin/sample -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-y | bin/sample -x 1.000000 -y -2.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-y | bin/sample -x 1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-z | bin/sample -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-z | bin/sample -x 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-z | bin/sample -x 1.000000 -y 2.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-z | bin/sample -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-z | bin/sample -x 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-z | bin/sample -x 1.000000 -y 2.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-x --center-y | bin/sample -x -1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-x --center-y | bin/sample -y -2.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-x --center-y | bin/sample -x -1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-x --center-y | bin/sample -y -2.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-y --center-z | bin/sample -x 1.000000 -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-y --center-z | bin/sample -x 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-y --center-z | bin/sample -x 1.000000 -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-y --center-z | bin/sample -x 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-x --center-z | bin/sample -x -1.000000 -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-x --center-z | bin/sample -y 2.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-x --center-z | bin/sample -x -1.000000 -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center-x --center-z | bin/sample -y 2.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center | bin/sample -x -1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center | bin/sample -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center | bin/sample -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center | bin/sample -x -1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center | bin/sample -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-y 4 --center | bin/sample -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-z 5 | bin/sample -y 1.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 | bin/sample -x 1.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 | bin/sample -x 1.000000 -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-z 5 | bin/sample -y 1.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 | bin/sample -x 1.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 | bin/sample -x 1.000000 -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-x | bin/sample -x -1.000000 -y 1.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-x | bin/sample -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-x | bin/sample -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-x | bin/sample -x -1.000000 -y 1.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-x | bin/sample -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-x | bin/sample -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-y | bin/sample -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-y | bin/sample -x 1.000000 -y -1.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-y | bin/sample -x 1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-y | bin/sample -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-y | bin/sample -x 1.000000 -y -1.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-y | bin/sample -x 1.000000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-z | bin/sample -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-z | bin/sample -x 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-z | bin/sample -x 1.000000 -y 1.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-z | bin/sample -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-z | bin/sample -x 1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-z | bin/sample -x 1.000000 -y 1.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-x --center-y | bin/sample -x -1.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-x --center-y | bin/sample -y -1.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-x --center-y | bin/sample -x -1.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-x --center-y | bin/sample -y -1.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-x --center-y | bin/sample" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-y --center-z | bin/sample -x 1.000000 -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-y --center-z | bin/sample -x 1.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-y --center-z | bin/sample" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-y --center-z | bin/sample -x 1.000000 -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-y --center-z | bin/sample -x 1.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-x --center-z | bin/sample -x -1.000000 -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-x --center-z | bin/sample -y 1.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-x --center-z | bin/sample -x -1.000000 -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-x --center-z | bin/sample" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center-x --center-z | bin/sample -y 1.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center | bin/sample -x -1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center | bin/sample -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center | bin/sample -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center | bin/sample -x -1.000000" "0.000000" # - 0 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center | bin/sample -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "bin/cuboid --size 2 --size-z 5 --center | bin/sample -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center | ${SDF_EXECUTABLE_PREFIX}sample -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center | ${SDF_EXECUTABLE_PREFIX}sample -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 2.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 2.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -2.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -2.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 2.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 2.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 2.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 2.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -2.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -2.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 2.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 2.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 1.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 1.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -1.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -1.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 1.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 1.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -2.500000" "0.000000" # 0 0 - long
 }
