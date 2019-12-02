@@ -1,7 +1,16 @@
 #include <stdio.h>
+#include <fcntl.h>
 #include "fail.h"
 #include "types.h"
 #include "read.h"
+
+void sdf_read_set_stdin_binary(void) {
+  #ifdef _WIN32
+    if (_setmode(_fileno(stdin), _O_BINARY) == -1) {
+      sdf_fail("failed to set stdin to binary mode");
+    }
+  #endif
+}
 
 #define SDF_READ(type)                                              \
   sdf_boolean_t sdf_read_##type##_or_eof(                           \

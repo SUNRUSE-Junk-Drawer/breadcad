@@ -1,7 +1,16 @@
 #include <stdio.h>
+#include <fcntl.h>
 #include "fail.h"
 #include "types.h"
 #include "write.h"
+
+void sdf_write_set_stdout_binary(void) {
+  #ifdef _WIN32
+    if (_setmode(_fileno(stdout), _O_BINARY) == -1) {
+      sdf_fail("failed to set stdout to binary mode");
+    }
+  #endif
+}
 
 #define SDF_WRITE(type)                                                    \
   void sdf_write_##type(                                                   \
