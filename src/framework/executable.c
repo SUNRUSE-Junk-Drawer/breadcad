@@ -8,7 +8,6 @@
 int main(int argc, char * argv[]) {
   sdf_types();
   sdf_read_set_stdin_binary();
-  sdf_write_set_stdout_binary();
   sdf_cli(argc, argv);
   sdf_stdin_check();
   sdf_executable_before_first_file();
