@@ -9,9 +9,9 @@
 
 void sdf_stdin_check(void) {
   if (!sdf_executable_reads_model_from_stdin) {
-    if (!isatty(STDIN_FILENO) && getc(stdin) != EOF) {
+    /*if (!isatty(STDIN_FILENO) && getc(stdin) != EOF) {
       sdf_fail("unexpected stdin\n");
-    }
+    }*/
   }
 }
 
