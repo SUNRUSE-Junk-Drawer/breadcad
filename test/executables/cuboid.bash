@@ -27,11 +27,11 @@ executable_help="cuboid - generates a cuboid
 }
 
 @test "empty stdin" {
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid < test/sdf/empty.sdf | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} < test/sdf/empty.sdf | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000"
 }
 
 @test "non-empty stdin" {
-  check_failure "${SDF_EXECUTABLE_PREFIX}cuboid < test/sdf/parameter_x.sdf" "unexpected stdin"
+  check_failure "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} < test/sdf/parameter_x.sdf" "unexpected stdin"
 }
 
 @test "parameter size" {
@@ -51,532 +51,532 @@ executable_help="cuboid - generates a cuboid
 }
 
 @test "distances" {
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center | ${SDF_EXECUTABLE_PREFIX}sample -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --center | ${SDF_EXECUTABLE_PREFIX}sample -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -z 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-x 3 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 2.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 2.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -2.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -2.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 2.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y 2.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000 -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -0.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size-y 4 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.500000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000 -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 2.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 2.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -2.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -2.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 2.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 2.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -z 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000 -z 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 2.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 2.000000 -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -2.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 1.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 1.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -1.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -1.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 1.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y 1.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -z 2.500000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000 -z 2.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x 1.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000 -y 1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample -y 1.000000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -x -1.000000" "0.000000" # - 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -y -1.000000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid --size 2 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 2.000000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -z 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -2.000000 -z 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000 -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 3 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 2.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 2.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y -2.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y -2.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 2.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 2.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -2.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -2.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-y 4 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000 -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000 -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000 -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000 -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-x 3 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000 -y 2.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000 -y 2.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y -2.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y -2.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 2.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 2.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -2.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000 -z 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -2.000000 -z 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000 -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000 -y 2.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 2.000000 -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -2.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-y 4 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000 -y 1.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000 -y 1.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-x | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y -1.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y -1.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 1.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 1.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -1.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000 -z 2.500000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -1.000000 -z 2.500000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-x --center-y | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-y --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000 -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000 -y 1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center-x --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.000000 -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -2.500000" "0.000000" # 0 0 - long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.000000" "0.000000" # - 0 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y -1.000000" "0.000000" # 0 - 0 long
+  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size 2 --size-z 5 --center | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -2.500000" "0.000000" # 0 0 - long
 }

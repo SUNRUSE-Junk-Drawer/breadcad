@@ -4,7 +4,7 @@
     {
       "label": "Run",
       "type": "shell",
-      "command": "bash setup.bash 'bin/sdf_' make test",
+      "command": "bash setup.bash 'bin/sdf_' '' make",
       "windows": {
         "options": {
           "shell": {
