@@ -5,5 +5,6 @@ else
 fi
 
 export SDF_EXECUTABLE_PREFIX=$1
+export SDF_EXECUTABLE_SUFFIX=$2
 
-$2 test
+$3 test

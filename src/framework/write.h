@@ -6,7 +6,6 @@
 
 #define SDF_WRITE_TYPE(type) \
   void sdf_write_##type(     \
-    FILE * file,             \
     sdf_##type##_t type,     \
     const char * what        \
   );

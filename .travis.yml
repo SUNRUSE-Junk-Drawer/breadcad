@@ -4,17 +4,17 @@ matrix:
       language: c
       compiler: gcc
       script:
-        - bash setup.bash 'bin/sdf_' make
+        - bash setup.bash 'bin/sdf_' '' make
     - os: linux
       language: c
       compiler: clang
       script:
-        - bash setup.bash 'bin/sdf_' make
+        - bash setup.bash 'bin/sdf_' '' make
     - os: windows
       language: c
       script:
-        - bash setup.bash 'bin/sdf_' mingw32-make
+        - bash setup.bash 'bin/sdf_' '.exe' mingw32-make
     - os: osx
       language: c
       script:
-        - bash setup.bash 'bin/sdf_' make
+        - bash setup.bash 'bin/sdf_' '' make
