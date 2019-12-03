@@ -8,12 +8,14 @@ function stderr_only {
 
 function check_stdout {
   run stdout_only "$1"
-  assert_output "$2"
+  replaced=${2//$'\n'/$SDF_LINE_BREAK}
+  assert_output "$replaced"
 }
 
 function check_stderr {
   run stderr_only "$1"
-  assert_output "$2"
+  replaced=${2//$'\n'/$SDF_LINE_BREAK}
+  assert_output "$replaced"
 }
 
 function check_failure {
