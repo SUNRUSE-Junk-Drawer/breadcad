@@ -20,7 +20,7 @@ obj/%.o: src/%.c $(ALL_H) makefile
 	mkdir -p $(dir $@)
 	gcc $(CFLAGS) -c -o $@ $<
 
-$(SDF_EXECUTABLE_PREFIX)%: obj/executables/%.o $(ALL_FRAMEWORK_O)
+$(SDF_EXECUTABLE_PREFIX)%$(SDF_EXECUTABLE_SUFFIX): obj/executables/%.o $(ALL_FRAMEWORK_O)
 	mkdir -p $(dir $@)
 	gcc $(CFLAGS) -o $@ $^ -lm
 
