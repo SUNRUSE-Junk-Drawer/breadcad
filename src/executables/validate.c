@@ -4,6 +4,7 @@
 #include "../framework/fail.h"
 #include "../framework/types.h"
 #include "../framework/opcode.h"
+#include "../framework/pointer.h"
 #include "../framework/argument.h"
 #include "../framework/executable.h"
 #include "../framework/store.h"
@@ -15,6 +16,17 @@ const char * sdf_executable_usage_prefix = "[sdf stream] | ";
 const char * sdf_executable_usage_suffix = " | [consumer of sdf stream]";
 const sdf_boolean_t sdf_executable_reads_model_from_stdin = SDF_BOOLEAN_TRUE;
 const sdf_boolean_t sdf_executable_reads_models_from_command_line_arguments = SDF_BOOLEAN_FALSE;
+
+static void sdf__validate_argument(
+  sdf_argument_t argument,
+  char identifier
+) {
+  if (argument.pointer <= SDF_POINTER_MAX ) {
+    if (argument.pointer >= sdf_store_total_opcodes) {
+      sdf_fail("argument %c references the result of a future instruction", identifier);
+    }
+  }
+}
 
 void sdf_executable_cli(void) {
 }
@@ -32,6 +44,7 @@ void sdf_executable_unary(
   sdf_opcode_t opcode,
   sdf_argument_t argument_a
 ) {
+  sdf__validate_argument(argument_a, 'a');
   sdf_store_unary(opcode, argument_a);
 }
 
@@ -40,6 +53,8 @@ void sdf_executable_binary(
   sdf_argument_t argument_a,
   sdf_argument_t argument_b
 ) {
+  sdf__validate_argument(argument_a, 'a');
+  sdf__validate_argument(argument_b, 'b');
   sdf_store_binary(opcode, argument_a, argument_b);
 }
 
@@ -49,6 +64,9 @@ void sdf_executable_ternary(
   sdf_argument_t argument_b,
   sdf_argument_t argument_c
 ) {
+  sdf__validate_argument(argument_a, 'a');
+  sdf__validate_argument(argument_b, 'b');
+  sdf__validate_argument(argument_c, 'c');
   sdf_store_ternary(opcode, argument_a, argument_b, argument_c);
 }
 

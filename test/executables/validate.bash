@@ -173,3 +173,99 @@ executable_help="validate - ensures that a sdf stream is valid before passing it
 @test "ternary argument c constant truncated c" {
   check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_c_constant_truncated_c.sdf" "unexpected eof reading number constant"
 }
+
+@test "unary argument a boolean result of instruction being defined" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/unary_argument_a_boolean_result_of_instruction_being_defined.sdf" "argument a references the result of a future instruction"
+}
+
+@test "unary argument a boolean result of future instruction" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/unary_argument_a_boolean_result_of_future_instruction.sdf" "argument a references the result of a future instruction"
+}
+
+@test "unary argument a number result of instruction being defined" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/unary_argument_a_number_result_of_instruction_being_defined.sdf" "argument a references the result of a future instruction"
+}
+
+@test "unary argument a number result of future instruction" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/unary_argument_a_number_result_of_future_instruction.sdf" "argument a references the result of a future instruction"
+}
+
+@test "binary argument a boolean result of instruction being defined" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_a_boolean_result_of_instruction_being_defined.sdf" "argument a references the result of a future instruction"
+}
+
+@test "binary argument a boolean result of future instruction" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_a_boolean_result_of_future_instruction.sdf" "argument a references the result of a future instruction"
+}
+
+@test "binary argument a number result of instruction being defined" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_a_number_result_of_instruction_being_defined.sdf" "argument a references the result of a future instruction"
+}
+
+@test "binary argument a number result of future instruction" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_a_number_result_of_future_instruction.sdf" "argument a references the result of a future instruction"
+}
+
+@test "binary argument b boolean result of instruction being defined" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_b_boolean_result_of_instruction_being_defined.sdf" "argument b references the result of a future instruction"
+}
+
+@test "binary argument b boolean result of future instruction" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_b_boolean_result_of_future_instruction.sdf" "argument b references the result of a future instruction"
+}
+
+@test "binary argument b number result of instruction being defined" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_b_number_result_of_instruction_being_defined.sdf" "argument b references the result of a future instruction"
+}
+
+@test "binary argument b number result of future instruction" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_b_number_result_of_future_instruction.sdf" "argument b references the result of a future instruction"
+}
+
+@test "ternary argument a boolean result of instruction being defined" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_a_boolean_result_of_instruction_being_defined.sdf" "argument a references the result of a future instruction"
+}
+
+@test "ternary argument a boolean result of future instruction" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_a_boolean_result_of_future_instruction.sdf" "argument a references the result of a future instruction"
+}
+
+@test "ternary argument a number result of instruction being defined" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_a_number_result_of_instruction_being_defined.sdf" "argument a references the result of a future instruction"
+}
+
+@test "ternary argument a number result of future instruction" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_a_number_result_of_future_instruction.sdf" "argument a references the result of a future instruction"
+}
+
+@test "ternary argument b boolean result of instruction being defined" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_b_boolean_result_of_instruction_being_defined.sdf" "argument b references the result of a future instruction"
+}
+
+@test "ternary argument b boolean result of future instruction" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_b_boolean_result_of_future_instruction.sdf" "argument b references the result of a future instruction"
+}
+
+@test "ternary argument b number result of instruction being defined" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_b_number_result_of_instruction_being_defined.sdf" "argument b references the result of a future instruction"
+}
+
+@test "ternary argument b number result of future instruction" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_b_number_result_of_future_instruction.sdf" "argument b references the result of a future instruction"
+}
+
+@test "ternary argument c boolean result of instruction being defined" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_c_boolean_result_of_instruction_being_defined.sdf" "argument c references the result of a future instruction"
+}
+
+@test "ternary argument c boolean result of future instruction" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_c_boolean_result_of_future_instruction.sdf" "argument c references the result of a future instruction"
+}
+
+@test "ternary argument c number result of instruction being defined" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_c_number_result_of_instruction_being_defined.sdf" "argument c references the result of a future instruction"
+}
+
+@test "ternary argument c number result of future instruction" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_c_number_result_of_future_instruction.sdf" "argument c references the result of a future instruction"
+}
