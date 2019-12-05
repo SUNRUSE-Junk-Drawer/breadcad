@@ -425,3 +425,15 @@ executable_help="validate - ensures that a sdf stream is valid before passing it
 @test "ternary argument b none" {
   check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_b_none.sdf" "argument b expects none, which is not implemented"
 }
+
+@test "result none" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/result_none.sdf" "result of program should be number, but is none"
+}
+
+@test "result boolean" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/result_boolean.sdf" "result of program should be number, but is boolean"
+}
+
+@test "result reserved" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/result_reserved.sdf" "result of program should be number, but is reserved"
+}

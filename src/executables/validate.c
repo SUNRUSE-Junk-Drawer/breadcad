@@ -126,7 +126,17 @@ void sdf_executable_ternary(
 void sdf_executable_eof(void) {
 }
 
-void sdf_executable_after_last_file(void) {
+static void sdf__check_return_type(void) {
+  sdf_primitive_t type = sdf_opcode_result(sdf_store_opcodes[sdf_store_total_opcodes - 1]);
+
+  if (type == SDF_PRIMITIVE_NUMBER) {
+    return;
+  }
+
+  sdf_fail("result of program should be number, but is %s", sdf_primitive_name(type));
+}
+
+static void sdf__emit_stored(void) {
   size_t instruction = 0;
   size_t argument = 0;
   sdf_opcode_t opcode;
@@ -167,6 +177,13 @@ void sdf_executable_after_last_file(void) {
     }
     instruction++;
   }
+}
+
+void sdf_executable_after_last_file(void) {
+  if (sdf_store_total_opcodes) {
+    sdf__check_return_type();
+  }
+  sdf__emit_stored();
 }
 
 sdf_number_t sdf_executable_get_parameter(
