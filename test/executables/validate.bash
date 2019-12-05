@@ -389,3 +389,27 @@ executable_help="validate - ensures that a sdf stream is valid before passing it
 @test "ternary argument c number referenced boolean" {
   check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_c_number_referenced_boolean.sdf" "argument c expects number, given boolean"
 }
+
+@test "unary argument a reserved" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/unary_argument_a_reserved.sdf" "argument a expects reserved, which is not implemented"
+}
+
+@test "binary argument a reserved" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_a_reserved.sdf" "argument a expects reserved, which is not implemented"
+}
+
+@test "binary argument b reserved" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_b_reserved.sdf" "argument b expects reserved, which is not implemented"
+}
+
+@test "ternary argument a reserved" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_a_reserved.sdf" "argument a expects reserved, which is not implemented"
+}
+
+@test "ternary argument b reserved" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_b_reserved.sdf" "argument b expects reserved, which is not implemented"
+}
+
+@test "ternary argument c reserved" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_c_reserved.sdf" "argument c expects reserved, which is not implemented"
+}

@@ -39,7 +39,7 @@ static sdf_primitive_t sdf__get_primitive_type(
   }
 }
 
-static void sdf__validate_argument(
+static void sdf__validate_argument__value(
   sdf_primitive_t expected,
   sdf_argument_t argument,
   char identifier
@@ -53,6 +53,31 @@ static void sdf__validate_argument(
       sdf_primitive_name(expected),
       sdf_primitive_name(actual)
     );
+  }
+}
+
+static void sdf__validate_argument(
+  sdf_primitive_t expected,
+  sdf_argument_t argument,
+  char identifier
+) {
+  switch (expected) {
+    case SDF_PRIMITIVE_BOOLEAN:
+    case SDF_PRIMITIVE_NUMBER:
+      sdf__validate_argument__value(
+        expected,
+        argument,
+        identifier
+      );
+      break;
+
+    default:
+      sdf_fail(
+        "argument %c expects %s, which is not implemented",
+        identifier,
+        sdf_primitive_name(expected)
+      );
+      break;
   }
 }
 
