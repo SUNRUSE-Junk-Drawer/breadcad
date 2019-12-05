@@ -13,6 +13,10 @@ typedef sdf_u8_t sdf_primitive_t;
 #define SDF_PRIMITIVE_MAX 3
 #define SDF_PRIMITIVE_RANGE (SDF_PRIMITIVE_MAX + 1)
 
+const char * sdf_primitive_name(
+  sdf_primitive_t primitive
+);
+
 void sdf_primitive_print(
   FILE * file,
   sdf_primitive_t primitive
