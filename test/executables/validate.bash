@@ -437,3 +437,13 @@ executable_help="validate - ensures that a sdf stream is valid before passing it
 @test "result reserved" {
   check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/result_reserved.sdf" "result of program should be number, but is reserved"
 }
+
+@test "stack at limit" {
+  head -c 131064 /dev/zero > temp/long.sdf
+  cat test/sdf/negate_constant_positive.sdf >> temp/long.sdf
+  check_successful "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < temp/long.sdf" `cat temp/long.sdf`
+}
+
+@test "stack overflow" {
+  check_failure "head -c 131068 /dev/zero | ${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX}" "stack overflow"
+}
