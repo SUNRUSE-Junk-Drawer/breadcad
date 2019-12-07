@@ -5,7 +5,7 @@ matrix:
       compiler: gcc
       script:
         - bash setup.bash 'bin/sdf_' '' make
-        - cd bin && zip -r linux-x64-gcc.zip *
+        - cd bin && zip -r linux-x64-gcc.zip * && cd ..
       deploy:
         provider: releases
         api_key:
@@ -19,7 +19,7 @@ matrix:
       compiler: clang
       script:
         - bash setup.bash 'bin/sdf_' '' make
-        - cd bin && zip -r linux-x64-clang.zip *
+        - cd bin && zip -r linux-x64-clang.zip * && cd ..
       deploy:
         provider: releases
         api_key:
@@ -32,7 +32,7 @@ matrix:
       language: c
       script:
         - bash setup.bash 'bin/sdf_' '.exe' mingw32-make
-        - cd bin && zip -r windows-x64-gcc.zip *
+        - cd bin && zip -r windows-x64-gcc.zip * && cd ..
       deploy:
         provider: releases
         api_key:
@@ -45,7 +45,7 @@ matrix:
       language: c
       script:
         - bash setup.bash 'bin/sdf_' '' make
-        - cd bin && zip -r macos-x64-clang.zip *
+        - cd bin && zip -r macos-x64-clang.zip * && cd ..
       deploy:
         provider: releases
         api_key:
