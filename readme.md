@@ -57,7 +57,7 @@ An opcode is a 16-bit unsigned integer.
 | A801   | Number  | Number  | Number  | Void    | 01 | Subtract                |                    |
 | A802   | Number  | Number  | Number  | Void    | 02 | Multiply                |                    |
 | A803   | Number  | Number  | Number  | Void    | 03 | Divide                  | B = 0              |
-| A804   | Number  | Number  | Number  | Void    | 04 | Pow                     | A < 0              |
+| A804   | Number  | Number  | Number  | Void    | 04 | Power                   | A < 0              |
 | A805   | Number  | Number  | Number  | Void    | 05 | Modulo                  |                    |
 | A806   | Number  | Number  | Number  | Void    | 06 | Arc Tangent             |                    |
 | A807   | Number  | Number  | Number  | Void    | 07 | Minimum                 |                    |
