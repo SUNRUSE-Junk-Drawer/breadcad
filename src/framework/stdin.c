@@ -15,18 +15,15 @@ void sdf_stdin_check(void) {
   if (!sdf_executable_reads_model_from_stdin) {
     #ifdef _WIN32
       switch (GetFileType(GetStdHandle(STD_INPUT_HANDLE))) {
-        case FILE_TYPE_PIPE:
         case FILE_TYPE_DISK:
           if (getc(stdin) != EOF) {
             sdf_fail("unexpected stdin\n");
           }
           break;
-
-        case FILE_TYPE_CHAR:
+        case FILE_TYPE_PIPE:
           break;
-
         default:
-          sdf_fail("unable to determine whether stdin is empty %d\n", GetFileType(GetStdHandle(STD_INPUT_HANDLE)));
+          sdf_fail("unable to determine whether stdin is empty\n");
           break;
       }
     #else
