@@ -3,6 +3,7 @@
 #include "../framework/unused.h"
 #include "../framework/fail.h"
 #include "../framework/types.h"
+#include "../framework/primitive.h"
 #include "../framework/opcode.h"
 #include "../framework/pointer.h"
 #include "../framework/argument.h"
@@ -17,14 +18,66 @@ const char * sdf_executable_usage_suffix = " | [consumer of sdf stream]";
 const sdf_boolean_t sdf_executable_reads_model_from_stdin = SDF_BOOLEAN_TRUE;
 const sdf_boolean_t sdf_executable_reads_models_from_command_line_arguments = SDF_BOOLEAN_FALSE;
 
-static void sdf__validate_argument(
+static sdf_primitive_t sdf__get_primitive_type(
   sdf_argument_t argument,
   char identifier
 ) {
-  if (argument.pointer <= SDF_POINTER_MAX ) {
-    if (argument.pointer >= sdf_store_total_opcodes) {
-      sdf_fail("argument %c references the result of a future instruction", identifier);
-    }
+  switch (argument.pointer) {
+    case SDF_POINTER_BOOLEAN_CONSTANT_FALSE:
+    case SDF_POINTER_BOOLEAN_CONSTANT_TRUE:
+      return SDF_PRIMITIVE_BOOLEAN;
+
+    case SDF_POINTER_NUMBER_CONSTANT:
+      return SDF_PRIMITIVE_NUMBER;
+
+    default:
+      if (argument.pointer >= sdf_store_total_opcodes) {
+        sdf_fail("argument %c references the result of a future instruction", identifier);
+      }
+
+      return sdf_opcode_result(sdf_store_opcodes[argument.pointer]);
+  }
+}
+
+static void sdf__validate_argument__value(
+  sdf_primitive_t expected,
+  sdf_argument_t argument,
+  char identifier
+) {
+  sdf_primitive_t actual = sdf__get_primitive_type(argument, identifier);
+
+  if (actual != expected) {
+    sdf_fail(
+      "argument %c expects %s, given %s",
+      identifier,
+      sdf_primitive_name(expected),
+      sdf_primitive_name(actual)
+    );
+  }
+}
+
+static void sdf__validate_argument(
+  sdf_primitive_t expected,
+  sdf_argument_t argument,
+  char identifier
+) {
+  switch (expected) {
+    case SDF_PRIMITIVE_BOOLEAN:
+    case SDF_PRIMITIVE_NUMBER:
+      sdf__validate_argument__value(
+        expected,
+        argument,
+        identifier
+      );
+      break;
+
+    default:
+      sdf_fail(
+        "argument %c expects %s, which is not implemented",
+        identifier,
+        sdf_primitive_name(expected)
+      );
+      break;
   }
 }
 
@@ -44,7 +97,7 @@ void sdf_executable_unary(
   sdf_opcode_t opcode,
   sdf_argument_t argument_a
 ) {
-  sdf__validate_argument(argument_a, 'a');
+  sdf__validate_argument(sdf_opcode_parameter_a(opcode), argument_a, 'a');
   sdf_store_unary(opcode, argument_a);
 }
 
@@ -53,8 +106,8 @@ void sdf_executable_binary(
   sdf_argument_t argument_a,
   sdf_argument_t argument_b
 ) {
-  sdf__validate_argument(argument_a, 'a');
-  sdf__validate_argument(argument_b, 'b');
+  sdf__validate_argument(sdf_opcode_parameter_a(opcode), argument_a, 'a');
+  sdf__validate_argument(sdf_opcode_parameter_b(opcode), argument_b, 'b');
   sdf_store_binary(opcode, argument_a, argument_b);
 }
 
@@ -64,16 +117,26 @@ void sdf_executable_ternary(
   sdf_argument_t argument_b,
   sdf_argument_t argument_c
 ) {
-  sdf__validate_argument(argument_a, 'a');
-  sdf__validate_argument(argument_b, 'b');
-  sdf__validate_argument(argument_c, 'c');
+  sdf__validate_argument(sdf_opcode_parameter_a(opcode), argument_a, 'a');
+  sdf__validate_argument(sdf_opcode_parameter_b(opcode), argument_b, 'b');
+  sdf__validate_argument(sdf_opcode_parameter_c(opcode), argument_c, 'c');
   sdf_store_ternary(opcode, argument_a, argument_b, argument_c);
 }
 
 void sdf_executable_eof(void) {
 }
 
-void sdf_executable_after_last_file(void) {
+static void sdf__check_return_type(void) {
+  sdf_primitive_t type = sdf_opcode_result(sdf_store_opcodes[sdf_store_total_opcodes - 1]);
+
+  if (type == SDF_PRIMITIVE_NUMBER) {
+    return;
+  }
+
+  sdf_fail("result of program should be number, but is %s", sdf_primitive_name(type));
+}
+
+static void sdf__emit_stored(void) {
   size_t instruction = 0;
   size_t argument = 0;
   sdf_opcode_t opcode;
@@ -114,6 +177,13 @@ void sdf_executable_after_last_file(void) {
     }
     instruction++;
   }
+}
+
+void sdf_executable_after_last_file(void) {
+  if (sdf_store_total_opcodes) {
+    sdf__check_return_type();
+  }
+  sdf__emit_stored();
 }
 
 sdf_number_t sdf_executable_get_parameter(

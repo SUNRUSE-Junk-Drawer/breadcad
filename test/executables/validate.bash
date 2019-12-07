@@ -269,3 +269,181 @@ executable_help="validate - ensures that a sdf stream is valid before passing it
 @test "ternary argument c number result of future instruction" {
   check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_c_number_result_of_future_instruction.sdf" "argument c references the result of a future instruction"
 }
+
+@test "unary argument a boolean number" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/unary_argument_a_boolean_number.sdf" "argument a expects boolean, given number"
+}
+
+@test "unary argument a boolean referenced number" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/unary_argument_a_boolean_referenced_number.sdf" "argument a expects boolean, given number"
+}
+
+@test "unary argument a number false" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/unary_argument_a_number_false.sdf" "argument a expects number, given boolean"
+}
+
+@test "unary argument a number true" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/unary_argument_a_number_true.sdf" "argument a expects number, given boolean"
+}
+
+@test "unary argument a number referenced boolean" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/unary_argument_a_number_referenced_boolean.sdf" "argument a expects number, given boolean"
+}
+
+@test "binary argument a boolean number" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_a_boolean_number.sdf" "argument a expects boolean, given number"
+}
+
+@test "binary argument a boolean referenced number" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_a_boolean_referenced_number.sdf" "argument a expects boolean, given number"
+}
+
+@test "binary argument a number false" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_a_number_false.sdf" "argument a expects number, given boolean"
+}
+
+@test "binary argument a number true" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_a_number_true.sdf" "argument a expects number, given boolean"
+}
+
+@test "binary argument a number referenced boolean" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_a_number_referenced_boolean.sdf" "argument a expects number, given boolean"
+}
+
+@test "binary argument b boolean number" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_b_boolean_number.sdf" "argument b expects boolean, given number"
+}
+
+@test "binary argument b boolean referenced number" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_b_boolean_referenced_number.sdf" "argument b expects boolean, given number"
+}
+
+@test "binary argument b number false" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_b_number_false.sdf" "argument b expects number, given boolean"
+}
+
+@test "binary argument b number true" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_b_number_true.sdf" "argument b expects number, given boolean"
+}
+
+@test "binary argument b number referenced boolean" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_b_number_referenced_boolean.sdf" "argument b expects number, given boolean"
+}
+
+@test "ternary argument a boolean number" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_a_boolean_number.sdf" "argument a expects boolean, given number"
+}
+
+@test "ternary argument a boolean referenced number" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_a_boolean_referenced_number.sdf" "argument a expects boolean, given number"
+}
+
+@test "ternary argument a number false" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_a_number_false.sdf" "argument a expects number, given boolean"
+}
+
+@test "ternary argument a number true" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_a_number_true.sdf" "argument a expects number, given boolean"
+}
+
+@test "ternary argument a number referenced boolean" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_a_number_referenced_boolean.sdf" "argument a expects number, given boolean"
+}
+
+@test "ternary argument b boolean number" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_b_boolean_number.sdf" "argument b expects boolean, given number"
+}
+
+@test "ternary argument b boolean referenced number" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_b_boolean_referenced_number.sdf" "argument b expects boolean, given number"
+}
+
+@test "ternary argument b number false" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_b_number_false.sdf" "argument b expects number, given boolean"
+}
+
+@test "ternary argument b number true" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_b_number_true.sdf" "argument b expects number, given boolean"
+}
+
+@test "ternary argument b number referenced boolean" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_b_number_referenced_boolean.sdf" "argument b expects number, given boolean"
+}
+
+@test "ternary argument c boolean number" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_c_boolean_number.sdf" "argument c expects boolean, given number"
+}
+
+@test "ternary argument c boolean referenced number" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_c_boolean_referenced_number.sdf" "argument c expects boolean, given number"
+}
+
+@test "ternary argument c number false" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_c_number_false.sdf" "argument c expects number, given boolean"
+}
+
+@test "ternary argument c number true" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_c_number_true.sdf" "argument c expects number, given boolean"
+}
+
+@test "ternary argument c number referenced boolean" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_c_number_referenced_boolean.sdf" "argument c expects number, given boolean"
+}
+
+@test "unary argument a reserved" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/unary_argument_a_reserved.sdf" "argument a expects reserved, which is not implemented"
+}
+
+@test "binary argument a reserved" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_a_reserved.sdf" "argument a expects reserved, which is not implemented"
+}
+
+@test "binary argument b reserved" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_b_reserved.sdf" "argument b expects reserved, which is not implemented"
+}
+
+@test "ternary argument a reserved" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_a_reserved.sdf" "argument a expects reserved, which is not implemented"
+}
+
+@test "ternary argument b reserved" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_b_reserved.sdf" "argument b expects reserved, which is not implemented"
+}
+
+@test "ternary argument c reserved" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_c_reserved.sdf" "argument c expects reserved, which is not implemented"
+}
+
+@test "binary argument a none" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/binary_argument_a_none.sdf" "argument a expects none, which is not implemented"
+}
+
+@test "ternary argument a none" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_a_none.sdf" "argument a expects none, which is not implemented"
+}
+
+@test "ternary argument b none" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/ternary_argument_b_none.sdf" "argument b expects none, which is not implemented"
+}
+
+@test "result none" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/result_none.sdf" "result of program should be number, but is none"
+}
+
+@test "result boolean" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/result_boolean.sdf" "result of program should be number, but is boolean"
+}
+
+@test "result reserved" {
+  check_failure "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < test/sdf/result_reserved.sdf" "result of program should be number, but is reserved"
+}
+
+@test "stack at limit" {
+  head -c 131064 /dev/zero > temp/long.sdf
+  cat test/sdf/negate_constant_positive.sdf >> temp/long.sdf
+  check_successful "${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX} < temp/long.sdf" `cat temp/long.sdf`
+}
+
+@test "stack overflow" {
+  check_failure "head -c 131068 /dev/zero | ${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX}" "stack overflow"
+}

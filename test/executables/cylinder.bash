@@ -38,367 +38,196 @@ executable_help="cylinder - generates a cylinder along the z axis
   number_parameter "cylinder" "sz" "size-z"
 }
 
-@test "distances" {
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 1.000000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000 -z 1.000000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 0.000000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 0.500000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 1.000000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 1.000000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000 -z 0.500000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 0.000000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 0.500000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 1.000000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000 -z 5.000000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 0.000000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 0.500000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 5.000000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 1.000000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000 -z 2.500000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 0.000000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 0.500000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 1.000000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000 -z 1.000000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 0.000000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 0.500000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 1.000000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 1.000000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000 -z 0.500000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 0.000000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 0.500000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 1.000000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000 -z 5.000000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 0.000000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 0.500000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 5.000000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.000000 -y 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 1.000000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000 -y 0.500000 -z 2.500000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.500000 -y 0.000000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 0.500000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -0.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-z 5 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.000000 -y 1.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 3.000000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 1.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 1.500000 -z 1.000000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 0.000000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.500000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 1.000000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.000000 -y 1.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 3.000000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 1.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 1.500000 -z 0.500000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 0.000000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.500000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.000000 -y 1.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 3.000000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 1.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 1.500000 -z 5.000000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.400000 -y 0.000000 -z 2.500000" "-0.100000" # - inside 0 0 short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.400000 -y 0.000000 -z 2.500000" "-0.100000" # - inside 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.400000 -z 2.500000" "-0.100000" # + inside 0 0 short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.400000 -z 2.500000" "-0.100000" # + inside 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.400000 -z 2.500000" "-0.100000" # 0 - inside 0 short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.400000 -z 2.500000" "-0.100000" # 0 - inside 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.400000 -z 2.500000" "-0.100000" # 0 + inside 0 short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.400000 -z 2.500000" "-0.100000" # 0 + inside 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.315570 -y 0.478828 -z 2.500000" "-0.100000" # + inside + inside 0 short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.315570 -y 0.478828 -z 2.500000" "-0.100000" # + inside + inside 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.362347 -y 1.352296 -z 2.500000" "-0.100000" # + inside - inside 0 short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.362347 -y 1.352296 -z 2.500000" "-0.100000" # + inside - inside 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.315570 -y -0.478828 -z 2.500000" "-0.100000" # - inside - inside 0 short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.315570 -y -0.478828 -z 2.500000" "-0.100000" # - inside - inside 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.478828 -y -1.315570 -z 2.500000" "-0.100000" # - inside + inside 0 short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.478828 -y -1.315570 -z 2.500000" "-0.100000" # - inside + inside 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.600000 -y 0.000000 -z 2.500000" "0.100000" # - outside 0 0 short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.600000 -y 0.000000 -z 2.500000" "0.100000" # - outside 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.600000 -z 2.500000" "0.100000" # + outside 0 0 short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.600000 -z 2.500000" "0.100000" # + outside 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.600000 -z 2.500000" "0.100000" # 0 - outside 0 short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.600000 -z 2.500000" "0.100000" # 0 - outside 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.600000 -z 2.500000" "0.100000" # 0 + outside 0 short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.600000 -z 2.500000" "0.100000" # 0 + outside 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.503508 -y 0.547232 -z 2.500000" "0.100000" # + outside + outside 0 short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.503508 -y 0.547232 -z 2.500000" "0.100000" # + outside + outside 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.414110 -y 1.545481 -z 2.500000" "0.100000" # + outside - outside 0 short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.414110 -y 1.545481 -z 2.500000" "0.100000" # + outside - outside 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.503508 -y -0.547232 -z 2.500000" "0.100000" # - outside - outside 0 short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.503508 -y -0.547232 -z 2.500000" "0.100000" # - outside - outside 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.547232 -y -1.503508 -z 2.500000" "0.100000" # - outside + outside 0 short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.547232 -y -1.503508 -z 2.500000" "0.100000" # - outside + outside 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.100000" "-0.100000" # 0 0 - inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.100000" "-0.100000" # 0 0 - inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -0.100000" "0.100000" # 0 0 - outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -0.100000" "0.100000" # 0 0 - outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.400000 -y 0.000000 -z 0.200000" "-0.100000" # - inside closer 0 - inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.400000 -y 0.000000 -z 0.200000" "-0.100000" # - inside closer 0 - inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.400000 -z 0.200000" "-0.100000" # + inside closer 0 - inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.400000 -z 0.200000" "-0.100000" # + inside closer 0 - inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.400000 -z 0.200000" "-0.100000" # 0 - inside closer - inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.400000 -z 0.200000" "-0.100000" # 0 - inside closer - inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.400000 -z 0.200000" "-0.100000" # 0 + inside closer - inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.400000 -z 0.200000" "-0.100000" # 0 + inside closer - inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.315570 -y 0.478828 -z 0.200000" "-0.100000" # + inside closer + inside closer - inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.315570 -y 0.478828 -z 0.200000" "-0.100000" # + inside closer + inside closer - inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.362347 -y 1.352296 -z 0.200000" "-0.100000" # + inside closer - inside closer - inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.362347 -y 1.352296 -z 0.200000" "-0.100000" # + inside closer - inside closer - inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.315570 -y -0.478828 -z 0.200000" "-0.100000" # - inside closer - inside closer - inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.315570 -y -0.478828 -z 0.200000" "-0.100000" # - inside closer - inside closer - inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.478828 -y -1.315570 -z 0.200000" "-0.100000" # - inside closer + inside closer - inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.478828 -y -1.315570 -z 0.200000" "-0.100000" # - inside closer + inside closer - inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.300000 -y 0.000000 -z 0.100000" "-0.100000" # - inside 0 - inside closer short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.300000 -y 0.000000 -z 0.100000" "-0.100000" # - inside 0 - inside closer long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.300000 -z 0.100000" "-0.100000" # + inside 0 - inside closer short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.300000 -z 0.100000" "-0.100000" # + inside 0 - inside closer long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.300000 -z 0.100000" "-0.100000" # 0 - inside - inside closer short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.300000 -z 0.100000" "-0.100000" # 0 - inside - inside closer long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.300000 -z 0.100000" "-0.100000" # 0 + inside - inside closer short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.300000 -z 0.100000" "-0.100000" # 0 + inside - inside closer long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.221600 -y 0.444626 -z 0.100000" "-0.100000" # + inside + inside - inside closer short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.221600 -y 0.444626 -z 0.100000" "-0.100000" # + inside + inside - inside closer long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.336465 -y 1.255704 -z 0.100000" "-0.100000" # + inside - inside - inside closer short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.336465 -y 1.255704 -z 0.100000" "-0.100000" # + inside - inside - inside closer long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.221600 -y -0.444626 -z 0.100000" "-0.100000" # - inside - inside - inside closer short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.221600 -y -0.444626 -z 0.100000" "-0.100000" # - inside - inside - inside closer long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.444626 -y -1.221600 -z 0.100000" "-0.100000" # - inside + inside - inside closer short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.444626 -y -1.221600 -z 0.100000" "-0.100000" # - inside + inside - inside closer long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.600000 -y 0.000000 -z 0.200000" "0.100000" # - outside 0 - inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.600000 -y 0.000000 -z 0.200000" "0.100000" # - outside 0 - inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.600000 -z 0.200000" "0.100000" # + outside 0 - inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.600000 -z 0.200000" "0.100000" # + outside 0 - inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.600000 -z 0.200000" "0.100000" # 0 - outside - inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.600000 -z 0.200000" "0.100000" # 0 - outside - inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.600000 -z 0.200000" "0.100000" # 0 + outside - inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.600000 -z 0.200000" "0.100000" # 0 + outside - inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.503508 -y 0.547232 -z 0.200000" "0.100000" # + outside + outside - inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.503508 -y 0.547232 -z 0.200000" "0.100000" # + outside + outside - inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.414110 -y 1.545481 -z 0.200000" "0.100000" # + outside - outside - inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.414110 -y 1.545481 -z 0.200000" "0.100000" # + outside - outside - inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.503508 -y -0.547232 -z 0.200000" "0.100000" # - outside - outside - inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.503508 -y -0.547232 -z 0.200000" "0.100000" # - outside - outside - inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.547232 -y -1.503508 -z 0.200000" "0.100000" # - outside + outside - inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.547232 -y -1.503508 -z 0.200000" "0.100000" # - outside + outside - inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.400000 -y 0.000000 -z -0.200000" "0.200000" # - inside 0 - outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.400000 -y 0.000000 -z -0.200000" "0.200000" # - inside 0 - outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.400000 -z -0.200000" "0.200000" # + inside 0 - outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.400000 -z -0.200000" "0.200000" # + inside 0 - outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.400000 -z -0.200000" "0.200000" # 0 - inside - outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.400000 -z -0.200000" "0.200000" # 0 - inside - outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.400000 -z -0.200000" "0.200000" # 0 + inside - outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.400000 -z -0.200000" "0.200000" # 0 + inside - outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.315570 -y 0.478828 -z -0.200000" "0.200000" # + inside + inside - outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.315570 -y 0.478828 -z -0.200000" "0.200000" # + inside + inside - outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.362347 -y 1.352296 -z -0.200000" "0.200000" # + inside - inside - outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.362347 -y 1.352296 -z -0.200000" "0.200000" # + inside - inside - outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.315570 -y -0.478828 -z -0.200000" "0.200000" # - inside - inside - outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.315570 -y -0.478828 -z -0.200000" "0.200000" # - inside - inside - outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.478828 -y -1.315570 -z -0.200000" "0.200000" # - inside + inside - outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.478828 -y -1.315570 -z -0.200000" "0.200000" # - inside + inside - outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.600000 -y 0.000000 -z -0.200000" "0.223607" # - outside 0 - outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.600000 -y 0.000000 -z -0.200000" "0.223607" # - outside 0 - outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.600000 -z -0.200000" "0.223607" # + outside 0 - outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.600000 -z -0.200000" "0.223607" # + outside 0 - outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.600000 -z -0.200000" "0.223607" # 0 - outside - outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.600000 -z -0.200000" "0.223607" # 0 - outside - outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.600000 -z -0.200000" "0.223607" # 0 + outside - outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.600000 -z -0.200000" "0.223607" # 0 + outside - outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.503508 -y 0.547232 -z -0.200000" "0.223607" # + outside + outside - outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.503508 -y 0.547232 -z -0.200000" "0.223607" # + outside + outside - outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.414110 -y 1.545481 -z -0.200000" "0.223607" # + outside - outside - outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.414110 -y 1.545481 -z -0.200000" "0.223607" # + outside - outside - outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.503508 -y -0.547232 -z -0.200000" "0.223607" # - outside - outside - outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.503508 -y -0.547232 -z -0.200000" "0.223607" # - outside - outside - outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.547232 -y -1.503508 -z -0.200000" "0.223607" # - outside + outside - outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.547232 -y -1.503508 -z -0.200000" "0.223607" # - outside + outside - outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 4.900000" "-0.100000" # 0 0 + inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 4.900000" "-0.100000" # 0 0 + inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 5.100000" "0.100000" # 0 0 + outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 5.100000" "0.100000" # 0 0 + outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.400000 -y 0.000000 -z 4.800000" "-0.100000" # - inside closer 0 + inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.400000 -y 0.000000 -z 4.800000" "-0.100000" # - inside closer 0 + inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.400000 -z 4.800000" "-0.100000" # + inside closer 0 + inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.400000 -z 4.800000" "-0.100000" # + inside closer 0 + inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.400000 -z 4.800000" "-0.100000" # 0 - inside closer + inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.400000 -z 4.800000" "-0.100000" # 0 - inside closer + inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.400000 -z 4.800000" "-0.100000" # 0 + inside closer + inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.400000 -z 4.800000" "-0.100000" # 0 + inside closer + inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.315570 -y 0.478828 -z 4.800000" "-0.100000" # + inside closer + inside closer + inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.315570 -y 0.478828 -z 4.800000" "-0.100000" # + inside closer + inside closer + inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.362347 -y 1.352296 -z 4.800000" "-0.100000" # + inside closer - inside closer + inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.362347 -y 1.352296 -z 4.800000" "-0.100000" # + inside closer - inside closer + inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.315570 -y -0.478828 -z 4.800000" "-0.100000" # - inside closer - inside closer + inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.315570 -y -0.478828 -z 4.800000" "-0.100000" # - inside closer - inside closer + inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.478828 -y -1.315570 -z 4.800000" "-0.100000" # - inside closer + inside closer + inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.478828 -y -1.315570 -z 4.800000" "-0.100000" # - inside closer + inside closer + inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.300000 -y 0.000000 -z 4.900000" "-0.100000" # - inside 0 + inside closer short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.300000 -y 0.000000 -z 4.900000" "-0.100000" # - inside 0 + inside closer long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.300000 -z 4.900000" "-0.100000" # + inside 0 + inside closer short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.300000 -z 4.900000" "-0.100000" # + inside 0 + inside closer long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.300000 -z 4.900000" "-0.100000" # 0 - inside + inside closer short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.300000 -z 4.900000" "-0.100000" # 0 - inside + inside closer long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.300000 -z 4.900000" "-0.100000" # 0 + inside + inside closer short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.300000 -z 4.900000" "-0.100000" # 0 + inside + inside closer long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.221600 -y 0.444626 -z 4.900000" "-0.100000" # + inside + inside + inside closer short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.221600 -y 0.444626 -z 4.900000" "-0.100000" # + inside + inside + inside closer long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.336465 -y 1.255704 -z 4.900000" "-0.100000" # + inside - inside + inside closer short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.336465 -y 1.255704 -z 4.900000" "-0.100000" # + inside - inside + inside closer long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.221600 -y -0.444626 -z 4.900000" "-0.100000" # - inside - inside + inside closer short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.221600 -y -0.444626 -z 4.900000" "-0.100000" # - inside - inside + inside closer long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.444626 -y -1.221600 -z 4.900000" "-0.100000" # - inside + inside + inside closer short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.444626 -y -1.221600 -z 4.900000" "-0.100000" # - inside + inside + inside closer long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.600000 -y 0.000000 -z 4.800000" "0.100000" # - outside 0 + inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.600000 -y 0.000000 -z 4.800000" "0.100000" # - outside 0 + inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.600000 -z 4.800000" "0.100000" # + outside 0 + inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.600000 -z 4.800000" "0.100000" # + outside 0 + inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.600000 -z 4.800000" "0.100000" # 0 - outside + inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.600000 -z 4.800000" "0.100000" # 0 - outside + inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.600000 -z 4.800000" "0.100000" # 0 + outside + inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.600000 -z 4.800000" "0.100000" # 0 + outside + inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.503508 -y 0.547232 -z 4.800000" "0.100000" # + outside + outside + inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.503508 -y 0.547232 -z 4.800000" "0.100000" # + outside + outside + inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.414110 -y 1.545481 -z 4.800000" "0.100000" # + outside - outside + inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.414110 -y 1.545481 -z 4.800000" "0.100000" # + outside - outside + inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.503508 -y -0.547232 -z 4.800000" "0.100000" # - outside - outside + inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.503508 -y -0.547232 -z 4.800000" "0.100000" # - outside - outside + inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.547232 -y -1.503508 -z 4.800000" "0.100000" # - outside + outside + inside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.547232 -y -1.503508 -z 4.800000" "0.100000" # - outside + outside + inside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.400000 -y 0.000000 -z 5.200000" "0.200000" # - inside 0 + outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.400000 -y 0.000000 -z 5.200000" "0.200000" # - inside 0 + outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.400000 -z 5.200000" "0.200000" # + inside 0 + outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.400000 -z 5.200000" "0.200000" # + inside 0 + outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.400000 -z 5.200000" "0.200000" # 0 - inside + outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.400000 -z 5.200000" "0.200000" # 0 - inside + outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.400000 -z 5.200000" "0.200000" # 0 + inside + outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.400000 -z 5.200000" "0.200000" # 0 + inside + outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.315570 -y 0.478828 -z 5.200000" "0.200000" # + inside + inside + outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.315570 -y 0.478828 -z 5.200000" "0.200000" # + inside + inside + outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.362347 -y 1.352296 -z 5.200000" "0.200000" # + inside - inside + outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.362347 -y 1.352296 -z 5.200000" "0.200000" # + inside - inside + outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.315570 -y -0.478828 -z 5.200000" "0.200000" # - inside - inside + outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.315570 -y -0.478828 -z 5.200000" "0.200000" # - inside - inside + outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.478828 -y -1.315570 -z 5.200000" "0.200000" # - inside + inside + outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.478828 -y -1.315570 -z 5.200000" "0.200000" # - inside + inside + outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.600000 -y 0.000000 -z 5.200000" "0.223607" # - outside 0 + outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.600000 -y 0.000000 -z 5.200000" "0.223607" # - outside 0 + outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.600000 -z 5.200000" "0.223607" # + outside 0 + outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.600000 -z 5.200000" "0.223607" # + outside 0 + outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.600000 -z 5.200000" "0.223607" # 0 - outside + outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.600000 -z 5.200000" "0.223607" # 0 - outside + outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.600000 -z 5.200000" "0.223607" # 0 + outside + outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.600000 -z 5.200000" "0.223607" # 0 + outside + outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.503508 -y 0.547232 -z 5.200000" "0.223606" # + outside + outside + outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.503508 -y 0.547232 -z 5.200000" "0.223606" # + outside + outside + outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.414110 -y 1.545481 -z 5.200000" "0.223606" # + outside - outside + outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.414110 -y 1.545481 -z 5.200000" "0.223606" # + outside - outside + outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.503508 -y -0.547232 -z 5.200000" "0.223606" # - outside - outside + outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.503508 -y -0.547232 -z 5.200000" "0.223606" # - outside - outside + outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} -sxy 3 -sz 5 -cxy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.547232 -y -1.503508 -z 5.200000" "0.223606" # - outside + outside + outside short
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.547232 -y -1.503508 -z 5.200000" "0.223606" # - outside + outside + outside long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.000000 -y 1.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 3.000000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 1.500000 -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 1.500000 -z 2.500000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 0.000000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.500000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -2.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --size-z 5 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 2.500000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.000000 -y 1.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 3.000000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 1.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 1.500000 -z 1.000000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 0.000000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.500000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 1.000000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.000000 -y 1.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 1.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 3.000000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 1.500000 -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000 -y 1.500000 -z 0.500000" "0.000000" # 0 0 + long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.500000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -1.500000 -y 0.000000" "0.000000" # + 0 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.000000 -y 1.500000" "0.000000" # 0 + 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.000000 -y -1.500000" "0.000000" # 0 - 0 long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z -0.500000" "0.000000" # 0 0 - long
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 3 --center-xy --center-z | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -z 0.500000" "0.000000" # 0 0 + long
+function test_cylinder {
+  parameters=$1
+
+  xy_minimum=$2
+  xy_low=$3
+  xy_origin=$4
+  xy_high=$5
+  xy_maximum=$6
+
+  z_minimum=$7
+  z_origin=$8
+  z_maximum=$9
+
+  check_valid "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_minimum -y $xy_origin -z $z_origin" "0.000000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_maximum -y $xy_origin -z $z_origin" "0.000000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_origin -y $xy_minimum -z $z_origin" "0.000000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_origin -y $xy_maximum -z $z_origin" "0.000000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_low -y $xy_low -z $z_origin" "0.000000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_low -y $xy_high -z $z_origin" "0.000000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_high -y $xy_low -z $z_origin" "0.000000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_high -y $xy_high -z $z_origin" "0.000000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_origin -y $xy_origin -z $z_minimum" "0.000000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_origin -y $xy_origin -z $z_maximum" "0.000000"
+}
+
+@test "face centers on surface" {
+  test_cylinder "--size-xy 7 --center-z --size-z 3" "0" "1.025126" "3.5" "5.974874" "7" "-1.5" "0" "1.5"
+}
+
+@test "face centers above surface" {
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.1 -y 3.5" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 7.1 -y 3.5" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y -0.1" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 7.1" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 0.954415" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 6.045585" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045585 -y 0.954416" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045584 -y 6.045585" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 3.5 -z -1.6" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 3.5 -z 1.6" "0.100000"
+}
+
+@test "face centers below surface" {
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.1 -y 3.5" "-0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.9 -y 3.5" "-0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 0.1" "-0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 6.9" "-0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.095837 -y 1.095837" "-0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.095837 -y 5.904163" "-0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 5.904163 -y 1.095837" "-0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 5.904163 -y 5.904163" "-0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 3.5 -z -1.4" "-0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 3.5 -z 1.4" "-0.100000"
+}
+
+@test "faces near edges" {
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.1 -y 3.5 -z -1.5" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 7.1 -y 3.5 -z -1.5" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y -0.1 -z -1.5" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 7.1 -z -1.5" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 0.954415 -z -1.5" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 6.045585 -z -1.5" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045585 -y 0.954416 -z -1.5" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045584 -y 6.045585 -z -1.5" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.1 -y 3.5 -z 1.5" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 7.1 -y 3.5 -z 1.5" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y -0.1 -z 1.5" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 7.1 -z 1.5" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 0.954415 -z 1.5" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 6.045585 -z 1.5" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045585 -y 0.954416 -z 1.5" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045584 -y 6.045585 -z 1.5" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 3.5 -z -1.6" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 7 -y 3.5 -z -1.6" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -z -1.6" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 7 -z -1.6" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.025126 -y 1.025126 -z -1.6" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.025126 -y 5.974874 -z -1.6" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 5.974874 -y 1.025126 -z -1.6" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 5.974874 -y 5.974874 -z -1.6" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 3.5 -z 1.6" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 7 -y 3.5 -z 1.6" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -z 1.6" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 7 -z 1.6" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.025126 -y 1.025126 -z 1.6" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.025126 -y 5.974874 -z 1.6" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 5.974874 -y 1.025126 -z 1.6" "0.100000"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 5.974874 -y 5.974874 -z 1.6" "0.100000"
+}
+
+@test "edges" {
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 0.954416 -z -1.6" "0.141421"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 6.045584 -z -1.6" "0.141421"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045584 -y 0.954416 -z -1.6" "0.141421"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045584 -y 6.045584 -z -1.6" "0.141421"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 0.954416 -z 1.6" "0.141421"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 6.045585 -z 1.6" "0.141421"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045584 -y 0.954416 -z 1.6" "0.141421"
+  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045584 -y 6.045584 -z 1.6" "0.141421"
+}
+
+@test "no parameters" {
+  test_cylinder "" "0" "0.1464465" "0.5" "0.8535535" "1" "0" "0.5" "1"
+}
+
+@test "short center xy" {
+  test_cylinder "-cxy" "-0.5" "-0.3535535" "0" "0.3535535" "0.5" "0" "0.5" "1"
+}
+
+@test "long center xy" {
+  test_cylinder "--center-xy" "-0.5" "-0.3535535" "0" "0.3535535" "0.5" "0" "0.5" "1"
+}
+
+@test "short center z" {
+  test_cylinder "-cz" "0" "0.1464465" "0.5" "0.8535535" "1" "-0.5" "0" "0.5"
+}
+
+@test "long center z" {
+  test_cylinder "--center-z" "0" "0.1464465" "0.5" "0.8535535" "1" "-0.5" "0" "0.5"
+}
+
+@test "short size xy" {
+  test_cylinder "-sxy 7" "0" "1.025126" "3.5" "5.974874" "7" "0" "0.5" "1"
+}
+
+@test "long size xy" {
+  test_cylinder "--size-xy 7" "0" "1.025126" "3.5" "5.974874" "7" "0" "0.5" "1"
+}
+
+@test "short size xy center xy" {
+  test_cylinder "-sxy 7 -cxy" "-3.5" "-2.474874" "0.0" "2.474874" "3.5" "0" "0.5" "1"
+}
+
+@test "long size xy center xy" {
+  test_cylinder "--size-xy 7 --center-xy" "-3.5" "-2.474874" "0.0" "2.474874" "3.5" "0" "0.5" "1"
+}
+
+@test "short size xy center z" {
+  test_cylinder "-sxy 7 -cz" "0" "1.025126" "3.5" "5.974874" "7" "-0.5" "0" "0.5"
+}
+
+@test "long size xy center z" {
+  test_cylinder "--size-xy 7 --center-z" "0" "1.025126" "3.5" "5.974874" "7" "-0.5" "0" "0.5"
+}
+
+@test "short size z" {
+  test_cylinder "-sz 3" "0" "0.1464465" "0.5" "0.8535535" "1" "0" "1.5" "3"
+}
+
+@test "long size z" {
+  test_cylinder "--size-z 3" "0" "0.1464465" "0.5" "0.8535535" "1" "0" "1.5" "3"
+}
+
+@test "short size z center xy" {
+  test_cylinder "-sz 3 -cxy" "-0.5" "-0.3535535" "0" "0.3535535" "0.5" "0" "1.5" "3"
+}
+
+@test "long size z center xy" {
+  test_cylinder "--size-z 3 --center-xy" "-0.5" "-0.3535535" "0" "0.3535535" "0.5" "0" "1.5" "3"
+}
+
+@test "short size z center z" {
+  test_cylinder "-sz 3 -cz" "0" "0.1464465" "0.5" "0.8535535" "1" "-1.5" "0" "1.5"
+}
+
+@test "long size z center z" {
+  test_cylinder "--size-z 3 --center-z" "0" "0.1464465" "0.5" "0.8535535" "1" "-1.5" "0" "1.5"
+}
+
+@test "short size xy z" {
+  test_cylinder "-sxy 7 -sz 3" "0" "1.025126" "3.5" "5.974874" "7" "0" "1.5" "3"
+}
+
+@test "long size xy z" {
+  test_cylinder "--size-xy 7 --size-z 3" "0" "1.025126" "3.5" "5.974874" "7" "0" "1.5" "3"
+}
+
+@test "short size xy z center xy" {
+  test_cylinder "-sxy 7 -sz 3 -cxy" "-3.5" "-2.474874" "0" "2.474874" "3.5" "0" "1.5" "3"
+}
+
+@test "long size xy z center xy" {
+  test_cylinder "--size-xy 7 --size-z 3 --center-xy" "-3.5" "-2.474874" "0" "2.474874" "3.5" "0" "1.5" "3"
+}
+
+@test "short size xy z center z" {
+  test_cylinder "-sxy 7 -sz 3 -cz" "0" "1.025126" "3.5" "5.974874" "7" "-1.5" "0" "1.5"
+}
+
+@test "long size xy z center z" {
+  test_cylinder "--size-xy 7 --size-z 3 --center-z" "0" "1.025126" "3.5" "5.974874" "7" "-1.5" "0" "1.5"
 }

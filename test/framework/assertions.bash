@@ -29,3 +29,8 @@ function check_successful {
   check_stdout "$1" "$2"
   assert_success
 }
+
+function check_valid {
+  run bash -c "$1 | ${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX}"
+  assert_success
+}
