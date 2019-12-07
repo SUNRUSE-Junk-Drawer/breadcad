@@ -3,38 +3,18 @@ matrix:
     - os: linux
       language: c
       compiler: gcc
-      cache:
-        directories:
-          - obj
-          - bin
-          - test_results
       script:
         - bash setup.bash 'bin/sdf_' '' make
     - os: linux
       language: c
       compiler: clang
-      cache:
-        directories:
-          - obj
-          - bin
-          - test_results
       script:
         - bash setup.bash 'bin/sdf_' '' make
     - os: windows
       language: c
-      cache:
-        directories:
-          - obj
-          - bin
-          - test_results
       script:
         - bash setup.bash 'bin/sdf_' '.exe' mingw32-make
     - os: osx
       language: c
-      cache:
-        directories:
-          - obj
-          - bin
-          - test_results
       script:
         - bash setup.bash 'bin/sdf_' '' make
