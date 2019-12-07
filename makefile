@@ -23,7 +23,7 @@ obj/%.o: src/%.c $(ALL_H) makefile
 
 $(SDF_EXECUTABLE_PREFIX)%$(SDF_EXECUTABLE_SUFFIX): obj/executables/%.o $(ALL_FRAMEWORK_O)
 	mkdir -p $(dir $@)
-	gcc $(CFLAGS) -o $@ $^ -lm
+	$(CC) $(CFLAGS) -o $@ $^ -lm
 
 test_results/%: test/executables/%.bash $(ALL_EXECUTABLES) $(ALL_TEST_FRAMEWORK) $(ALL_TEST_SDF)
 	mkdir -p test_results
