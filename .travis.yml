@@ -45,7 +45,7 @@ matrix:
       language: c
       script:
         - bash setup.bash 'bin/sdf_' '' make
-        - cd bin && zip -r macos-x64-clang.zip * && cd ..
+        - cd bin && 7z a -r windows-x64-gcc.zip * && cd ..
       deploy:
         provider: releases
         api_key:
