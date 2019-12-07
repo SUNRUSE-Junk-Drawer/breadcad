@@ -1039,7 +1039,7 @@ static void sdf__execute_instruction(
     SDF_EXECUTE_BINARY(POW, number, number, number, __builtin_powf(argument_a_number, argument_b_number))
     SDF_EXECUTE_BINARY(MODULO, number, number, number, __builtin_fmodf(argument_a_number, argument_b_number))
     SDF_EXECUTE_BINARY(ARC_TANGENT_2, number, number, number, __builtin_atan2f(argument_a_number, argument_b_number))
-    SDF_EXECUTE_BINARY(MIN, number, number, number, __builtin_fminf(argument_a_number, argument_b_number))
+    SDF_EXECUTE_BINARY(MINIMUM, number, number, number, __builtin_fminf(argument_a_number, argument_b_number))
     SDF_EXECUTE_BINARY(MAXIMUM, number, number, number, __builtin_fmaxf(argument_a_number, argument_b_number))
     default:
       if (opcode >= SDF_OPCODE_PARAMETER_MIN && opcode <= SDF_OPCODE_PARAMETER_MAX) {

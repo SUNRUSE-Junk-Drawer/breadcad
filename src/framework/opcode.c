@@ -274,8 +274,8 @@ void sdf_opcode_print(
         fprintf(file, "arc tangent 2         ");
         break;
 
-      case SDF_OPCODE_MIN:
-        fprintf(file, "min                   ");
+      case SDF_OPCODE_MINIMUM:
+        fprintf(file, "minimum               ");
         break;
 
       case SDF_OPCODE_MAXIMUM:

@@ -94,7 +94,7 @@ void sdf_executable_eof(void) {
 
   if (sdf__written_at_least_one_previous_file) {
     sdf__last_written = sdf_write_sdf_binary(
-      SDF_OPCODE_MIN,
+      SDF_OPCODE_MINIMUM,
       sdf__accumulated_value,
       sdf__last_written
     );
