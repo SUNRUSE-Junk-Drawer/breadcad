@@ -8,6 +8,7 @@ CFLAGS =                 \
 	-Wmissing-prototypes   \
 	-Wstrict-prototypes    \
 	-Wold-style-definition \
+	-m64                   \
 
 ALL_H = $(wildcard src/framework/*.h) $(wildcard src/executables/*.h)
 ALL_FRAMEWORK_O = $(addprefix obj/framework/, $(addsuffix .o, $(basename $(notdir $(wildcard src/framework/*.c)))))
