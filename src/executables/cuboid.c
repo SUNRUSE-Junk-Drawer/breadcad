@@ -95,7 +95,7 @@ void sdf_executable_before_first_file(void) {
 
   sdf_argument_t xy_greatest = sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, x, y);
   sdf_argument_t greatest = sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, xy_greatest, z);
-  sdf_argument_t negative = sdf_write_sdf_binary(SDF_OPCODE_MIN, greatest, sdf_argument_number_constant(0.0f));
+  sdf_argument_t negative = sdf_write_sdf_binary(SDF_OPCODE_MINIMUM, greatest, sdf_argument_number_constant(0.0f));
 
   sdf_write_sdf_binary(SDF_OPCODE_ADD, positive, negative);
 }

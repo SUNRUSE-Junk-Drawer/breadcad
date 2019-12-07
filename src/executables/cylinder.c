@@ -71,7 +71,7 @@ void sdf_executable_before_first_file(void) {
   sdf_argument_t positive_distance_squared = sdf_write_sdf_binary(SDF_OPCODE_ADD, distance_xy_positive_squared, distance_z_positive_squared);
   sdf_argument_t positive_distance = sdf_write_sdf_unary(SDF_OPCODE_SQUARE_ROOT, positive_distance_squared);
   sdf_argument_t greatest_distance = sdf_write_sdf_binary(SDF_OPCODE_MAXIMUM, distance_xy, distance_z);
-  sdf_argument_t negative_distance = sdf_write_sdf_binary(SDF_OPCODE_MIN, greatest_distance, sdf_argument_number_constant(0.0f));
+  sdf_argument_t negative_distance = sdf_write_sdf_binary(SDF_OPCODE_MINIMUM, greatest_distance, sdf_argument_number_constant(0.0f));
 
   sdf_write_sdf_binary(SDF_OPCODE_ADD, positive_distance, negative_distance);
 }
