@@ -32,7 +32,7 @@ matrix:
       language: c
       script:
         - bash setup.bash 'bin/sdf_' '.exe' mingw32-make
-        - cd bin && zip -r windows-x64-gcc.zip * && cd ..
+        - cd bin && 7z a -r windows-x64-gcc.zip * && cd ..
       deploy:
         provider: releases
         api_key:
@@ -45,7 +45,7 @@ matrix:
       language: c
       script:
         - bash setup.bash 'bin/sdf_' '' make
-        - cd bin && 7z a -r windows-x64-gcc.zip * && cd ..
+        - cd bin && zip -r macos-x64-gcc.zip * && cd ..
       deploy:
         provider: releases
         api_key:
