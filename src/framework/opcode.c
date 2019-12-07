@@ -262,8 +262,8 @@ void sdf_opcode_print(
         fprintf(file, "divide                ");
         break;
 
-      case SDF_OPCODE_POW:
-        fprintf(file, "pow                   ");
+      case SDF_OPCODE_POWER:
+        fprintf(file, "power                 ");
         break;
 
       case SDF_OPCODE_MODULO:
