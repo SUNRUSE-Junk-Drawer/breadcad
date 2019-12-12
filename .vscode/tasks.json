@@ -4,7 +4,7 @@
     {
       "label": "Run",
       "type": "shell",
-      "command": "bash setup.bash 'bin/bc_' '' make",
+      "command": "bash setup.bash 'c/bin/bc_' '' make c/makefile",
       "windows": {
         "options": {
           "shell": {
