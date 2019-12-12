@@ -1,51 +1,51 @@
-#ifndef SDF_EXECUTABLE_H
-#define SDF_EXECUTABLE_H
+#ifndef BC_EXECUTABLE_H
+#define BC_EXECUTABLE_H
 
 #include "types.h"
 #include "opcode.h"
 #include "argument.h"
 
-extern const char * sdf_executable_name;
-extern const char * sdf_executable_description;
-extern const char * sdf_executable_usage_prefix;
-extern const char * sdf_executable_usage_suffix;
-extern const sdf_boolean_t sdf_executable_reads_model_from_stdin;
-extern const sdf_boolean_t sdf_executable_reads_models_from_command_line_arguments;
+extern const char * bc_executable_name;
+extern const char * bc_executable_description;
+extern const char * bc_executable_usage_prefix;
+extern const char * bc_executable_usage_suffix;
+extern const bc_boolean_t bc_executable_reads_model_from_stdin;
+extern const bc_boolean_t bc_executable_reads_models_from_command_line_arguments;
 
-void sdf_executable_cli(void);
+void bc_executable_cli(void);
 
-void sdf_executable_before_first_file(void);
+void bc_executable_before_first_file(void);
 
-void sdf_executable_nullary(
-  sdf_opcode_t opcode
+void bc_executable_nullary(
+  bc_opcode_t opcode
 );
 
-void sdf_executable_unary(
-  sdf_opcode_t opcode,
-  sdf_argument_t argument_a
+void bc_executable_unary(
+  bc_opcode_t opcode,
+  bc_argument_t argument_a
 );
 
-void sdf_executable_binary(
-  sdf_opcode_t opcode,
-  sdf_argument_t argument_a,
-  sdf_argument_t argument_b
+void bc_executable_binary(
+  bc_opcode_t opcode,
+  bc_argument_t argument_a,
+  bc_argument_t argument_b
 );
 
-void sdf_executable_ternary(
-  sdf_opcode_t opcode,
-  sdf_argument_t argument_a,
-  sdf_argument_t argument_b,
-  sdf_argument_t argument_c
+void bc_executable_ternary(
+  bc_opcode_t opcode,
+  bc_argument_t argument_a,
+  bc_argument_t argument_b,
+  bc_argument_t argument_c
 );
 
-void sdf_executable_eof(void);
+void bc_executable_eof(void);
 
-void sdf_executable_after_last_file(void);
+void bc_executable_after_last_file(void);
 
-sdf_number_t sdf_executable_get_parameter(
+bc_number_t bc_executable_get_parameter(
   void * parameter_context,
   size_t iteration,
-  sdf_opcode_id_t id
+  bc_opcode_id_t id
 );
 
 #endif

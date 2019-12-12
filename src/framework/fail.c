@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "fail.h"
 
-void sdf_fail (const char * format, ...) {
+void bc_fail (const char * format, ...) {
   va_list argptr;
   va_start(argptr, format);
   vfprintf(stderr, format, argptr);

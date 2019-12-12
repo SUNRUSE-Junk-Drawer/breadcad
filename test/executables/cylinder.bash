@@ -2,7 +2,7 @@ load "../framework/main"
 
 executable_name=cylinder
 executable_help="cylinder - generates a cylinder along the z axis
-  usage: cylinder [options] | [consumer of sdf stream]
+  usage: cylinder [options] | [consumer of bc stream]
   options:
     -h, --help, /?: display this message
     -sxy [number], --size-xy [number]: size on x and y axes (diameter, millimeters) (default: 1.000000)
@@ -23,11 +23,11 @@ executable_help="cylinder - generates a cylinder along the z axis
 }
 
 @test "empty stdin" {
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} < test/sdf/empty.sdf | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "0.207107"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} < test/bc/empty.bc | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX}" "0.207107"
 }
 
 @test "non-empty stdin" {
-  check_failure "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} < test/sdf/parameter_x.sdf" "unexpected stdin"
+  check_failure "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} < test/bc/parameter_x.bc" "unexpected stdin"
 }
 
 @test "parameter size xy" {
@@ -51,17 +51,17 @@ function test_cylinder {
   z_origin=$8
   z_maximum=$9
 
-  check_valid "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_minimum -y $xy_origin -z $z_origin" "0.000000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_maximum -y $xy_origin -z $z_origin" "0.000000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_origin -y $xy_minimum -z $z_origin" "0.000000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_origin -y $xy_maximum -z $z_origin" "0.000000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_low -y $xy_low -z $z_origin" "0.000000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_low -y $xy_high -z $z_origin" "0.000000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_high -y $xy_low -z $z_origin" "0.000000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_high -y $xy_high -z $z_origin" "0.000000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_origin -y $xy_origin -z $z_minimum" "0.000000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $xy_origin -y $xy_origin -z $z_maximum" "0.000000"
+  check_valid "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} $parameters"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} $parameters | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x $xy_minimum -y $xy_origin -z $z_origin" "0.000000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} $parameters | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x $xy_maximum -y $xy_origin -z $z_origin" "0.000000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} $parameters | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x $xy_origin -y $xy_minimum -z $z_origin" "0.000000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} $parameters | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x $xy_origin -y $xy_maximum -z $z_origin" "0.000000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} $parameters | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x $xy_low -y $xy_low -z $z_origin" "0.000000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} $parameters | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x $xy_low -y $xy_high -z $z_origin" "0.000000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} $parameters | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x $xy_high -y $xy_low -z $z_origin" "0.000000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} $parameters | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x $xy_high -y $xy_high -z $z_origin" "0.000000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} $parameters | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x $xy_origin -y $xy_origin -z $z_minimum" "0.000000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} $parameters | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x $xy_origin -y $xy_origin -z $z_maximum" "0.000000"
 }
 
 @test "face centers on surface" {
@@ -69,75 +69,75 @@ function test_cylinder {
 }
 
 @test "face centers above surface" {
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.1 -y 3.5" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 7.1 -y 3.5" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y -0.1" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 7.1" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 0.954415" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 6.045585" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045585 -y 0.954416" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045584 -y 6.045585" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 3.5 -z -1.6" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 3.5 -z 1.6" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x -0.1 -y 3.5" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 7.1 -y 3.5" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 3.5 -y -0.1" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 3.5 -y 7.1" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 0.954416 -y 0.954415" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 0.954416 -y 6.045585" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 6.045585 -y 0.954416" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 6.045584 -y 6.045585" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 3.5 -y 3.5 -z -1.6" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 3.5 -y 3.5 -z 1.6" "0.100000"
 }
 
 @test "face centers below surface" {
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.1 -y 3.5" "-0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.9 -y 3.5" "-0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 0.1" "-0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 6.9" "-0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.095837 -y 1.095837" "-0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.095837 -y 5.904163" "-0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 5.904163 -y 1.095837" "-0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 5.904163 -y 5.904163" "-0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 3.5 -z -1.4" "-0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 3.5 -z 1.4" "-0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 0.1 -y 3.5" "-0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 6.9 -y 3.5" "-0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 3.5 -y 0.1" "-0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 3.5 -y 6.9" "-0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 1.095837 -y 1.095837" "-0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 1.095837 -y 5.904163" "-0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 5.904163 -y 1.095837" "-0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 5.904163 -y 5.904163" "-0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 3.5 -y 3.5 -z -1.4" "-0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 3.5 -y 3.5 -z 1.4" "-0.100000"
 }
 
 @test "faces near edges" {
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.1 -y 3.5 -z -1.5" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 7.1 -y 3.5 -z -1.5" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y -0.1 -z -1.5" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 7.1 -z -1.5" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 0.954415 -z -1.5" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 6.045585 -z -1.5" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045585 -y 0.954416 -z -1.5" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045584 -y 6.045585 -z -1.5" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x -0.1 -y 3.5 -z 1.5" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 7.1 -y 3.5 -z 1.5" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y -0.1 -z 1.5" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 7.1 -z 1.5" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 0.954415 -z 1.5" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 6.045585 -z 1.5" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045585 -y 0.954416 -z 1.5" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045584 -y 6.045585 -z 1.5" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 3.5 -z -1.6" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 7 -y 3.5 -z -1.6" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -z -1.6" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 7 -z -1.6" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.025126 -y 1.025126 -z -1.6" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.025126 -y 5.974874 -z -1.6" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 5.974874 -y 1.025126 -z -1.6" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 5.974874 -y 5.974874 -z -1.6" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -y 3.5 -z 1.6" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 7 -y 3.5 -z 1.6" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -z 1.6" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 3.5 -y 7 -z 1.6" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.025126 -y 1.025126 -z 1.6" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 1.025126 -y 5.974874 -z 1.6" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 5.974874 -y 1.025126 -z 1.6" "0.100000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 5.974874 -y 5.974874 -z 1.6" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x -0.1 -y 3.5 -z -1.5" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 7.1 -y 3.5 -z -1.5" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 3.5 -y -0.1 -z -1.5" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 3.5 -y 7.1 -z -1.5" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 0.954416 -y 0.954415 -z -1.5" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 0.954416 -y 6.045585 -z -1.5" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 6.045585 -y 0.954416 -z -1.5" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 6.045584 -y 6.045585 -z -1.5" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x -0.1 -y 3.5 -z 1.5" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 7.1 -y 3.5 -z 1.5" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 3.5 -y -0.1 -z 1.5" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 3.5 -y 7.1 -z 1.5" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 0.954416 -y 0.954415 -z 1.5" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 0.954416 -y 6.045585 -z 1.5" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 6.045585 -y 0.954416 -z 1.5" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 6.045584 -y 6.045585 -z 1.5" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -y 3.5 -z -1.6" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 7 -y 3.5 -z -1.6" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 3.5 -z -1.6" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 3.5 -y 7 -z -1.6" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 1.025126 -y 1.025126 -z -1.6" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 1.025126 -y 5.974874 -z -1.6" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 5.974874 -y 1.025126 -z -1.6" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 5.974874 -y 5.974874 -z -1.6" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -y 3.5 -z 1.6" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 7 -y 3.5 -z 1.6" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 3.5 -z 1.6" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 3.5 -y 7 -z 1.6" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 1.025126 -y 1.025126 -z 1.6" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 1.025126 -y 5.974874 -z 1.6" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 5.974874 -y 1.025126 -z 1.6" "0.100000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 5.974874 -y 5.974874 -z 1.6" "0.100000"
 }
 
 @test "edges" {
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 0.954416 -z -1.6" "0.141421"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 6.045584 -z -1.6" "0.141421"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045584 -y 0.954416 -z -1.6" "0.141421"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045584 -y 6.045584 -z -1.6" "0.141421"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 0.954416 -z 1.6" "0.141421"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 0.954416 -y 6.045585 -z 1.6" "0.141421"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045584 -y 0.954416 -z 1.6" "0.141421"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cylinder${SDF_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x 6.045584 -y 6.045584 -z 1.6" "0.141421"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 0.954416 -y 0.954416 -z -1.6" "0.141421"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 0.954416 -y 6.045584 -z -1.6" "0.141421"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 6.045584 -y 0.954416 -z -1.6" "0.141421"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 6.045584 -y 6.045584 -z -1.6" "0.141421"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 0.954416 -y 0.954416 -z 1.6" "0.141421"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 0.954416 -y 6.045585 -z 1.6" "0.141421"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 6.045584 -y 0.954416 -z 1.6" "0.141421"
+  check_successful "${BC_EXECUTABLE_PREFIX}cylinder${BC_EXECUTABLE_SUFFIX} --size-xy 7 --center-z --size-z 3 | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x 6.045584 -y 6.045584 -z 1.6" "0.141421"
 }
 
 @test "no parameters" {

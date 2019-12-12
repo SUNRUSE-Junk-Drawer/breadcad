@@ -1,41 +1,41 @@
 #include "types.h"
 #include "fail.h"
 
-#define SDF_CHECK_SIZEOF(type, expectedSizeOf)           \
-  if (sizeof(sdf_##type##_t) != expectedSizeOf) {        \
-    sdf_fail(                                            \
-      "unexpected size; sizeof(sdf_" #type "_t) = %u\n", \
-      sizeof(sdf_##type##_t)                             \
+#define BC_CHECK_SIZEOF(type, expectedSizeOf)           \
+  if (sizeof(bc_##type##_t) != expectedSizeOf) {        \
+    bc_fail(                                            \
+      "unexpected size; sizeof(bc_" #type "_t) = %u\n", \
+      sizeof(bc_##type##_t)                             \
     );                                                   \
   }
 
-static void sdf__check_sizeof(void) {
-  SDF_CHECK_SIZEOF(u8, 1)
-  SDF_CHECK_SIZEOF(u16, 2)
-  SDF_CHECK_SIZEOF(number, 4)
+static void bc__check_sizeof(void) {
+  BC_CHECK_SIZEOF(u8, 1)
+  BC_CHECK_SIZEOF(u16, 2)
+  BC_CHECK_SIZEOF(number, 4)
 }
 
-#define SDF_CHECK_MAX(type, expectedMax)              \
-  if (((sdf_##type##_t)~0) != expectedMax) {          \
-    sdf_fail(                                         \
-      "unexpected max; ~((sdf_" #type "_t)0) = %u\n", \
-      ~((sdf_##type##_t)0)                            \
+#define BC_CHECK_MAX(type, expectedMax)              \
+  if (((bc_##type##_t)~0) != expectedMax) {          \
+    bc_fail(                                         \
+      "unexpected max; ~((bc_" #type "_t)0) = %u\n", \
+      ~((bc_##type##_t)0)                            \
     );                                                \
   }
 
-static void sdf__check_max(void) {
-  SDF_CHECK_MAX(u8, SDF_U8_MAX)
-  SDF_CHECK_MAX(u16, SDF_U16_MAX)
+static void bc__check_max(void) {
+  BC_CHECK_MAX(u8, BC_U8_MAX)
+  BC_CHECK_MAX(u16, BC_U16_MAX)
 }
 
-static sdf_boolean_t sdf__u16_endianness_swap;
-static sdf_boolean_t sdf__number_endianness_swap;
+static bc_boolean_t bc__u16_endianness_swap;
+static bc_boolean_t bc__number_endianness_swap;
 
-static void sdf__check_byte_order(void) {
+static void bc__check_byte_order(void) {
   union {
-    sdf_u8_t u8[4];
-    sdf_u16_t u16;
-    sdf_number_t number;
+    bc_u8_t u8[4];
+    bc_u16_t u16;
+    bc_number_t number;
   } check;
 
   check.u8[0] = 74;
@@ -45,32 +45,32 @@ static void sdf__check_byte_order(void) {
 
   switch (check.u16) {
     case 19093:
-      sdf__u16_endianness_swap = SDF_BOOLEAN_FALSE;
+      bc__u16_endianness_swap = BC_BOOLEAN_FALSE;
       break;
     case 38218:
-      sdf__u16_endianness_swap = SDF_BOOLEAN_TRUE;
+      bc__u16_endianness_swap = BC_BOOLEAN_TRUE;
       break;
     default:
-      sdf_fail("unexpected endianness; u16[74, 149] = %u\n", (unsigned int)check.u16);
+      bc_fail("unexpected endianness; u16[74, 149] = %u\n", (unsigned int)check.u16);
   }
 
   if (check.number == 4893668.500000f) {
-    sdf__number_endianness_swap = SDF_BOOLEAN_FALSE;
+    bc__number_endianness_swap = BC_BOOLEAN_FALSE;
   } else if (check.number == -883028.62500f) {
-    sdf__number_endianness_swap = SDF_BOOLEAN_TRUE;
+    bc__number_endianness_swap = BC_BOOLEAN_TRUE;
   } else {
-    sdf_fail("unexpected endianness; number[74, 149, 87, 201] = %f\n", check.number);
+    bc_fail("unexpected endianness; number[74, 149, 87, 201] = %f\n", check.number);
   }
 }
 
-sdf_number_t sdf_number_infinity;
+bc_number_t bc_number_infinity;
 
-static void sdf__generate_number_infinity(void) {
+static void bc__generate_number_infinity(void) {
   union {
-    sdf_u8_t u8[4];
-    sdf_number_t number;
+    bc_u8_t u8[4];
+    bc_number_t number;
   } generate;
-  if (sdf__number_endianness_swap) {
+  if (bc__number_endianness_swap) {
     generate.u8[0] = 0x00;
     generate.u8[1] = 0x00;
     generate.u8[2] = 0x80;
@@ -81,17 +81,17 @@ static void sdf__generate_number_infinity(void) {
     generate.u8[2] = 0x00;
     generate.u8[3] = 0x00;
   }
-  sdf_number_infinity = generate.number;
+  bc_number_infinity = generate.number;
 }
 
-sdf_number_t sdf_number_not_a_number;
+bc_number_t bc_number_not_a_number;
 
-static void sdf__generate_number_not_a_number(void) {
+static void bc__generate_number_not_a_number(void) {
   union {
-    sdf_u8_t u8[4];
-    sdf_number_t number;
+    bc_u8_t u8[4];
+    bc_number_t number;
   } generate;
-  if (sdf__number_endianness_swap) {
+  if (bc__number_endianness_swap) {
     generate.u8[0] = 0x00;
     generate.u8[1] = 0x00;
     generate.u8[2] = 0xF8;
@@ -102,33 +102,33 @@ static void sdf__generate_number_not_a_number(void) {
     generate.u8[2] = 0x00;
     generate.u8[3] = 0x00;
   }
-  sdf_number_not_a_number = generate.number;
+  bc_number_not_a_number = generate.number;
 }
 
 
-void sdf_types(void) {
-  sdf__check_sizeof();
-  sdf__check_max();
-  sdf__check_byte_order();
-  sdf__generate_number_infinity();
-  sdf__generate_number_not_a_number();
+void bc_types(void) {
+  bc__check_sizeof();
+  bc__check_max();
+  bc__check_byte_order();
+  bc__generate_number_infinity();
+  bc__generate_number_not_a_number();
 }
 
-#define SDF_SWAP_ENDIANNESS(type)                                        \
-  void sdf_types_##type##_swap_endianness(                               \
-    sdf_##type##_t * value                                               \
+#define BC_SWAP_ENDIANNESS(type)                                        \
+  void bc_types_##type##_swap_endianness(                               \
+    bc_##type##_t * value                                               \
   ) {                                                                    \
     size_t byte = 0;                                                     \
-    sdf_##type##_t copy = *value;                                        \
-    sdf_u8_t * valueBytes = (sdf_u8_t*) value;                           \
-    sdf_u8_t * copyBytes = (sdf_u8_t*) &copy;                            \
-    if (sdf__##type##_endianness_swap) {                                 \
-      while (byte < sizeof(sdf_##type##_t)) {                            \
-        valueBytes[byte] = copyBytes[sizeof(sdf_##type##_t) - byte - 1]; \
+    bc_##type##_t copy = *value;                                        \
+    bc_u8_t * valueBytes = (bc_u8_t*) value;                           \
+    bc_u8_t * copyBytes = (bc_u8_t*) &copy;                            \
+    if (bc__##type##_endianness_swap) {                                 \
+      while (byte < sizeof(bc_##type##_t)) {                            \
+        valueBytes[byte] = copyBytes[sizeof(bc_##type##_t) - byte - 1]; \
         byte++;                                                          \
       }                                                                  \
     }                                                                    \
   }
 
-SDF_SWAP_ENDIANNESS(u16)
-SDF_SWAP_ENDIANNESS(number)
+BC_SWAP_ENDIANNESS(u16)
+BC_SWAP_ENDIANNESS(number)

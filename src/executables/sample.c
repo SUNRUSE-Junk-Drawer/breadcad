@@ -10,80 +10,80 @@
 #include "../framework/plan.h"
 #include "../framework/execute.h"
 
-const char * sdf_executable_name = "sample";
-const char * sdf_executable_description = "sample a sdf stream at a single point in space";
-const char * sdf_executable_usage_prefix = "[sdf stream] | ";
-const char * sdf_executable_usage_suffix = "";
-const sdf_boolean_t sdf_executable_reads_model_from_stdin = SDF_BOOLEAN_TRUE;
-const sdf_boolean_t sdf_executable_reads_models_from_command_line_arguments = SDF_BOOLEAN_FALSE;
+const char * bc_executable_name = "sample";
+const char * bc_executable_description = "sample a bc stream at a single point in space";
+const char * bc_executable_usage_prefix = "[bc stream] | ";
+const char * bc_executable_usage_suffix = "";
+const bc_boolean_t bc_executable_reads_model_from_stdin = BC_BOOLEAN_TRUE;
+const bc_boolean_t bc_executable_reads_models_from_command_line_arguments = BC_BOOLEAN_FALSE;
 
-static sdf_number_t sdf__x;
-static sdf_number_t sdf__y;
-static sdf_number_t sdf__z;
+static bc_number_t bc__x;
+static bc_number_t bc__y;
+static bc_number_t bc__z;
 
-void sdf_executable_cli(void) {
-  sdf_cli_number("x", "x", "location from which to sample on the x axis (millimeters)", &sdf__x, 0.0f);
-  sdf_cli_number("y", "y", "location from which to sample on the y axis (millimeters)", &sdf__y, 0.0f);
-  sdf_cli_number("z", "z", "location from which to sample on the z axis (millimeters)", &sdf__z, 0.0f);
+void bc_executable_cli(void) {
+  bc_cli_number("x", "x", "location from which to sample on the x axis (millimeters)", &bc__x, 0.0f);
+  bc_cli_number("y", "y", "location from which to sample on the y axis (millimeters)", &bc__y, 0.0f);
+  bc_cli_number("z", "z", "location from which to sample on the z axis (millimeters)", &bc__z, 0.0f);
 }
 
-void sdf_executable_before_first_file(void) {
+void bc_executable_before_first_file(void) {
 }
 
-void sdf_executable_nullary(
-  sdf_opcode_t opcode
+void bc_executable_nullary(
+  bc_opcode_t opcode
 ) {
-  sdf_store_nullary(opcode);
+  bc_store_nullary(opcode);
 }
 
-void sdf_executable_unary(
-  sdf_opcode_t opcode,
-  sdf_argument_t argument_a
+void bc_executable_unary(
+  bc_opcode_t opcode,
+  bc_argument_t argument_a
 ) {
-  sdf_store_unary(opcode, argument_a);
+  bc_store_unary(opcode, argument_a);
 }
 
-void sdf_executable_binary(
-  sdf_opcode_t opcode,
-  sdf_argument_t argument_a,
-  sdf_argument_t argument_b
+void bc_executable_binary(
+  bc_opcode_t opcode,
+  bc_argument_t argument_a,
+  bc_argument_t argument_b
 ) {
-  sdf_store_binary(opcode, argument_a, argument_b);
+  bc_store_binary(opcode, argument_a, argument_b);
 }
 
-void sdf_executable_ternary(
-  sdf_opcode_t opcode,
-  sdf_argument_t argument_a,
-  sdf_argument_t argument_b,
-  sdf_argument_t argument_c
+void bc_executable_ternary(
+  bc_opcode_t opcode,
+  bc_argument_t argument_a,
+  bc_argument_t argument_b,
+  bc_argument_t argument_c
 ) {
-  sdf_store_ternary(opcode, argument_a, argument_b, argument_c);
+  bc_store_ternary(opcode, argument_a, argument_b, argument_c);
 }
 
-void sdf_executable_eof(void) {
-  sdf_plan();
-  printf("%f\n", *sdf_execute(NULL, 1));
+void bc_executable_eof(void) {
+  bc_plan();
+  printf("%f\n", *bc_execute(NULL, 1));
 }
 
-void sdf_executable_after_last_file(void) {
+void bc_executable_after_last_file(void) {
 }
 
-sdf_number_t sdf_executable_get_parameter(
+bc_number_t bc_executable_get_parameter(
   void * parameter_context,
   size_t iteration,
-  sdf_opcode_id_t id
+  bc_opcode_id_t id
 ) {
-  SDF_UNUSED(parameter_context);
-  SDF_UNUSED(iteration);
+  BC_UNUSED(parameter_context);
+  BC_UNUSED(iteration);
   switch (id) {
     case 0:
-      return sdf__x;
+      return bc__x;
 
     case 1:
-      return sdf__y;
+      return bc__y;
 
     case 2:
-      return sdf__z;
+      return bc__z;
 
     default:
       return 0.0f;

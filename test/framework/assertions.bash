@@ -8,13 +8,13 @@ function stderr_only {
 
 function check_stdout {
   run stdout_only "$1"
-  replaced=${2//$'\n'/$SDF_LINE_BREAK}
+  replaced=${2//$'\n'/$BC_LINE_BREAK}
   assert_output "$replaced"
 }
 
 function check_stderr {
   run stderr_only "$1"
-  replaced=${2//$'\n'/$SDF_LINE_BREAK}
+  replaced=${2//$'\n'/$BC_LINE_BREAK}
   assert_output "$replaced"
 }
 
@@ -31,6 +31,6 @@ function check_successful {
 }
 
 function check_valid {
-  run bash -c "$1 | ${SDF_EXECUTABLE_PREFIX}validate${SDF_EXECUTABLE_SUFFIX}"
+  run bash -c "$1 | ${BC_EXECUTABLE_PREFIX}validate${BC_EXECUTABLE_SUFFIX}"
   assert_success
 }

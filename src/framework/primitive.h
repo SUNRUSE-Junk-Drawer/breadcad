@@ -1,25 +1,25 @@
-#ifndef SDF_PRIMITIVE_H
-#define SDF_PRIMITIVE_H
+#ifndef BC_PRIMITIVE_H
+#define BC_PRIMITIVE_H
 
 #include <stdio.h>
 #include "types.h"
 
-typedef sdf_u8_t sdf_primitive_t;
+typedef bc_u8_t bc_primitive_t;
 
-#define SDF_PRIMITIVE_NONE 0
-#define SDF_PRIMITIVE_BOOLEAN 1
-#define SDF_PRIMITIVE_NUMBER 2
-#define SDF_PRIMITIVE_RESERVED 3
-#define SDF_PRIMITIVE_MAX 3
-#define SDF_PRIMITIVE_RANGE (SDF_PRIMITIVE_MAX + 1)
+#define BC_PRIMITIVE_NONE 0
+#define BC_PRIMITIVE_BOOLEAN 1
+#define BC_PRIMITIVE_NUMBER 2
+#define BC_PRIMITIVE_RESERVED 3
+#define BC_PRIMITIVE_MAX 3
+#define BC_PRIMITIVE_RANGE (BC_PRIMITIVE_MAX + 1)
 
-const char * sdf_primitive_name(
-  sdf_primitive_t primitive
+const char * bc_primitive_name(
+  bc_primitive_t primitive
 );
 
-void sdf_primitive_print(
+void bc_primitive_print(
   FILE * file,
-  sdf_primitive_t primitive
+  bc_primitive_t primitive
 );
 
 #endif

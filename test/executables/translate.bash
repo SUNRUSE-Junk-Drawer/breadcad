@@ -1,8 +1,8 @@
 load "../framework/main"
 
 executable_name=translate
-executable_help="translate - translates the geometry described by a sdf stream
-  usage: [sdf stream] | translate [options] | [consumer of sdf stream]
+executable_help="translate - translates the geometry described by a bc stream
+  usage: [bc stream] | translate [options] | [consumer of bc stream]
   options:
     -h, --help, /?: display this message
     -x [number], --x [number]: translation on the x axis (millimeters) (default: 0.000000)
@@ -22,8 +22,8 @@ executable_help="translate - translates the geometry described by a sdf stream
 }
 
 @test "empty stdin" {
-  check_valid "${SDF_EXECUTABLE_PREFIX}translate${SDF_EXECUTABLE_SUFFIX} < test/sdf/empty.sdf"
-  check_successful "${SDF_EXECUTABLE_PREFIX}translate${SDF_EXECUTABLE_SUFFIX} < test/sdf/empty.sdf | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX}" "inf"
+  check_valid "${BC_EXECUTABLE_PREFIX}translate${BC_EXECUTABLE_SUFFIX} < test/bc/empty.bc"
+  check_successful "${BC_EXECUTABLE_PREFIX}translate${BC_EXECUTABLE_SUFFIX} < test/bc/empty.bc | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX}" "inf"
 }
 
 function test_cuboid {
@@ -39,14 +39,14 @@ function test_cuboid {
   z_low=$9
   z_high=${10}
 
-  check_valid "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 2 --size-y 8 --size-z 4 | ${SDF_EXECUTABLE_PREFIX}translate${SDF_EXECUTABLE_SUFFIX} $parameters"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 2 --size-y 8 --size-z 4 | ${SDF_EXECUTABLE_PREFIX}translate${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $x_origin -y $y_origin -z $z_origin" "-0.500000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 2 --size-y 8 --size-z 4 | ${SDF_EXECUTABLE_PREFIX}translate${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $x_low -y $y_origin -z $z_origin" "-0.400000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 2 --size-y 8 --size-z 4 | ${SDF_EXECUTABLE_PREFIX}translate${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $x_high -y $y_origin -z $z_origin" "-0.400000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 2 --size-y 8 --size-z 4 | ${SDF_EXECUTABLE_PREFIX}translate${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $x_origin -y $y_low -z $z_origin" "-0.400000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 2 --size-y 8 --size-z 4 | ${SDF_EXECUTABLE_PREFIX}translate${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $x_origin -y $y_high -z $z_origin" "-0.400000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 2 --size-y 8 --size-z 4 | ${SDF_EXECUTABLE_PREFIX}translate${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $x_origin -y $y_origin -z $z_low" "-0.400000"
-  check_successful "${SDF_EXECUTABLE_PREFIX}cuboid${SDF_EXECUTABLE_SUFFIX} --size-x 2 --size-y 8 --size-z 4 | ${SDF_EXECUTABLE_PREFIX}translate${SDF_EXECUTABLE_SUFFIX} $parameters | ${SDF_EXECUTABLE_PREFIX}sample${SDF_EXECUTABLE_SUFFIX} -x $x_origin -y $y_origin -z $z_high" "-0.400000"
+  check_valid "${BC_EXECUTABLE_PREFIX}cuboid${BC_EXECUTABLE_SUFFIX} --size-x 2 --size-y 8 --size-z 4 | ${BC_EXECUTABLE_PREFIX}translate${BC_EXECUTABLE_SUFFIX} $parameters"
+  check_successful "${BC_EXECUTABLE_PREFIX}cuboid${BC_EXECUTABLE_SUFFIX} --size-x 2 --size-y 8 --size-z 4 | ${BC_EXECUTABLE_PREFIX}translate${BC_EXECUTABLE_SUFFIX} $parameters | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x $x_origin -y $y_origin -z $z_origin" "-0.500000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cuboid${BC_EXECUTABLE_SUFFIX} --size-x 2 --size-y 8 --size-z 4 | ${BC_EXECUTABLE_PREFIX}translate${BC_EXECUTABLE_SUFFIX} $parameters | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x $x_low -y $y_origin -z $z_origin" "-0.400000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cuboid${BC_EXECUTABLE_SUFFIX} --size-x 2 --size-y 8 --size-z 4 | ${BC_EXECUTABLE_PREFIX}translate${BC_EXECUTABLE_SUFFIX} $parameters | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x $x_high -y $y_origin -z $z_origin" "-0.400000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cuboid${BC_EXECUTABLE_SUFFIX} --size-x 2 --size-y 8 --size-z 4 | ${BC_EXECUTABLE_PREFIX}translate${BC_EXECUTABLE_SUFFIX} $parameters | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x $x_origin -y $y_low -z $z_origin" "-0.400000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cuboid${BC_EXECUTABLE_SUFFIX} --size-x 2 --size-y 8 --size-z 4 | ${BC_EXECUTABLE_PREFIX}translate${BC_EXECUTABLE_SUFFIX} $parameters | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x $x_origin -y $y_high -z $z_origin" "-0.400000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cuboid${BC_EXECUTABLE_SUFFIX} --size-x 2 --size-y 8 --size-z 4 | ${BC_EXECUTABLE_PREFIX}translate${BC_EXECUTABLE_SUFFIX} $parameters | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x $x_origin -y $y_origin -z $z_low" "-0.400000"
+  check_successful "${BC_EXECUTABLE_PREFIX}cuboid${BC_EXECUTABLE_SUFFIX} --size-x 2 --size-y 8 --size-z 4 | ${BC_EXECUTABLE_PREFIX}translate${BC_EXECUTABLE_SUFFIX} $parameters | ${BC_EXECUTABLE_PREFIX}sample${BC_EXECUTABLE_SUFFIX} -x $x_origin -y $y_origin -z $z_high" "-0.400000"
 }
 
 @test "default" {
