@@ -9,62 +9,62 @@
 #include "../framework/argument.h"
 #include "../framework/executable.h"
 #include "../framework/store.h"
-#include "../framework/write_sdf.h"
+#include "../framework/write_bc.h"
 
-const char * sdf_executable_name = "validate";
-const char * sdf_executable_description = "ensures that a sdf stream is valid before passing it on";
-const char * sdf_executable_usage_prefix = "[sdf stream] | ";
-const char * sdf_executable_usage_suffix = " | [consumer of sdf stream]";
-const sdf_boolean_t sdf_executable_reads_model_from_stdin = SDF_BOOLEAN_TRUE;
-const sdf_boolean_t sdf_executable_reads_models_from_command_line_arguments = SDF_BOOLEAN_FALSE;
+const char * bc_executable_name = "validate";
+const char * bc_executable_description = "ensures that a bc stream is valid before passing it on";
+const char * bc_executable_usage_prefix = "[bc stream] | ";
+const char * bc_executable_usage_suffix = " | [consumer of bc stream]";
+const bc_boolean_t bc_executable_reads_model_from_stdin = BC_BOOLEAN_TRUE;
+const bc_boolean_t bc_executable_reads_models_from_command_line_arguments = BC_BOOLEAN_FALSE;
 
-static sdf_primitive_t sdf__get_primitive_type(
-  sdf_argument_t argument,
+static bc_primitive_t bc__get_primitive_type(
+  bc_argument_t argument,
   char identifier
 ) {
   switch (argument.pointer) {
-    case SDF_POINTER_BOOLEAN_CONSTANT_FALSE:
-    case SDF_POINTER_BOOLEAN_CONSTANT_TRUE:
-      return SDF_PRIMITIVE_BOOLEAN;
+    case BC_POINTER_BOOLEAN_CONSTANT_FALSE:
+    case BC_POINTER_BOOLEAN_CONSTANT_TRUE:
+      return BC_PRIMITIVE_BOOLEAN;
 
-    case SDF_POINTER_NUMBER_CONSTANT:
-      return SDF_PRIMITIVE_NUMBER;
+    case BC_POINTER_NUMBER_CONSTANT:
+      return BC_PRIMITIVE_NUMBER;
 
     default:
-      if (argument.pointer >= sdf_store_total_opcodes) {
-        sdf_fail("argument %c references the result of a future instruction", identifier);
+      if (argument.pointer >= bc_store_total_opcodes) {
+        bc_fail("argument %c references the result of a future instruction", identifier);
       }
 
-      return sdf_opcode_result(sdf_store_opcodes[argument.pointer]);
+      return bc_opcode_result(bc_store_opcodes[argument.pointer]);
   }
 }
 
-static void sdf__validate_argument__value(
-  sdf_primitive_t expected,
-  sdf_argument_t argument,
+static void bc__validate_argument__value(
+  bc_primitive_t expected,
+  bc_argument_t argument,
   char identifier
 ) {
-  sdf_primitive_t actual = sdf__get_primitive_type(argument, identifier);
+  bc_primitive_t actual = bc__get_primitive_type(argument, identifier);
 
   if (actual != expected) {
-    sdf_fail(
+    bc_fail(
       "argument %c expects %s, given %s",
       identifier,
-      sdf_primitive_name(expected),
-      sdf_primitive_name(actual)
+      bc_primitive_name(expected),
+      bc_primitive_name(actual)
     );
   }
 }
 
-static void sdf__validate_argument(
-  sdf_primitive_t expected,
-  sdf_argument_t argument,
+static void bc__validate_argument(
+  bc_primitive_t expected,
+  bc_argument_t argument,
   char identifier
 ) {
   switch (expected) {
-    case SDF_PRIMITIVE_BOOLEAN:
-    case SDF_PRIMITIVE_NUMBER:
-      sdf__validate_argument__value(
+    case BC_PRIMITIVE_BOOLEAN:
+    case BC_PRIMITIVE_NUMBER:
+      bc__validate_argument__value(
         expected,
         argument,
         identifier
@@ -72,127 +72,127 @@ static void sdf__validate_argument(
       break;
 
     default:
-      sdf_fail(
+      bc_fail(
         "argument %c expects %s, which is not implemented",
         identifier,
-        sdf_primitive_name(expected)
+        bc_primitive_name(expected)
       );
       break;
   }
 }
 
-void sdf_executable_cli(void) {
+void bc_executable_cli(void) {
 }
 
-void sdf_executable_before_first_file(void) {
+void bc_executable_before_first_file(void) {
 }
 
-void sdf_executable_nullary(
-  sdf_opcode_t opcode
+void bc_executable_nullary(
+  bc_opcode_t opcode
 ) {
-  sdf_store_nullary(opcode);
+  bc_store_nullary(opcode);
 }
 
-void sdf_executable_unary(
-  sdf_opcode_t opcode,
-  sdf_argument_t argument_a
+void bc_executable_unary(
+  bc_opcode_t opcode,
+  bc_argument_t argument_a
 ) {
-  sdf__validate_argument(sdf_opcode_parameter_a(opcode), argument_a, 'a');
-  sdf_store_unary(opcode, argument_a);
+  bc__validate_argument(bc_opcode_parameter_a(opcode), argument_a, 'a');
+  bc_store_unary(opcode, argument_a);
 }
 
-void sdf_executable_binary(
-  sdf_opcode_t opcode,
-  sdf_argument_t argument_a,
-  sdf_argument_t argument_b
+void bc_executable_binary(
+  bc_opcode_t opcode,
+  bc_argument_t argument_a,
+  bc_argument_t argument_b
 ) {
-  sdf__validate_argument(sdf_opcode_parameter_a(opcode), argument_a, 'a');
-  sdf__validate_argument(sdf_opcode_parameter_b(opcode), argument_b, 'b');
-  sdf_store_binary(opcode, argument_a, argument_b);
+  bc__validate_argument(bc_opcode_parameter_a(opcode), argument_a, 'a');
+  bc__validate_argument(bc_opcode_parameter_b(opcode), argument_b, 'b');
+  bc_store_binary(opcode, argument_a, argument_b);
 }
 
-void sdf_executable_ternary(
-  sdf_opcode_t opcode,
-  sdf_argument_t argument_a,
-  sdf_argument_t argument_b,
-  sdf_argument_t argument_c
+void bc_executable_ternary(
+  bc_opcode_t opcode,
+  bc_argument_t argument_a,
+  bc_argument_t argument_b,
+  bc_argument_t argument_c
 ) {
-  sdf__validate_argument(sdf_opcode_parameter_a(opcode), argument_a, 'a');
-  sdf__validate_argument(sdf_opcode_parameter_b(opcode), argument_b, 'b');
-  sdf__validate_argument(sdf_opcode_parameter_c(opcode), argument_c, 'c');
-  sdf_store_ternary(opcode, argument_a, argument_b, argument_c);
+  bc__validate_argument(bc_opcode_parameter_a(opcode), argument_a, 'a');
+  bc__validate_argument(bc_opcode_parameter_b(opcode), argument_b, 'b');
+  bc__validate_argument(bc_opcode_parameter_c(opcode), argument_c, 'c');
+  bc_store_ternary(opcode, argument_a, argument_b, argument_c);
 }
 
-void sdf_executable_eof(void) {
+void bc_executable_eof(void) {
 }
 
-static void sdf__check_return_type(void) {
-  sdf_primitive_t type = sdf_opcode_result(sdf_store_opcodes[sdf_store_total_opcodes - 1]);
+static void bc__check_return_type(void) {
+  bc_primitive_t type = bc_opcode_result(bc_store_opcodes[bc_store_total_opcodes - 1]);
 
-  if (type == SDF_PRIMITIVE_NUMBER) {
+  if (type == BC_PRIMITIVE_NUMBER) {
     return;
   }
 
-  sdf_fail("result of program should be number, but is %s", sdf_primitive_name(type));
+  bc_fail("result of program should be number, but is %s", bc_primitive_name(type));
 }
 
-static void sdf__emit_stored(void) {
+static void bc__emit_stored(void) {
   size_t instruction = 0;
   size_t argument = 0;
-  sdf_opcode_t opcode;
-  sdf_opcode_arity_t arity;
-  sdf_argument_t argument_a;
-  sdf_argument_t argument_b;
-  sdf_argument_t argument_c;
+  bc_opcode_t opcode;
+  bc_opcode_arity_t arity;
+  bc_argument_t argument_a;
+  bc_argument_t argument_b;
+  bc_argument_t argument_c;
 
-  while (instruction < sdf_store_total_opcodes) {
-    opcode = sdf_store_opcodes[instruction];
-    arity = sdf_opcode_arity(opcode);
+  while (instruction < bc_store_total_opcodes) {
+    opcode = bc_store_opcodes[instruction];
+    arity = bc_opcode_arity(opcode);
     switch (arity) {
       case 0:
-        sdf_write_sdf_nullary(opcode);
+        bc_write_bc_nullary(opcode);
         break;
 
       case 1:
-        argument_a = sdf_store_arguments[argument++];
-        sdf_write_sdf_unary(opcode, argument_a);
+        argument_a = bc_store_arguments[argument++];
+        bc_write_bc_unary(opcode, argument_a);
         break;
 
       case 2:
-        argument_a = sdf_store_arguments[argument++];
-        argument_b = sdf_store_arguments[argument++];
-        sdf_write_sdf_binary(opcode, argument_a, argument_b);
+        argument_a = bc_store_arguments[argument++];
+        argument_b = bc_store_arguments[argument++];
+        bc_write_bc_binary(opcode, argument_a, argument_b);
         break;
 
       case 3:
-        argument_a = sdf_store_arguments[argument++];
-        argument_b = sdf_store_arguments[argument++];
-        argument_c = sdf_store_arguments[argument++];
-        sdf_write_sdf_ternary(opcode, argument_a, argument_b, argument_c);
+        argument_a = bc_store_arguments[argument++];
+        argument_b = bc_store_arguments[argument++];
+        argument_c = bc_store_arguments[argument++];
+        bc_write_bc_ternary(opcode, argument_a, argument_b, argument_c);
         break;
 
       default:
-        sdf_fail("unexpected opcode arity %#02x\n", (unsigned int)arity);
+        bc_fail("unexpected opcode arity %#02x\n", (unsigned int)arity);
         break;
     }
     instruction++;
   }
 }
 
-void sdf_executable_after_last_file(void) {
-  if (sdf_store_total_opcodes) {
-    sdf__check_return_type();
+void bc_executable_after_last_file(void) {
+  if (bc_store_total_opcodes) {
+    bc__check_return_type();
   }
-  sdf__emit_stored();
+  bc__emit_stored();
 }
 
-sdf_number_t sdf_executable_get_parameter(
+bc_number_t bc_executable_get_parameter(
   void * parameter_context,
   size_t iteration,
-  sdf_opcode_id_t id
+  bc_opcode_id_t id
 ) {
-  SDF_UNUSED(parameter_context);
-  SDF_UNUSED(iteration);
-  SDF_UNUSED(id);
+  BC_UNUSED(parameter_context);
+  BC_UNUSED(iteration);
+  BC_UNUSED(id);
   return 0.0f;
 }

@@ -2,20 +2,20 @@
 #include "types.h"
 #include "pointer.h"
 
-sdf_argument_t sdf_argument_pointer(
-  sdf_pointer_t pointer
+bc_argument_t bc_argument_pointer(
+  bc_pointer_t pointer
 ) {
-  sdf_argument_t argument;
+  bc_argument_t argument;
   argument.pointer = pointer;
-  argument.number_constant = sdf_number_not_a_number;
+  argument.number_constant = bc_number_not_a_number;
   return argument;
 }
 
-sdf_argument_t sdf_argument_number_constant(
-  sdf_number_t number_constant
+bc_argument_t bc_argument_number_constant(
+  bc_number_t number_constant
 ) {
-  sdf_argument_t argument;
-  argument.pointer = SDF_POINTER_NUMBER_CONSTANT;
+  bc_argument_t argument;
+  argument.pointer = BC_POINTER_NUMBER_CONSTANT;
   argument.number_constant = number_constant;
   return argument;
 }

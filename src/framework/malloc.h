@@ -1,21 +1,21 @@
-#ifndef SDF_MALLOC_H
-#define SDF_MALLOC_H
+#ifndef BC_MALLOC_H
+#define BC_MALLOC_H
 
-void * sdf_malloc(
+void * bc_malloc(
   size_t size,
   const char * action
 );
 
-#define SDF_MALLOC(type, quantity, action) \
-  ((type * ) sdf_malloc((quantity) * sizeof(type), action))
+#define BC_MALLOC(type, quantity, action) \
+  ((type * ) bc_malloc((quantity) * sizeof(type), action))
 
-void sdf_realloc(
+void bc_realloc(
   size_t size,
   const char * action,
   void ** pointer_to_pointer
 );
 
-#define SDF_REALLOC(type, quantity, action, pointer_to_pointer) \
-  sdf_realloc((quantity) * sizeof(type), action, (void**) &(pointer_to_pointer))
+#define BC_REALLOC(type, quantity, action, pointer_to_pointer) \
+  bc_realloc((quantity) * sizeof(type), action, (void**) &(pointer_to_pointer))
 
 #endif

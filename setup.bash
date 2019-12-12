@@ -1,10 +1,10 @@
 if [[ "$OSTYPE" == "msys" ]]; then
-  export SDF_LINE_BREAK=$'\r\n'
+  export BC_LINE_BREAK=$'\r\n'
 else
-  export SDF_LINE_BREAK=$'\n'
+  export BC_LINE_BREAK=$'\n'
 fi
 
-export SDF_EXECUTABLE_PREFIX=$1
-export SDF_EXECUTABLE_SUFFIX=$2
+export BC_EXECUTABLE_PREFIX=$1
+export BC_EXECUTABLE_SUFFIX=$2
 
 $3 test

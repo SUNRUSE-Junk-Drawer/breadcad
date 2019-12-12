@@ -1,6 +1,6 @@
-#ifndef SDF_UNUSED_H
-#define SDF_UNUSED_H
+#ifndef BC_UNUSED_H
+#define BC_UNUSED_H
 
-#define SDF_UNUSED(parameter) (void)parameter
+#define BC_UNUSED(parameter) (void)parameter
 
 #endif

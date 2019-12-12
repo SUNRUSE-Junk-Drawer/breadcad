@@ -1,32 +1,32 @@
-#ifndef SDF_WRITE_SDF_H
-#define SDF_WRITE_SDF_H
+#ifndef BC_WRITE_BC_H
+#define BC_WRITE_BC_H
 
 #include <stdio.h>
 #include "opcode.h"
 #include "argument.h"
 
-void sdf_write_sdf_reset(void);
+void bc_write_bc_reset(void);
 
-sdf_argument_t sdf_write_sdf_nullary(
-  sdf_opcode_t opcode
+bc_argument_t bc_write_bc_nullary(
+  bc_opcode_t opcode
 );
 
-sdf_argument_t sdf_write_sdf_unary(
-  sdf_opcode_t opcode,
-  sdf_argument_t argument_a
+bc_argument_t bc_write_bc_unary(
+  bc_opcode_t opcode,
+  bc_argument_t argument_a
 );
 
-sdf_argument_t sdf_write_sdf_binary(
-  sdf_opcode_t opcode,
-  sdf_argument_t argument_a,
-  sdf_argument_t argument_b
+bc_argument_t bc_write_bc_binary(
+  bc_opcode_t opcode,
+  bc_argument_t argument_a,
+  bc_argument_t argument_b
 );
 
-sdf_argument_t sdf_write_sdf_ternary(
-  sdf_opcode_t opcode,
-  sdf_argument_t argument_a,
-  sdf_argument_t argument_b,
-  sdf_argument_t argument_c
+bc_argument_t bc_write_bc_ternary(
+  bc_opcode_t opcode,
+  bc_argument_t argument_a,
+  bc_argument_t argument_b,
+  bc_argument_t argument_c
 );
 
 #endif

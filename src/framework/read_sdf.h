@@ -1,9 +1,9 @@
-#ifndef SDF_READ_SDF_H
-#define SDF_READ_SDF_H
+#ifndef BC_READ_BC_H
+#define BC_READ_BC_H
 
 #include <stdio.h>
 
-void sdf_read_sdf(
+void bc_read_bc(
   FILE * file
 );
 
