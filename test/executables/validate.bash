@@ -439,9 +439,9 @@ executable_help="validate - ensures that a bc stream is valid before passing it 
 }
 
 @test "stack at limit" {
-  head -c 131064 /dev/zero > temp/long.bc
-  cat test/bc/negate_constant_positive.bc >> temp/long.bc
-  check_successful "${BC_EXECUTABLE_PREFIX}validate${BC_EXECUTABLE_SUFFIX} < temp/long.bc" `cat temp/long.bc`
+  head -c 131064 /dev/zero > c/temp/long.bc
+  cat test/bc/negate_constant_positive.bc >> c/temp/long.bc
+  check_successful "${BC_EXECUTABLE_PREFIX}validate${BC_EXECUTABLE_SUFFIX} < c/temp/long.bc" `cat c/temp/long.bc`
 }
 
 @test "stack overflow" {

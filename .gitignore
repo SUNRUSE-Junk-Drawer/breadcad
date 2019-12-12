@@ -1,4 +1,4 @@
-bin
-obj
-test_results
-temp
+c/bin
+c/obj
+c/test_results
+c/temp

@@ -5,9 +5,9 @@ load "../framework/help"
 load "../framework/number_parameter"
 
 setup() {
-  mkdir -p temp
+  mkdir -p c/temp
 }
 
 teardown() {
-  rm -r temp
+  rm -r c/temp
 }
