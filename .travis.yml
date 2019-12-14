@@ -63,3 +63,8 @@ matrix:
       test: []
       script:
         - bash setup.bash '' '' make php/framework/makefile
+      deploy:
+        provider: script
+        script: bash php/split.bash
+        on:
+          branch: master
