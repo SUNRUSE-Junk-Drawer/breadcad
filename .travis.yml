@@ -54,3 +54,17 @@ matrix:
         skip_cleanup: true
         on:
           branch: master
+    - os: linux
+      language: php
+      php: 7.3
+      script:
+        - cd php/framework
+      install: []
+      test: []
+      script:
+        - bash setup.bash '' '' make php/framework/makefile
+      deploy:
+        provider: script
+        script: bash php/split.bash
+        on:
+          branch: master
