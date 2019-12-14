@@ -6,3 +6,5 @@ php/*/vendor
 php/executables/*/vendor
 php/*/markers
 php/*/test_results
+php/splitsh-lite
+php/splitsh-lite.tar.gz
