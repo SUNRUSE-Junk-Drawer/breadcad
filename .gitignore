@@ -4,3 +4,4 @@ c/test_results
 c/temp
 php/*/vendor
 php/executables/*/vendor
+php/*/markers
