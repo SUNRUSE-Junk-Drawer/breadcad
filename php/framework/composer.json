@@ -4,6 +4,7 @@
   "type": "library",
   "readme": "package-readme.md",
   "license": "MIT",
+  "homepage": "https://github.com/jameswilddev/breadcad",
   "authors": [
     {
       "name": "James Wild",
