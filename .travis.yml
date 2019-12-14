@@ -1,59 +1,59 @@
 matrix:
   include:
-    - os: linux
-      language: c
-      compiler: gcc
-      script:
-        - bash setup.bash 'c/bin/bc_' '' make c/makefile
-        - cd c/bin && zip -r linux-x64-gcc.zip * && cd ../..
-      deploy:
-        provider: releases
-        api_key:
-          secure: "W21q76zr2NX/aQsrCCnzv1F1s8+9CauXFCXg+7bLSLJXgK2x3T/qMNm83b9GIqj/FzPloVM3CXMEVRDFoLRZp3/WkfyYl+6ZeEcKINR7pGSi2thJgsRjSUJdKBLqxrz0G5Ff8UzBkrtHEcCaYjaLa9stN0jQFb+gD9MiClYoa6VNGV1wuSzKVLMfuTihjwLSsV2k4/aZOux1qroPfPZH3fB3xcTjRbqNIXHbgCMx/+BYYR5dN1BLY9FNMV2sg5+kCtCC1cS7esp59BIEH00gkTO0d7WuQ2jRkutyt7v1g8BqvaXxKKdDpk7yWTtNR7TB+8f4atWL1lS/xZocB0lFgb4kJqbTBJOO+5BLxedT+CtHzXMS6P/sXY3pTDoPqZOg//YtcBLKs2oBdGxQl8EUPbnD0YX1FosRLUqcZiMoZLMxsEp1823308DA623BY+rLNxArYvRj7X0bSehnSLXi+aB+NUS687WTT+pJMJAM84+VDIlj6jtp/7L8rU6IQk9i+7zQw40dxBcgOfExMDHlP0STs834Mco61vw36xwADNgILaKjM252TwabPXcO4p37wUdk7L915Axae7jpJMho3+X8rcnmD8XH9ducgwwXJlMnJxFkje9nrg3oX6S86HLj9uNf+fHx31bchHkSjl6N1o8ngRIB9SCmZgmMqR8A3Ps="
-        file: "bin/linux-x64-gcc.zip"
-        skip_cleanup: true
-        on:
-          branch: master
-    - os: linux
-      language: c
-      compiler: clang
-      script:
-        - bash setup.bash 'c/bin/bc_' '' make c/makefile
-        - cd c/bin && zip -r linux-x64-clang.zip * && cd ../..
-      deploy:
-        provider: releases
-        api_key:
-          secure: "W21q76zr2NX/aQsrCCnzv1F1s8+9CauXFCXg+7bLSLJXgK2x3T/qMNm83b9GIqj/FzPloVM3CXMEVRDFoLRZp3/WkfyYl+6ZeEcKINR7pGSi2thJgsRjSUJdKBLqxrz0G5Ff8UzBkrtHEcCaYjaLa9stN0jQFb+gD9MiClYoa6VNGV1wuSzKVLMfuTihjwLSsV2k4/aZOux1qroPfPZH3fB3xcTjRbqNIXHbgCMx/+BYYR5dN1BLY9FNMV2sg5+kCtCC1cS7esp59BIEH00gkTO0d7WuQ2jRkutyt7v1g8BqvaXxKKdDpk7yWTtNR7TB+8f4atWL1lS/xZocB0lFgb4kJqbTBJOO+5BLxedT+CtHzXMS6P/sXY3pTDoPqZOg//YtcBLKs2oBdGxQl8EUPbnD0YX1FosRLUqcZiMoZLMxsEp1823308DA623BY+rLNxArYvRj7X0bSehnSLXi+aB+NUS687WTT+pJMJAM84+VDIlj6jtp/7L8rU6IQk9i+7zQw40dxBcgOfExMDHlP0STs834Mco61vw36xwADNgILaKjM252TwabPXcO4p37wUdk7L915Axae7jpJMho3+X8rcnmD8XH9ducgwwXJlMnJxFkje9nrg3oX6S86HLj9uNf+fHx31bchHkSjl6N1o8ngRIB9SCmZgmMqR8A3Ps="
-        file: "bin/linux-x64-clang.zip"
-        skip_cleanup: true
-        on:
-          branch: master
-    - os: windows
-      language: c
-      script:
-        - bash setup.bash 'c/bin/bc_' '.exe' mingw32-make c/makefile
-        - cd c/bin && 7z a -r windows-x64-gcc.zip * && cd ../..
-      deploy:
-        provider: releases
-        api_key:
-          secure: "W21q76zr2NX/aQsrCCnzv1F1s8+9CauXFCXg+7bLSLJXgK2x3T/qMNm83b9GIqj/FzPloVM3CXMEVRDFoLRZp3/WkfyYl+6ZeEcKINR7pGSi2thJgsRjSUJdKBLqxrz0G5Ff8UzBkrtHEcCaYjaLa9stN0jQFb+gD9MiClYoa6VNGV1wuSzKVLMfuTihjwLSsV2k4/aZOux1qroPfPZH3fB3xcTjRbqNIXHbgCMx/+BYYR5dN1BLY9FNMV2sg5+kCtCC1cS7esp59BIEH00gkTO0d7WuQ2jRkutyt7v1g8BqvaXxKKdDpk7yWTtNR7TB+8f4atWL1lS/xZocB0lFgb4kJqbTBJOO+5BLxedT+CtHzXMS6P/sXY3pTDoPqZOg//YtcBLKs2oBdGxQl8EUPbnD0YX1FosRLUqcZiMoZLMxsEp1823308DA623BY+rLNxArYvRj7X0bSehnSLXi+aB+NUS687WTT+pJMJAM84+VDIlj6jtp/7L8rU6IQk9i+7zQw40dxBcgOfExMDHlP0STs834Mco61vw36xwADNgILaKjM252TwabPXcO4p37wUdk7L915Axae7jpJMho3+X8rcnmD8XH9ducgwwXJlMnJxFkje9nrg3oX6S86HLj9uNf+fHx31bchHkSjl6N1o8ngRIB9SCmZgmMqR8A3Ps="
-        file: "bin/windows-x64-gcc.zip"
-        skip_cleanup: true
-        on:
-          branch: master
-    - os: osx
-      language: c
-      script:
-        - bash setup.bash 'c/bin/bc_' '' make c/makefile
-        - cd c/bin && zip -r macos-x64-gcc.zip * && cd ../..
-      deploy:
-        provider: releases
-        api_key:
-          secure: "W21q76zr2NX/aQsrCCnzv1F1s8+9CauXFCXg+7bLSLJXgK2x3T/qMNm83b9GIqj/FzPloVM3CXMEVRDFoLRZp3/WkfyYl+6ZeEcKINR7pGSi2thJgsRjSUJdKBLqxrz0G5Ff8UzBkrtHEcCaYjaLa9stN0jQFb+gD9MiClYoa6VNGV1wuSzKVLMfuTihjwLSsV2k4/aZOux1qroPfPZH3fB3xcTjRbqNIXHbgCMx/+BYYR5dN1BLY9FNMV2sg5+kCtCC1cS7esp59BIEH00gkTO0d7WuQ2jRkutyt7v1g8BqvaXxKKdDpk7yWTtNR7TB+8f4atWL1lS/xZocB0lFgb4kJqbTBJOO+5BLxedT+CtHzXMS6P/sXY3pTDoPqZOg//YtcBLKs2oBdGxQl8EUPbnD0YX1FosRLUqcZiMoZLMxsEp1823308DA623BY+rLNxArYvRj7X0bSehnSLXi+aB+NUS687WTT+pJMJAM84+VDIlj6jtp/7L8rU6IQk9i+7zQw40dxBcgOfExMDHlP0STs834Mco61vw36xwADNgILaKjM252TwabPXcO4p37wUdk7L915Axae7jpJMho3+X8rcnmD8XH9ducgwwXJlMnJxFkje9nrg3oX6S86HLj9uNf+fHx31bchHkSjl6N1o8ngRIB9SCmZgmMqR8A3Ps="
-        file: "c/bin/macos-x64-clang.zip"
-        skip_cleanup: true
-        on:
-          branch: master
+    # - os: linux
+    #   language: c
+    #   compiler: gcc
+    #   script:
+    #     - bash setup.bash 'c/bin/bc_' '' make c/makefile
+    #     - cd c/bin && zip -r linux-x64-gcc.zip * && cd ../..
+    #   deploy:
+    #     provider: releases
+    #     api_key:
+    #       secure: "W21q76zr2NX/aQsrCCnzv1F1s8+9CauXFCXg+7bLSLJXgK2x3T/qMNm83b9GIqj/FzPloVM3CXMEVRDFoLRZp3/WkfyYl+6ZeEcKINR7pGSi2thJgsRjSUJdKBLqxrz0G5Ff8UzBkrtHEcCaYjaLa9stN0jQFb+gD9MiClYoa6VNGV1wuSzKVLMfuTihjwLSsV2k4/aZOux1qroPfPZH3fB3xcTjRbqNIXHbgCMx/+BYYR5dN1BLY9FNMV2sg5+kCtCC1cS7esp59BIEH00gkTO0d7WuQ2jRkutyt7v1g8BqvaXxKKdDpk7yWTtNR7TB+8f4atWL1lS/xZocB0lFgb4kJqbTBJOO+5BLxedT+CtHzXMS6P/sXY3pTDoPqZOg//YtcBLKs2oBdGxQl8EUPbnD0YX1FosRLUqcZiMoZLMxsEp1823308DA623BY+rLNxArYvRj7X0bSehnSLXi+aB+NUS687WTT+pJMJAM84+VDIlj6jtp/7L8rU6IQk9i+7zQw40dxBcgOfExMDHlP0STs834Mco61vw36xwADNgILaKjM252TwabPXcO4p37wUdk7L915Axae7jpJMho3+X8rcnmD8XH9ducgwwXJlMnJxFkje9nrg3oX6S86HLj9uNf+fHx31bchHkSjl6N1o8ngRIB9SCmZgmMqR8A3Ps="
+    #     file: "bin/linux-x64-gcc.zip"
+    #     skip_cleanup: true
+    #     on:
+    #       branch: master
+    # - os: linux
+    #   language: c
+    #   compiler: clang
+    #   script:
+    #     - bash setup.bash 'c/bin/bc_' '' make c/makefile
+    #     - cd c/bin && zip -r linux-x64-clang.zip * && cd ../..
+    #   deploy:
+    #     provider: releases
+    #     api_key:
+    #       secure: "W21q76zr2NX/aQsrCCnzv1F1s8+9CauXFCXg+7bLSLJXgK2x3T/qMNm83b9GIqj/FzPloVM3CXMEVRDFoLRZp3/WkfyYl+6ZeEcKINR7pGSi2thJgsRjSUJdKBLqxrz0G5Ff8UzBkrtHEcCaYjaLa9stN0jQFb+gD9MiClYoa6VNGV1wuSzKVLMfuTihjwLSsV2k4/aZOux1qroPfPZH3fB3xcTjRbqNIXHbgCMx/+BYYR5dN1BLY9FNMV2sg5+kCtCC1cS7esp59BIEH00gkTO0d7WuQ2jRkutyt7v1g8BqvaXxKKdDpk7yWTtNR7TB+8f4atWL1lS/xZocB0lFgb4kJqbTBJOO+5BLxedT+CtHzXMS6P/sXY3pTDoPqZOg//YtcBLKs2oBdGxQl8EUPbnD0YX1FosRLUqcZiMoZLMxsEp1823308DA623BY+rLNxArYvRj7X0bSehnSLXi+aB+NUS687WTT+pJMJAM84+VDIlj6jtp/7L8rU6IQk9i+7zQw40dxBcgOfExMDHlP0STs834Mco61vw36xwADNgILaKjM252TwabPXcO4p37wUdk7L915Axae7jpJMho3+X8rcnmD8XH9ducgwwXJlMnJxFkje9nrg3oX6S86HLj9uNf+fHx31bchHkSjl6N1o8ngRIB9SCmZgmMqR8A3Ps="
+    #     file: "bin/linux-x64-clang.zip"
+    #     skip_cleanup: true
+    #     on:
+    #       branch: master
+    # - os: windows
+    #   language: c
+    #   script:
+    #     - bash setup.bash 'c/bin/bc_' '.exe' mingw32-make c/makefile
+    #     - cd c/bin && 7z a -r windows-x64-gcc.zip * && cd ../..
+    #   deploy:
+    #     provider: releases
+    #     api_key:
+    #       secure: "W21q76zr2NX/aQsrCCnzv1F1s8+9CauXFCXg+7bLSLJXgK2x3T/qMNm83b9GIqj/FzPloVM3CXMEVRDFoLRZp3/WkfyYl+6ZeEcKINR7pGSi2thJgsRjSUJdKBLqxrz0G5Ff8UzBkrtHEcCaYjaLa9stN0jQFb+gD9MiClYoa6VNGV1wuSzKVLMfuTihjwLSsV2k4/aZOux1qroPfPZH3fB3xcTjRbqNIXHbgCMx/+BYYR5dN1BLY9FNMV2sg5+kCtCC1cS7esp59BIEH00gkTO0d7WuQ2jRkutyt7v1g8BqvaXxKKdDpk7yWTtNR7TB+8f4atWL1lS/xZocB0lFgb4kJqbTBJOO+5BLxedT+CtHzXMS6P/sXY3pTDoPqZOg//YtcBLKs2oBdGxQl8EUPbnD0YX1FosRLUqcZiMoZLMxsEp1823308DA623BY+rLNxArYvRj7X0bSehnSLXi+aB+NUS687WTT+pJMJAM84+VDIlj6jtp/7L8rU6IQk9i+7zQw40dxBcgOfExMDHlP0STs834Mco61vw36xwADNgILaKjM252TwabPXcO4p37wUdk7L915Axae7jpJMho3+X8rcnmD8XH9ducgwwXJlMnJxFkje9nrg3oX6S86HLj9uNf+fHx31bchHkSjl6N1o8ngRIB9SCmZgmMqR8A3Ps="
+    #     file: "bin/windows-x64-gcc.zip"
+    #     skip_cleanup: true
+    #     on:
+    #       branch: master
+    # - os: osx
+    #   language: c
+    #   script:
+    #     - bash setup.bash 'c/bin/bc_' '' make c/makefile
+    #     - cd c/bin && zip -r macos-x64-gcc.zip * && cd ../..
+    #   deploy:
+    #     provider: releases
+    #     api_key:
+    #       secure: "W21q76zr2NX/aQsrCCnzv1F1s8+9CauXFCXg+7bLSLJXgK2x3T/qMNm83b9GIqj/FzPloVM3CXMEVRDFoLRZp3/WkfyYl+6ZeEcKINR7pGSi2thJgsRjSUJdKBLqxrz0G5Ff8UzBkrtHEcCaYjaLa9stN0jQFb+gD9MiClYoa6VNGV1wuSzKVLMfuTihjwLSsV2k4/aZOux1qroPfPZH3fB3xcTjRbqNIXHbgCMx/+BYYR5dN1BLY9FNMV2sg5+kCtCC1cS7esp59BIEH00gkTO0d7WuQ2jRkutyt7v1g8BqvaXxKKdDpk7yWTtNR7TB+8f4atWL1lS/xZocB0lFgb4kJqbTBJOO+5BLxedT+CtHzXMS6P/sXY3pTDoPqZOg//YtcBLKs2oBdGxQl8EUPbnD0YX1FosRLUqcZiMoZLMxsEp1823308DA623BY+rLNxArYvRj7X0bSehnSLXi+aB+NUS687WTT+pJMJAM84+VDIlj6jtp/7L8rU6IQk9i+7zQw40dxBcgOfExMDHlP0STs834Mco61vw36xwADNgILaKjM252TwabPXcO4p37wUdk7L915Axae7jpJMho3+X8rcnmD8XH9ducgwwXJlMnJxFkje9nrg3oX6S86HLj9uNf+fHx31bchHkSjl6N1o8ngRIB9SCmZgmMqR8A3Ps="
+    #     file: "c/bin/macos-x64-clang.zip"
+    #     skip_cleanup: true
+    #     on:
+    #       branch: master
     - os: linux
       language: php
       script:
