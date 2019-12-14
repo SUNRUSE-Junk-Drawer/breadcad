@@ -3,7 +3,7 @@
   "description": "Shared framework used by breadcad executables.",
   "version": "0.0.0",
   "type": "library",
-  "readme": "readme.md",
+  "readme": "package-readme.md",
   "license": "MIT",
   "authors": [
     {
