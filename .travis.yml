@@ -56,6 +56,7 @@ matrix:
     #       branch: master
     - os: linux
       language: php
+      php: 7.3
       script:
         - cd php/framework
       install: []
@@ -64,12 +65,14 @@ matrix:
         - bash setup.bash '' '' make php/framework/makefile
     - os: windows
       language: php
+      php: 7.3
       install: []
       test: []
       script:
         - bash setup.bash '' '' make php/framework/makefile
     - os: osx
       language: php
+      php: 7.3
       install: []
       test: []
       script:
