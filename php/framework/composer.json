@@ -1,0 +1,32 @@
+{
+  "name": "breadcad/framework",
+  "description": "Shared framework used by breadcad executables.",
+  "version": "0.0.0",
+  "type": "library",
+  "readme": "readme.md",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "James Wild",
+      "email": "jameswilddev@outlook.com",
+      "homepage": "https://www.sunruse.co.uk",
+      "role": "developer"
+    }
+  ],
+  "support": {
+    "email": "jameswilddev@outlook.com",
+    "issues": "https://github.com/jameswilddev/breadcad/issues",
+    "source": "https://github.com/jameswilddev/breadcad"
+  },
+  "require": {
+    "php": "^7.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "8.5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Breadcad\\Framework\\": "src/"
+    }
+  }
+}

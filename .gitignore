@@ -2,3 +2,5 @@ c/bin
 c/obj
 c/test_results
 c/temp
+php/*/vendor
+php/executables/*/vendor
