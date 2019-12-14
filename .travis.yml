@@ -54,3 +54,23 @@ matrix:
         skip_cleanup: true
         on:
           branch: master
+    - os: linux
+      language: php
+      script:
+        - cd php/framework
+      install: []
+      test: []
+      script:
+        - bash setup.bash '' '' make php/framework/makefile
+    - os: windows
+      language: php
+      install: []
+      test: []
+      script:
+        - bash setup.bash '' '' make php/framework/makefile
+    - os: osx
+      language: php
+      install: []
+      test: []
+      script:
+        - bash setup.bash '' '' make php/framework/makefile
