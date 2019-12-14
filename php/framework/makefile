@@ -23,6 +23,9 @@ all: $(MARKERS_INSTALL)
 
 clean:
 	rm -rf php/framework/vendor php/framework/markers
+	rm -rf php/framework/test_results
 
 test: all
-	cd php/framework && vendor/bin/phpunit --whitelist src --coverage-text tests/
+	mkdir -p php/framework/test_results
+	cd php/framework && vendor/bin/phpunit --whitelist src --coverage-text tests/ | tee test_results/unit
+	grep -E "^\s*Lines:\s*100.00%\s*\([0-9]+\/[0-9]+\)$$" php/framework/test_results/unit
