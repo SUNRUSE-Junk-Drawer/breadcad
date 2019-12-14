@@ -10,9 +10,9 @@ wget -O php/splitsh-lite.tar.gz https://github.com/splitsh/lite/releases/downloa
 tar -C php -xvzf php/splitsh-lite.tar.gz
 
 function split() {
-  git remote add $1 $3
+  git remote add $1 "https://$GITHUB_TOKEN@github.com/jameswilddev/breadcad-$1"
   SHA1=`php/splitsh-lite --prefix=$2`
   git push $1 "$SHA1:refs/heads/master"
 }
 
-split "framework" "php/framework" "https://github.com/jameswilddev/breadcad-framework"
+split "framework" "php/framework"
