@@ -4,7 +4,7 @@ set -e
 set -x
 
 cd `mktemp -d`
-git clone --depth 1 https://github.com/jameswilddev/breadcad .
+git clone https://github.com/jameswilddev/breadcad .
 rm -f php/splitsh-lite.tar.gz
 wget -O php/splitsh-lite.tar.gz https://github.com/splitsh/lite/releases/download/v1.0.1/lite_linux_amd64.tar.gz
 tar -C php -xvzf php/splitsh-lite.tar.gz
