@@ -28,10 +28,5 @@
     "psr-4": {
       "Breadcad\\Framework\\": "src/"
     }
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "0.0.x-dev"
-    }
   }
 }
