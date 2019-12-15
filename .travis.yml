@@ -42,7 +42,7 @@ matrix:
       language: c
       script:
         - bash setup.bash 'c/bin/bc_' '' make c/makefile
-        - cd c/bin && zip -r macos-x64-gcc.zip * && cd ../..
+        - cd c/bin && zip -r macos-x64-clang.zip * && cd ../..
       deploy:
         provider: releases
         api_key:
