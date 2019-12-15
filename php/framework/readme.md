@@ -1,3 +1,3 @@
-This repository is a read-only mirror required by Packagist.
+# breadcad/framework [![Travis](https://img.shields.io/travis/jameswilddev/breadcad.svg)](https://travis-ci.org/jameswilddev/breadcad) [![License](https://img.shields.io/github/license/jameswilddev/breadcad.svg)](https://github.com/jameswilddev/breadcad/blob/master/license) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjameswilddev%2Fbreadcad.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjameswilddev%2Fbreadcad?ref=badge_shield) [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/) [![Packagist](https://img.shields.io/packagist/v/breadcad/framework)](https://packagist.org/packages/breadcad/framework)
 
-Please see [https://github.com/jameswilddev/breadcad](https://github.com/jameswilddev/breadcad).
+Shared framework used by breadcad executables.
