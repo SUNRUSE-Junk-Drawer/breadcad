@@ -12,7 +12,7 @@ matrix:
         file: "bin/linux-x64-gcc.zip"
         skip_cleanup: true
         on:
-          branch: master
+          tags: true
     - os: linux
       language: c
       compiler: clang
@@ -25,7 +25,7 @@ matrix:
         file: "bin/linux-x64-clang.zip"
         skip_cleanup: true
         on:
-          branch: master
+          tags: true
     - os: windows
       language: c
       script:
@@ -37,7 +37,7 @@ matrix:
         file: "bin/windows-x64-gcc.zip"
         skip_cleanup: true
         on:
-          branch: master
+          tags: true
     - os: osx
       language: c
       script:
@@ -50,7 +50,7 @@ matrix:
         file: "c/bin/macos-x64-clang.zip"
         skip_cleanup: true
         on:
-          branch: master
+          tags: true
     - os: linux
       language: php
       php: 7.3
@@ -64,7 +64,7 @@ matrix:
         provider: script
         script: bash php/split.bash
         on:
-          branch: master
+          tags: true
 env:
   global:
     secure: YGb10kQ/wDu+z3U3nwz8rWVWjn+M/0EPfTqJUPtcQANgMqCOGPOSOALrw5WSvGGYZDTVWy0Qq0jM9lLvP5TVpybMN0Xq1Mj8ycmVAkljRMiCFyteDhq0V6ZS6dpUjLMgorX5OdctVckgQpIL09m/lKqoM6MTBP224R73a3fVphG4wN2pHxe29LmAvSGoXGXN/rEo1lgU7qazkHFDOY/Sr0uUDq3yWRvdpWe+CjQUaaQAqCuPKYrO6pY2T1nAAsAMeqJLsEToZgh5XRav1dl2De4JFGZKPLowuvDnjs1K9cc3vUxF+WZHaV+WpYWmZo9v3hIVF6rZGRFmoUoV1HnI9d0xMxIxoccRW5J9J4EVBypLhPhSbEXH8kS3ZWkutolawlgzhbZHq6CgHObQNLyasCcopqfl5NA1+lYlS2iBI3gIUPQaK434DAyWY+Z3YbydvL1Zsq0ihxOPII/CFafCH0LHdidr2Rr4CSRtKgMoVmlz0+Raf+Bqo+9ohs9j0aDJwvCaxjm89m82oy2LT3r+aJQPtaOzS7qQwujYIpsryjN3LJMu9nds8LFM5BDmMf0fv+zIZkf7jW7VfzxITLZvRaVYky7mVr3jsfjOGh6J/FcjYhZPDYxAWh9onQJCOV61EwdJv31JJeAV7D4CCYD5INXNBcWTdm+ZRIUnrOcqp7E=
