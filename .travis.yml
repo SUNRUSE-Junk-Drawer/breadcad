@@ -9,7 +9,7 @@ matrix:
       deploy:
         provider: releases
         api_key: $GITHUB_TOKEN
-        file: "bin/linux-x64-gcc.zip"
+        file: "c/bin/linux-x64-gcc.zip"
         skip_cleanup: true
         on:
           tags: true
@@ -22,7 +22,7 @@ matrix:
       deploy:
         provider: releases
         api_key: $GITHUB_TOKEN
-        file: "bin/linux-x64-clang.zip"
+        file: "c/bin/linux-x64-clang.zip"
         skip_cleanup: true
         on:
           tags: true
@@ -34,7 +34,7 @@ matrix:
       deploy:
         provider: releases
         api_key: $GITHUB_TOKEN
-        file: "bin/windows-x64-gcc.zip"
+        file: "c/bin/windows-x64-gcc.zip"
         skip_cleanup: true
         on:
           tags: true
