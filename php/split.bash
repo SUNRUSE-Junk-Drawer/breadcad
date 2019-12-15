@@ -5,6 +5,8 @@ set -x
 
 cd `mktemp -d`
 git clone https://github.com/jameswilddev/breadcad .
+git config user.name breadcad
+git config user.email jameswilddev+breadcad@outlook.com
 git checkout $TRAVIS_TAG
 git checkout -b release-temp
 rm -f php/splitsh-lite.tar.gz
